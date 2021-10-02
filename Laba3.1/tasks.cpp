@@ -1,11 +1,11 @@
-#include "tasks.h"
+п»ї#include "tasks.h"
 
-// Задание №1
+// Р—Р°РґР°РЅРёРµ в„–1
 int find_substr(const string& filename, const string& substr)
 {
     ifstream in(filename);
     if (!in.is_open())
-        cout << "Ошибка открытия файла!";
+        cout << "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ С„Р°Р№Р»Р°!";
     else
     {
         int pos = 0;
@@ -59,10 +59,10 @@ string searching(int (*fPtr)(const string&, const string&), const string& substr
         filename = va_arg(string_list, string);
         number = fPtr(filename, substr);
         if (number != -1)
-            result += "В файле '" + filename + "' найдена искомая строка. Позиция: " + to_string(number) + ".\n";
+            result += "Р’ С„Р°Р№Р»Рµ '" + filename + "' РЅР°Р№РґРµРЅР° РёСЃРєРѕРјР°СЏ СЃС‚СЂРѕРєР°. РџРѕР·РёС†РёСЏ: " + to_string(number) + ".\n";
     }
     if (result == "")
-        result = "В переданных файлах заданная подстрока не содержится!";
+        result = "Р’ РїРµСЂРµРґР°РЅРЅС‹С… С„Р°Р№Р»Р°С… Р·Р°РґР°РЅРЅР°СЏ РїРѕРґСЃС‚СЂРѕРєР° РЅРµ СЃРѕРґРµСЂР¶РёС‚СЃСЏ!";
     else
         result = result.substr(0, result.length() - 1);
     va_end(string_list);
@@ -77,7 +77,7 @@ void task_1()
     cout << searching(find_substr, "hel lo", 3, name1, name2, name3);
 }
 
-// Задание №2
+// Р—Р°РґР°РЅРёРµ в„–2
 struct Point
 {
     int x, y;
@@ -140,12 +140,12 @@ void task_2()
     point p1 = { 0, 0 }, p2 = { 0, 10 }, p3 = { 10, 10 }, p4 = { 10, 0 };
     //point p1 = { 0, 0 }, p2 = { 5, 5 }, p3 = { 0, 10 }, p4 = { 10, 5 };
     if (camber_check(4, &p1, &p2, &p3, &p4))
-        cout << "Многоугольник выпуклый.";
+        cout << "РњРЅРѕРіРѕСѓРіРѕР»СЊРЅРёРє РІС‹РїСѓРєР»С‹Р№.";
     else
-        cout << "Многоугольник невыпуклый.";
+        cout << "РњРЅРѕРіРѕСѓРіРѕР»СЊРЅРёРє РЅРµРІС‹РїСѓРєР»С‹Р№.";
 }
 
-// Задание №3
+// Р—Р°РґР°РЅРёРµ в„–3
 double decision(double x, int level, ...)
 {
     if (level < 0)
@@ -164,10 +164,10 @@ double decision(double x, int level, ...)
 
 void task_3()
 {
-    cout << "Значение многочлена 2*x^3 - 7*x^2 + 5*x + 20 в точке x = 3: " << decision(3.0, 3, 2.0, -7.0, 5.0, 20.0);
+    cout << "Р—РЅР°С‡РµРЅРёРµ РјРЅРѕРіРѕС‡Р»РµРЅР° 2*x^3 - 7*x^2 + 5*x + 20 РІ С‚РѕС‡РєРµ x = 3: " << decision(3.0, 3, 2.0, -7.0, 5.0, 20.0);
 }
 
-// Задание №4
+// Р—Р°РґР°РЅРёРµ в„–4
 int convert_to_dec(const string& num, const int base)
 {
     int accum = 0;
@@ -181,7 +181,7 @@ void task_4(char* file_name)
     ifstream in(file_name);
     ofstream out("C:\\Users\\anton\\source\\repos\\Laba3.1\\Laba3.1\\out4.txt");
     if (!(in.is_open() && out.is_open()))
-        cout << "Ошибка открытия файла!";
+        cout << "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ С„Р°Р№Р»Р°!";
     else
     {
         string input_str;
@@ -201,7 +201,7 @@ void task_4(char* file_name)
                     system_number = (isdigit(symbol) ? symbol - '0' : toupper(symbol) - 'A' + 10);
             if (system_number == -1)
             {
-                out << input_str << " - что-то непонятное\n";
+                out << input_str << " - С‡С‚Рѕ-С‚Рѕ РЅРµРїРѕРЅСЏС‚РЅРѕРµ\n";
                 continue;
             }
             system_number++;
@@ -210,15 +210,15 @@ void task_4(char* file_name)
 
         in.close();
         out.close();
-        cout << "Запись в файл успешно завершена!";
+        cout << "Р—Р°РїРёСЃСЊ РІ С„Р°Р№Р» СѓСЃРїРµС€РЅРѕ Р·Р°РІРµСЂС€РµРЅР°!";
     }
 }
 
-// Задание №5
+// Р—Р°РґР°РЅРёРµ в„–5
 string sum(int system_number, int count, ...)
 {
     if (!count || (system_number <= 1) || (system_number > 36))
-        return "Неправильные входные параметры!";
+        return "РќРµРїСЂР°РІРёР»СЊРЅС‹Рµ РІС…РѕРґРЅС‹Рµ РїР°СЂР°РјРµС‚СЂС‹!";
     va_list string_list;
     va_start(string_list, count);
     string str1 = va_arg(string_list, string), str2;
@@ -271,13 +271,13 @@ string sum(int system_number, int count, ...)
 
 void task_5()
 {
-    cout << "\nИтог: " << sum(10, 2, (string)"10001", (string)"4340") << endl << endl;
-    cout << "\nИтог: " << sum(2, 3, (string)"11", (string)"10001", (string)"101") << endl << endl;
-    cout << "\nИтог: " << sum(2, 3, (string)"000000", (string)"10001", (string)"101") << endl << endl;
-    cout << "\nИтог: " << sum(2, 2, (string)"000000", (string)"0");
+    cout << "\nРС‚РѕРі: " << sum(10, 2, (string)"10001", (string)"4340") << endl << endl;
+    cout << "\nРС‚РѕРі: " << sum(2, 3, (string)"11", (string)"10001", (string)"101") << endl << endl;
+    cout << "\nРС‚РѕРі: " << sum(2, 3, (string)"000000", (string)"10001", (string)"101") << endl << endl;
+    cout << "\nРС‚РѕРі: " << sum(2, 2, (string)"000000", (string)"0");
 }
 
-// Задание №6
+// Р—Р°РґР°РЅРёРµ в„–6
 void input_operation(const char& aim, const char& cur_var_1, char& operation, const char& num)
 {
     if ((aim != -1) && (cur_var_1 != -1))
@@ -285,35 +285,21 @@ void input_operation(const char& aim, const char& cur_var_1, char& operation, co
         if (!operation)
             operation = num;
         else
-            cout << "\n'Повторный ввод операции!'\n";
+            cout << "\n'РџРѕРІС‚РѕСЂРЅС‹Р№ РІРІРѕРґ РѕРїРµСЂР°С†РёРё!'\n";
     }
     else
-        cout << "\n'Несоответствие инструкции!'\n";
+        cout << "\n'РќРµСЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ РёРЅСЃС‚СЂСѓРєС†РёРё!'\n";
 }
 
 void task_6(char *file_name)
 {
     ifstream in(file_name);
     if (!in.is_open())
-        cout << "Ошибка открытия файла!";
+        cout << "РћС€РёР±РєР° РѕС‚РєСЂС‹С‚РёСЏ С„Р°Р№Р»Р°!";
     else
     {
         char symbol, operation = 0, aim = -1, cur_var_1 = -1, cur_var_2 = -1;
         int com_count, variables[26];
-
-        /*
-+ (дизъюнкция);                         1
-& (конъюнкция);                         2
--> (импликация);                        3
-<- (обратная импликация);               4
-~ (эквиваленция);                       5
-<> (сложение по модулю 2);              6
-+> (коимпликация);                      7
-? (штрих Шеффера);                      8
-! (функция Вебба, стрелка Пирса);       9
-\ (логическое отрицание);               10
-        */
-
         while ((symbol = in.get()) != EOF)
         {
             if (isspace(symbol))
@@ -325,7 +311,7 @@ void task_6(char *file_name)
                 else if (cur_var_2 == -1)
                     cur_var_2 = toupper(symbol) - 'A';
                 else
-                    cout << "\n'В инструкции обнаружена лишняя переменная!'\n";
+                    cout << "\n'Р’ РёРЅСЃС‚СЂСѓРєС†РёРё РѕР±РЅР°СЂСѓР¶РµРЅР° Р»РёС€РЅСЏСЏ РїРµСЂРµРјРµРЅРЅР°СЏ!'\n";
                 continue;
             }
             switch (symbol)
@@ -348,64 +334,64 @@ void task_6(char *file_name)
                     symbol = in.get();
                 }
                 if (com_count != 0)
-                    cout << "\n'Отсутствует символ завершения многострочного комментария!'\n";
+                    cout << "\n'РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ СЃРёРјРІРѕР» Р·Р°РІРµСЂС€РµРЅРёСЏ РјРЅРѕРіРѕСЃС‚СЂРѕС‡РЅРѕРіРѕ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ!'\n";
                 break;
             case '}':
-                cout << "\n'Отсутствует символ начала многострочного комментария!'\n";
+                cout << "\n'РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ СЃРёРјРІРѕР» РЅР°С‡Р°Р»Р° РјРЅРѕРіРѕСЃС‚СЂРѕС‡РЅРѕРіРѕ РєРѕРјРјРµРЅС‚Р°СЂРёСЏ!'\n";
                 break;
             case ';':
                 if ((operation && (aim != -1) && (cur_var_1 != -1) && (cur_var_2 != -1)) || ((operation == 10) && (aim != -1) && (cur_var_1 != -1) && (cur_var_2 == -1)))
                 {
-                    /*
-+ (дизъюнкция);                         1 !
-& (конъюнкция);                         2 !
--> (импликация);                        3 !
-<- (обратная импликация);               4 !
-~ (эквиваленция);                       5 !
-<> (сложение по модулю 2);              6 !
-+> (коимпликация);                      7 !
-? (штрих Шеффера);                      8 !
-! (функция Вебба, стрелка Пирса);       9 !
-\ (логическое отрицание);               10!
-        */
+/*
++ (РґРёР·СЉСЋРЅРєС†РёСЏ);                         1 !
+& (РєРѕРЅСЉСЋРЅРєС†РёСЏ);                         2 !
+-> (РёРјРїР»РёРєР°С†РёСЏ);                        3 !
+<- (РѕР±СЂР°С‚РЅР°СЏ РёРјРїР»РёРєР°С†РёСЏ);               4 !
+~ (СЌРєРІРёРІР°Р»РµРЅС†РёСЏ);                       5 !
+<> (СЃР»РѕР¶РµРЅРёРµ РїРѕ РјРѕРґСѓР»СЋ 2);              6 !
++> (РєРѕРёРјРїР»РёРєР°С†РёСЏ);                      7 !
+? (С€С‚СЂРёС… РЁРµС„С„РµСЂР°);                      8 !
+! (С„СѓРЅРєС†РёСЏ Р’РµР±Р±Р°, СЃС‚СЂРµР»РєР° РџРёСЂСЃР°);       9 !
+\ (Р»РѕРіРёС‡РµСЃРєРѕРµ РѕС‚СЂРёС†Р°РЅРёРµ);               10!
+*/
                     switch (operation)
                     {
                     case 1:
-                        variables[aim] = variables[cur_var_1] || variables[cur_var_2];
+                        variables[aim] = variables[cur_var_1] | variables[cur_var_2];
                         break;
                     case 2:
-                        variables[aim] = variables[cur_var_1] || variables[cur_var_2];
+                        variables[aim] = variables[cur_var_1] & variables[cur_var_2];
                         break;
                     case 3:
-                        variables[aim] = variables[cur_var_1] || variables[cur_var_2];
+                        variables[aim] = ~variables[cur_var_1] | variables[cur_var_2];
                         break;
                     case 4:
-                        variables[aim] = variables[cur_var_1] || variables[cur_var_2];
+                        variables[aim] = variables[cur_var_1] | ~variables[cur_var_2];
                         break;
                     case 5:
-                        variables[aim] = variables[cur_var_1] || variables[cur_var_2];
+                        variables[aim] = (~variables[cur_var_1] | variables[cur_var_2]) & (variables[cur_var_1] | ~variables[cur_var_2]);
                         break;
                     case 6:
-                        variables[aim] = variables[cur_var_1] || variables[cur_var_2];
+                        variables[aim] = variables[cur_var_1] ^ variables[cur_var_2];
                         break;
                     case 7:
-                        variables[aim] = variables[cur_var_1] || variables[cur_var_2];
+                        variables[aim] = variables[cur_var_1] & ~variables[cur_var_2];
                         break;
                     case 8:
-                        variables[aim] = variables[cur_var_1] || variables[cur_var_2];
+                        variables[aim] = ~variables[cur_var_1] | ~variables[cur_var_2];
                         break;
                     case 9:
-                        variables[aim] = variables[cur_var_1] || variables[cur_var_2];
+                        variables[aim] = ~variables[cur_var_1] & ~variables[cur_var_2];
                         break;
                     default:
-                        variables[aim] = !variables[cur_var_1];
+                        variables[aim] = ~variables[cur_var_1]; //-(~variables[cur_var_1] + 1)
                         break;
                     }
 
                     cout << "[" << variables[aim] << "]";
                 }
                 else
-                    cout << "\n'Введена несуществующая инструкция!'\n";
+                    cout << "\n'Р’РІРµРґРµРЅР° РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰Р°СЏ РёРЅСЃС‚СЂСѓРєС†РёСЏ!'\n";
                 operation = 0;
                 aim = cur_var_1 = cur_var_2 = -1;
                 break;
@@ -414,7 +400,7 @@ void task_6(char *file_name)
                 {
                     in.get();
                     if (aim != -1)
-                        cout << "\n'Повторное присваивание в инструкции!'\n";
+                        cout << "\n'РџРѕРІС‚РѕСЂРЅРѕРµ РїСЂРёСЃРІР°РёРІР°РЅРёРµ РІ РёРЅСЃС‚СЂСѓРєС†РёРё!'\n";
                     else
                     {
                         aim = cur_var_1;
@@ -441,7 +427,7 @@ void task_6(char *file_name)
                     input_operation(aim, cur_var_1, operation, 3);
                 }
                 else
-                    cout << "\n'Введена несуществующая операция!'\n";
+                    cout << "\n'Р’РІРµРґРµРЅР° РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰Р°СЏ РѕРїРµСЂР°С†РёСЏ!'\n";
                 break;
             case '<':
                 if (in.peek() == '-')
@@ -455,7 +441,7 @@ void task_6(char *file_name)
                     input_operation(aim, cur_var_1, operation, 6);
                 }
                 else
-                    cout << "\n'Введена несуществующая операция!'\n";
+                    cout << "\n'Р’РІРµРґРµРЅР° РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰Р°СЏ РѕРїРµСЂР°С†РёСЏ!'\n";
                 break;
             case '~':
                 input_operation(aim, cur_var_1, operation, 5);
@@ -470,32 +456,19 @@ void task_6(char *file_name)
                 input_operation(aim, 0, operation, 10);
                 break;
             default:
-                cout << "\n'Введена несуществующая инструкция!'\n";
+                cout << "\n'Р’РІРµРґРµРЅР° РЅРµСЃСѓС‰РµСЃС‚РІСѓСЋС‰Р°СЏ РёРЅСЃС‚СЂСѓРєС†РёСЏ!'\n";
                 break;
             }
-
-            /*
-+ (дизъюнкция);                         1 !
-& (конъюнкция);                         2 !
--> (импликация);                        3 !
-<- (обратная импликация);               4 !
-~ (эквиваленция);                       5 !
-<> (сложение по модулю 2);              6 !
-+> (коимпликация);                      7 !
-? (штрих Шеффера);                      8 !
-! (функция Вебба, стрелка Пирса);       9 !
-\ (логическое отрицание);               10!
-        */
         }
 
         cout << endl << endl;
 
         in.close();
-        cout << "Работа интерпретатора завершена!";
+        cout << "Р Р°Р±РѕС‚Р° РёРЅС‚РµСЂРїСЂРµС‚Р°С‚РѕСЂР° Р·Р°РІРµСЂС€РµРЅР°!";
     }
 }
 
-// Задание №7
+// Р—Р°РґР°РЅРёРµ в„–7
 
 
-// Задание №8
+// Р—Р°РґР°РЅРёРµ в„–8

@@ -315,101 +315,21 @@ string conv_from_dec(long long num, const int base)
     return output;
 }
 
-void task_6(char *file_name)
+void task_6(char *file_name, ostream& to_out, bool detail)
 {
     ifstream in(file_name);
     if (!in.is_open())
-        cout << "Ошибка открытия файла!";
+        cout << "Ошибка открытия входного файла!\n";
     else
     {
-        char symbol, operation = 0, aim = -1, cur_var_1 = -1, cur_var_2 = -1;
-        int com_count;
+        bool error;
+        char symbol;
+        int com_count, instr_count = 1;
         long long variables[26] = { 0 };
-        string command = "", instruction = "", input;
-        regex r("^\\s{0,}\\(\\s{0,}(\\w{1})\\s{0,}\\,\\s{0,}(\\d{1,2})\\s{0,}\\)\\s{0,}$"); // +  read/write
-        //^\s{0,}(\w{1})\s{0,}:=\s{0,}(\w{1})\s{0,}(.{1,2})\s{0,}(\w{1})\s{0,}$ - команда с бинарной операцией
-        //^\s{0,}(\w{1})\s{0,}:=\s{0,}\\\s{0,}(\w{1})\s{0,}$ - команда с унарной операцией
+        string instruction = "", input;
         smatch m;
         while ((symbol = in.get()) != EOF)
         {
-            if (isspace(symbol))
-                continue;
-            if (isalpha(symbol))
-            {
-                if (isalpha(in.peek()))
-                {
-                    if (symbol == 'r')
-                        command = "read";
-                    else if (symbol == 'w')
-                        command = "write";
-                    else
-                    {
-                        cout << "\n'Неизвестная команда!'\n";
-                        continue;
-                    }
-                    for (int i = 1; i < command.length(); i++)
-                    {
-                        if ((symbol = in.peek()) != command[i])
-                        {
-                            cout << "\n'Неизвестная команда!'\n";
-                            break;
-                        }
-                        else
-                            symbol = in.get();
-                    }
-                    if (symbol != command[command.length() - 1])
-                        continue;
-                    else
-                    {
-                        instruction = "";
-                        while ((symbol = in.get()) != EOF)
-                        {
-                            if (symbol != ';')
-                                instruction += symbol;
-                            else
-                                break;
-                        }
-                        if (regex_search(instruction, m, r))
-                        {
-                            cur_var_1 = toupper(m[1].str()[0]) - 'A';
-                            cur_var_2 = stoi(m[2].str());
-                            if (!(((cur_var_1 >= 0) && (cur_var_1 <= 25)) && ((cur_var_2 >= 2) && (cur_var_2 <= 36))))
-                            {
-                                cur_var_1 = cur_var_2 = 0;
-                                continue;
-                            }
-                            if (command == "read")
-                            {
-                                cout << endl << "Введите значение " << m[1] << " в " << m[2] << "-й СС: ";
-                                getline(cin, input);
-                                if (stoi(m[2].str()) != 10)
-                                    variables[toupper(m[1].str()[0]) - 'A'] = conv_to_dec(input, stoi(m[2].str()));
-                                else
-                                    variables[toupper(m[1].str()[0]) - 'A'] = stoull(input);
-                            }
-                            else
-                            {
-                                cout << endl << "Значение " << m[1] << " в " << m[2] << "-й СС: ";
-                                if (stoi(m[2].str()) != 10)
-                                    cout << conv_from_dec(variables[toupper(m[1].str()[0]) - 'A'], stoi(m[2].str())) << endl;
-                                else
-                                    cout << variables[toupper(m[1].str()[0]) - 'A'] << endl;
-                            }
-                            cur_var_1 = cur_var_2 = 0;
-                        }
-                        else
-                            cout << "\n'Введена несуществующая инструкция!'\n";
-                        continue;
-                    }
-                }
-                if (cur_var_1 == -1)
-                    cur_var_1 = toupper(symbol) - 'A';
-                else if (cur_var_2 == -1)
-                    cur_var_2 = toupper(symbol) - 'A';
-                else
-                    cout << "\n'В инструкции обнаружена лишняя переменная!'\n";
-                continue;
-            }
             switch (symbol)
             {
             case '%':
@@ -430,384 +350,92 @@ void task_6(char *file_name)
                     symbol = in.get();
                 }
                 if (com_count != 0)
-                    cout << "\n'Отсутствует символ завершения многострочного комментария!'\n";
+                {
+                    if (detail)
+                        to_out << instr_count << ") ";
+                    to_out << "Error: Отсутствует символ завершения многострочного комментария!\n";
+                }
                 break;
             case '}':
-                cout << "\n'Отсутствует символ начала многострочного комментария!'\n";
+                if (detail)
+                    to_out << instr_count << ") ";
+                to_out << "Error: Отсутствует символ начала многострочного комментария!\n";
                 break;
             case ';':
-                if ((operation && (aim != -1) && (cur_var_1 != -1) && (cur_var_2 != -1)) || ((operation == 10) && (aim != -1) && (cur_var_1 != -1) && (cur_var_2 == -1)))
+                if (regex_search(instruction, m, regex("^\\s{0,}(read|write)\\s{0,}\\(\\s{0,}(\\w{1})\\s{0,}\\,\\s{0,}(\\d{1,2})\\s{0,}\\)\\s{0,}$"))) // read / write
                 {
-/*
-+ (дизъюнкция);                         1 !
-& (конъюнкция);                         2 !
--> (импликация);                        3 !
-<- (обратная импликация);               4 !
-~ (эквиваленция);                       5 !
-<> (сложение по модулю 2);              6 !
-+> (коимпликация);                      7 !
-? (штрих Шеффера);                      8 !
-! (функция Вебба, стрелка Пирса);       9 !
-\ (логическое отрицание);               10!
-*/
-                    switch (operation)
+                    if (m[1] == "read")
                     {
-                    case 1:
-                        variables[aim] = variables[cur_var_1] | variables[cur_var_2];
-                        break;
-                    case 2:
-                        variables[aim] = variables[cur_var_1] & variables[cur_var_2];
-                        break;
-                    case 3:
-                        variables[aim] = ~variables[cur_var_1] | variables[cur_var_2];
-                        break;
-                    case 4:
-                        variables[aim] = variables[cur_var_1] | ~variables[cur_var_2];
-                        break;
-                    case 5:
-                        variables[aim] = (~variables[cur_var_1] | variables[cur_var_2]) & (variables[cur_var_1] | ~variables[cur_var_2]);
-                        break;
-                    case 6:
-                        variables[aim] = variables[cur_var_1] ^ variables[cur_var_2];
-                        break;
-                    case 7:
-                        variables[aim] = variables[cur_var_1] & ~variables[cur_var_2];
-                        break;
-                    case 8:
-                        variables[aim] = ~variables[cur_var_1] | ~variables[cur_var_2];
-                        break;
-                    case 9:
-                        variables[aim] = ~variables[cur_var_1] & ~variables[cur_var_2];
-                        break;
-                    default:
-                        variables[aim] = ~variables[cur_var_1]; //-(~variables[cur_var_1] + 1)
-                        break;
+                        cout << endl << "Введите значение '" << m[2] << "' в " << m[3] << "-й СС: ";
+                        getline(cin, input);
+                        if (stoi(m[3].str()) != 10)
+                            variables[toupper(m[2].str()[0]) - 'A'] = conv_to_dec(input, stoi(m[3].str()));
+                        else
+                            variables[toupper(m[2].str()[0]) - 'A'] = stoull(input);
+                        if (detail)
+                            to_out << instr_count << ") Ввод значения переменной '" << m[2] << "' в " << m[3] << "-й СС: " << input << endl;
                     }
-                }
-                else
-                    cout << "\n'Введена несуществующая инструкция!'\n";
-                operation = 0;
-                aim = cur_var_1 = cur_var_2 = -1;
-                break;
-            case ':':
-                if (in.peek() == '=')
-                {
-                    in.get();
-                    if (aim != -1)
-                        cout << "\n'Повторное присваивание в инструкции!'\n";
                     else
                     {
-                        aim = cur_var_1;
-                        cur_var_1 = -1;
+                        cout << endl << "Значение '" << m[2] << "' в " << m[3] << "-й СС: ";
+                        if (stoi(m[3].str()) != 10)
+                            cout << conv_from_dec(variables[toupper(m[2].str()[0]) - 'A'], stoi(m[3].str())) << endl;
+                        else
+                            cout << variables[toupper(m[2].str()[0]) - 'A'] << endl;
+                        if (detail)
+                            to_out << instr_count << ") Вывод значения переменной '" << m[2] << "' в " << m[3] << "-й СС: " << variables[toupper(m[2].str()[0]) - 'A'] << endl;
                     }
                 }
-                break;
-            case '+':
-                if (in.peek() == '>')
+                else if (regex_search(instruction, m, regex("^\\s{0,}(\\w{1})\\s{0,}:=\\s{0,}(\\w{1})\\s{0,}([^\\w\\s]{1,2})\\s{0,}(\\w{1})\\s{0,}$"))) // бинарная операция
                 {
-                    in.get();
-                    input_operation(aim, cur_var_1, operation, 7);
+                    error = false;
+                    if (m[3].str() == "+")
+                        variables[toupper(m[1].str()[0]) - 'A'] = variables[toupper(m[2].str()[0]) - 'A'] | variables[toupper(m[4].str()[0]) - 'A'];
+                    else if (m[3].str() == "&")
+                        variables[toupper(m[1].str()[0]) - 'A'] = variables[toupper(m[2].str()[0]) - 'A'] & variables[toupper(m[4].str()[0]) - 'A'];
+                    else if (m[3].str() == "->")
+                        variables[toupper(m[1].str()[0]) - 'A'] = ~variables[toupper(m[2].str()[0]) - 'A'] | variables[toupper(m[4].str()[0]) - 'A'];
+                    else if (m[3].str() == "<-")
+                        variables[toupper(m[1].str()[0]) - 'A'] = variables[toupper(m[2].str()[0]) - 'A'] | ~variables[toupper(m[4].str()[0]) - 'A'];
+                    else if (m[3].str() == "~")
+                        variables[toupper(m[1].str()[0]) - 'A'] = (~variables[toupper(m[2].str()[0]) - 'A'] | variables[toupper(m[4].str()[0]) - 'A']) & (variables[toupper(m[2].str()[0]) - 'A'] | ~variables[toupper(m[4].str()[0]) - 'A']);
+                    else if (m[3].str() == "<>")
+                        variables[toupper(m[1].str()[0]) - 'A'] = variables[toupper(m[2].str()[0]) - 'A'] ^ variables[toupper(m[4].str()[0]) - 'A'];
+                    else if (m[3].str() == "+>")
+                        variables[toupper(m[1].str()[0]) - 'A'] = variables[toupper(m[2].str()[0]) - 'A'] & ~variables[toupper(m[4].str()[0]) - 'A'];
+                    else if (m[3].str() == "?")
+                        variables[toupper(m[1].str()[0]) - 'A'] = ~variables[toupper(m[2].str()[0]) - 'A'] | ~variables[toupper(m[4].str()[0]) - 'A'];
+                    else if (m[3].str() == "!")
+                        variables[toupper(m[1].str()[0]) - 'A'] = ~variables[toupper(m[2].str()[0]) - 'A'] & ~variables[toupper(m[4].str()[0]) - 'A'];
+                    else
+                    {
+                        to_out << "Error: Инструкция не распознана!\n";
+                        error = true;
+                    }
+                    if (!error && detail)
+                        to_out << instr_count << ") " << m[1] << " := " << m[2] << " " << m[3] << " " << m[4] << " = " << variables[toupper(m[1].str()[0]) - 'A'] << endl;
+                }
+                else if (regex_search(instruction, m, regex("^\\s{0,}(\\w{1})\\s{0,}:=\\s{0,}\\\\\\s{0,}(\\w{1})\\s{0,}$"))) // унарная операция
+                {
+                    variables[toupper(m[1].str()[0]) - 'A'] = ~variables[toupper(m[2].str()[0]) - 'A']; //-(~variables[cur_var_1] + 1)
+                    if (detail)
+                        to_out << instr_count << ") " << m[1] << " := \\" << m[2] << " = " << variables[toupper(m[1].str()[0]) - 'A'] << endl;
                 }
                 else
-                    input_operation(aim, cur_var_1, operation, 1);
-                break;
-            case '&':
-                input_operation(aim, cur_var_1, operation, 2);
-                break;
-            case '-':
-                if (in.peek() == '>')
-                {
-                    in.get();
-                    input_operation(aim, cur_var_1, operation, 3);
-                }
-                else
-                    cout << "\n'Введена несуществующая операция!'\n";
-                break;
-            case '<':
-                if (in.peek() == '-')
-                {
-                    in.get();
-                    input_operation(aim, cur_var_1, operation, 4);
-                }
-                else if (in.peek() == '>')
-                {
-                    in.get();
-                    input_operation(aim, cur_var_1, operation, 6);
-                }
-                else
-                    cout << "\n'Введена несуществующая операция!'\n";
-                break;
-            case '~':
-                input_operation(aim, cur_var_1, operation, 5);
-                break;
-            case '?':
-                input_operation(aim, cur_var_1, operation, 8);
-                break;
-            case '!':
-                input_operation(aim, cur_var_1, operation, 9);
-                break;
-            case '\\':
-                input_operation(aim, 0, operation, 10);
+                    to_out << "Error: Инструкция не распознана!\n";
+                instr_count++;
+                instruction = "";
                 break;
             default:
-                cout << "\n'Введена несуществующая инструкция!'\n";
+                instruction += symbol;
                 break;
             }
         }
-
-        cout << endl << endl;
 
         in.close();
         cout << "Работа интерпретатора завершена!";
     }
 }
-
-/*
-void task_6(char *file_name)
-{
-    ifstream in(file_name);
-    if (!in.is_open())
-        cout << "Ошибка открытия файла!";
-    else
-    {
-        char symbol, operation = 0, aim = -1, cur_var_1 = -1, cur_var_2 = -1;
-        int com_count;
-        long long variables[26] = { 0 };
-        string command = "", instruction = "", input;
-        regex r("^\\s{0,}\\(\\s{0,}(\\w{1})\\s{0,}\\,\\s{0,}(\\d{1,2})\\s{0,}\\)\\s{0,}$");
-        smatch m;
-        while ((symbol = in.get()) != EOF)
-        {
-            if (isspace(symbol))
-                continue;
-            if (isalpha(symbol))
-            {
-                if (isalpha(in.peek()))
-                {
-                    if (symbol == 'r')
-                        command = "read";
-                    else if (symbol == 'w')
-                        command = "write";
-                    else
-                    {
-                        cout << "\n'Неизвестная команда!'\n";
-                        continue;
-                    }
-                    for (int i = 1; i < command.length(); i++)
-                    {
-                        if ((symbol = in.peek()) != command[i])
-                        {
-                            cout << "\n'Неизвестная команда!'\n";
-                            break;
-                        }
-                        else
-                            symbol = in.get();
-                    }
-                    if (symbol != command[command.length() - 1])
-                        continue;
-                    else
-                    {
-                        instruction = "";
-                        while ((symbol = in.get()) != EOF)
-                        {
-                            if (symbol != ';')
-                                instruction += symbol;
-                            else
-                                break;
-                        }
-                        if (regex_search(instruction, m, r))
-                        {
-                            cur_var_1 = toupper(m[1].str()[0]) - 'A';
-                            cur_var_2 = stoi(m[2].str());
-                            if (!(((cur_var_1 >= 0) && (cur_var_1 <= 25)) && ((cur_var_2 >= 2) && (cur_var_2 <= 36))))
-                            {
-                                cur_var_1 = cur_var_2 = 0;
-                                continue;
-                            }
-                            if (command == "read")
-                            {
-                                cout << endl << "Введите значение " << m[1] << " в " << m[2] << "-й СС: ";
-                                getline(cin, input);
-                                if (stoi(m[2].str()) != 10)
-                                    variables[toupper(m[1].str()[0]) - 'A'] = conv_to_dec(input, stoi(m[2].str()));
-                                else
-                                    variables[toupper(m[1].str()[0]) - 'A'] = stoull(input);
-                            }
-                            else
-                            {
-                                cout << endl << "Значение " << m[1] << " в " << m[2] << "-й СС: ";
-                                if (stoi(m[2].str()) != 10)
-                                    cout << conv_from_dec(variables[toupper(m[1].str()[0]) - 'A'], stoi(m[2].str())) << endl;
-                                else
-                                    cout << variables[toupper(m[1].str()[0]) - 'A'] << endl;
-                            }
-                            cur_var_1 = cur_var_2 = 0;
-                        }
-                        else
-                            cout << "\n'Введена несуществующая инструкция!'\n";
-                        continue;
-                    }
-                }
-                if (cur_var_1 == -1)
-                    cur_var_1 = toupper(symbol) - 'A';
-                else if (cur_var_2 == -1)
-                    cur_var_2 = toupper(symbol) - 'A';
-                else
-                    cout << "\n'В инструкции обнаружена лишняя переменная!'\n";
-                continue;
-            }
-            switch (symbol)
-            {
-            case '%':
-                while ((in.peek() != '\n') && (!in.eof()))
-                    in.get();
-                if (in.peek() == '\n')
-                    in.get();
-                break;
-            case '{':
-                com_count = 1;
-                symbol = in.get();
-                while (com_count && (!in.eof()))
-                {
-                    if (symbol == '{')
-                        com_count++;
-                    else if (symbol == '}')
-                        com_count--;
-                    symbol = in.get();
-                }
-                if (com_count != 0)
-                    cout << "\n'Отсутствует символ завершения многострочного комментария!'\n";
-                break;
-            case '}':
-                cout << "\n'Отсутствует символ начала многострочного комментария!'\n";
-                break;
-            case ';':
-                if ((operation && (aim != -1) && (cur_var_1 != -1) && (cur_var_2 != -1)) || ((operation == 10) && (aim != -1) && (cur_var_1 != -1) && (cur_var_2 == -1)))
-                {
-
-+ (дизъюнкция);                         1 !
-& (конъюнкция);                         2 !
--> (импликация);                        3 !
-<- (обратная импликация);               4 !
-~ (эквиваленция);                       5 !
-<> (сложение по модулю 2);              6 !
-+> (коимпликация);                      7 !
-? (штрих Шеффера);                      8 !
-! (функция Вебба, стрелка Пирса);       9 !
-\ (логическое отрицание);               10!
-
-switch (operation)
-{
-case 1:
-    variables[aim] = variables[cur_var_1] | variables[cur_var_2];
-    break;
-case 2:
-    variables[aim] = variables[cur_var_1] & variables[cur_var_2];
-    break;
-case 3:
-    variables[aim] = ~variables[cur_var_1] | variables[cur_var_2];
-    break;
-case 4:
-    variables[aim] = variables[cur_var_1] | ~variables[cur_var_2];
-    break;
-case 5:
-    variables[aim] = (~variables[cur_var_1] | variables[cur_var_2]) & (variables[cur_var_1] | ~variables[cur_var_2]);
-    break;
-case 6:
-    variables[aim] = variables[cur_var_1] ^ variables[cur_var_2];
-    break;
-case 7:
-    variables[aim] = variables[cur_var_1] & ~variables[cur_var_2];
-    break;
-case 8:
-    variables[aim] = ~variables[cur_var_1] | ~variables[cur_var_2];
-    break;
-case 9:
-    variables[aim] = ~variables[cur_var_1] & ~variables[cur_var_2];
-    break;
-default:
-    variables[aim] = ~variables[cur_var_1]; //-(~variables[cur_var_1] + 1)
-    break;
-}
-                }
-                else
-                cout << "\n'Введена несуществующая инструкция!'\n";
-                operation = 0;
-                aim = cur_var_1 = cur_var_2 = -1;
-                break;
-            case ':':
-                if (in.peek() == '=')
-                {
-                    in.get();
-                    if (aim != -1)
-                        cout << "\n'Повторное присваивание в инструкции!'\n";
-                    else
-                    {
-                        aim = cur_var_1;
-                        cur_var_1 = -1;
-                    }
-                }
-                break;
-            case '+':
-                if (in.peek() == '>')
-                {
-                    in.get();
-                    input_operation(aim, cur_var_1, operation, 7);
-                }
-                else
-                    input_operation(aim, cur_var_1, operation, 1);
-                break;
-            case '&':
-                input_operation(aim, cur_var_1, operation, 2);
-                break;
-            case '-':
-                if (in.peek() == '>')
-                {
-                    in.get();
-                    input_operation(aim, cur_var_1, operation, 3);
-                }
-                else
-                    cout << "\n'Введена несуществующая операция!'\n";
-                break;
-            case '<':
-                if (in.peek() == '-')
-                {
-                    in.get();
-                    input_operation(aim, cur_var_1, operation, 4);
-                }
-                else if (in.peek() == '>')
-                {
-                    in.get();
-                    input_operation(aim, cur_var_1, operation, 6);
-                }
-                else
-                    cout << "\n'Введена несуществующая операция!'\n";
-                break;
-            case '~':
-                input_operation(aim, cur_var_1, operation, 5);
-                break;
-            case '?':
-                input_operation(aim, cur_var_1, operation, 8);
-                break;
-            case '!':
-                input_operation(aim, cur_var_1, operation, 9);
-                break;
-            case '\\':
-                input_operation(aim, 0, operation, 10);
-                break;
-            default:
-                cout << "\n'Введена несуществующая инструкция!'\n";
-                break;
-            }
-        }
-
-        cout << endl << endl;
-
-        in.close();
-        cout << "Работа интерпретатора завершена!";
-    }
-}
-*/
 
 // Задание №7
 

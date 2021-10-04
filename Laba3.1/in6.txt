@@ -4,6 +4,8 @@ hello
 }
 
 
+read(B, 2);
+read(C, 2);
 A := B +   C;
 A := B &   C;
 A := B ->   C;
@@ -16,10 +18,7 @@ A := B !   C;
 A:=\B;
 
 %real(D, 10);
-read(D, 10);
-write ( D ,     10 
-
-);
+write ( A ,     10 );
 
 {
 + (дизъюнкция);                         1

@@ -36,7 +36,19 @@ int main(int argc, char* argv[])
                 task_5();
                 break;
             case '6':
-                task_6(argv[1]); // C:\Users\anton\source\repos\Laba3.1\Laba3.1\in6.txt
+                if ((argc == 4) && !strcmp(argv[2], "/trace"))
+                {
+                    ofstream out(argv[3]);
+                    if (!out.is_open())
+                        cout << "Ошибка открытия файла вывода";
+                    else
+                    {
+                        task_6(argv[1], out, true);
+                        out.close();
+                    }
+                }
+                else
+                    task_6(argv[1], cout, true); // C:\Users\anton\source\repos\Laba3.1\Laba3.1\in6.txt
                 break;
             default:
                 throw 666;

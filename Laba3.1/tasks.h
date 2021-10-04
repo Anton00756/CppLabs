@@ -29,7 +29,7 @@ void task_5();
 void input_operation(const char& aim, const char& cur_var_1, char& operation, const char& num);
 long long conv_to_dec(const string& num, const int base);
 string conv_from_dec(long long num, const int base);
-void task_6(char* file_name);
+void task_6(char* file_name, ostream& to_out, bool detail = false);
 // Задание №7 !!!
 // Задание №8 !!!
 

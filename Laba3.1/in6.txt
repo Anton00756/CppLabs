@@ -1,11 +1,8 @@
-%nice % hello
-%good
-%sd { s3
-%asd4 { herer 
-%}
-%gg5
-%} h6
-%}
+{
+hello
+{world} 
+}
+
 
 A := B +   C;
 A := B &   C;
@@ -17,6 +14,12 @@ A := B +>   C;
 A := B ?   C;
 A := B !   C;
 A:=\B;
+
+%real(D, 10);
+read(D, 10);
+write ( D ,     10 
+
+);
 
 {
 + (дизъюнкция);                         1

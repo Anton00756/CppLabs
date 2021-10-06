@@ -1,0 +1,6 @@
+#define hello no
+#define me too
+Bro , hello ! It was me !
+Nice me ?
+Hoho , hello
+Yes !

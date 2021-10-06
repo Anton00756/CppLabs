@@ -281,19 +281,6 @@ void task_5()
 }
 
 // Задание №6
-void input_operation(const char& aim, const char& cur_var_1, char& operation, const char& num)
-{
-    if ((aim != -1) && (cur_var_1 != -1))
-    {
-        if (!operation)
-            operation = num;
-        else
-            cout << "\n'Повторный ввод операции!'\n";
-    }
-    else
-        cout << "\n'Несоответствие инструкции!'\n";
-}
-
 long long conv_to_dec(const string& num, const int base)
 {
     long long accum = 0;
@@ -438,6 +425,140 @@ void task_6(char *file_name, ostream& to_out, bool detail)
 }
 
 // Задание №7
+HashTable::HashTable()
+{
 
+}
+
+HashTable::~HashTable()
+{
+    for (int i = 0; i < HASHSIZE; i++)
+        if (table[i].next != nullptr)
+        {
+            HashNode* node = table[i].next, *old_node;
+            while (node != nullptr)
+            {
+                old_node = node;
+                node = node->next;
+                delete old_node;
+            }
+        }
+}
+
+void HashTable::add(const string& key, const string& value)
+{
+    int hash_value = hash_func(key);
+    if (table[hash_value].key == "")
+    {
+        table[hash_value].key = key;
+        table[hash_value].value = value;
+    }
+    else
+    {
+        HashNode* node = table[hash_value].next;
+        while (node->next != nullptr)
+            node = node->next;
+        node->next = new HashNode;
+        node->next->key = key;
+        node->next->value = value;
+    }
+}
+
+string HashTable::find(const string& key)
+{
+    int hash_value = hash_func(key);
+    cout << "," << hash_value << ",";
+    if (table[hash_value].key != "")
+    {
+        cout << "!in!" << endl;
+        HashNode* node = &table[hash_value];
+        while ((node != nullptr) && (node->key != key))
+            node = node->next;
+        if (node == nullptr)
+            return "";
+        return node->value;
+    }
+    return "";
+}
+
+int HashTable::hash_func(const string& num)
+{
+    unsigned long long accum = 0;
+    for (int i = 0; i < num.length(); i++)
+        accum = accum * 62 + (isdigit(num[i]) ? num[i] - '0' : (isupper(num[i]) ? num[i] - 'A' + 10 : num[i] - 'a' + 36));
+    return accum % HASHSIZE;
+}
+
+/*
+#define hello no
+#define me too
+Bro , hello ! It was me !
+Nice me ?
+Hoho , hello
+Yes !
+*/
+
+void task_7()
+{
+    string file_in = "C:\\Users\\anton\\source\\repos\\Laba3.1\\Laba3.1\\in7.txt", file_buf = "C:\\Users\\anton\\source\\repos\\Laba3.1\\Laba3.1\\out7.txt";
+    ifstream in(file_in);
+    ofstream out(file_buf);
+    if (!in.is_open() || !out.is_open())
+        cout << "Ошибка открытия файла!\n";
+    else
+    {
+        smatch m;
+        string line;
+        HashTable base;
+        getline(in, line);
+        while (regex_search(line, m, regex("^\\s*#define\\s*(\\w*)\\s*(\\w*)\\s*$")))
+        {
+            base.add(m[1].str(), m[2].str());
+            getline(in, line);
+        }
+        while (!in.eof())
+        {
+            out << line << endl;
+            getline(in, line);
+        }
+        out << line << endl;
+
+        in.close();
+        out.close();
+
+        in.open(file_buf);
+        out.open(file_in);
+        if (!in.is_open() || !out.is_open())
+            cout << "Ошибка открытия файла!\n";
+        else
+        {
+            string result;
+            char symbol;
+            line = "";
+            while ((symbol = in.get()) != EOF)
+            {
+                if (!isspace(symbol))
+                    line += symbol;
+                else
+                {
+                    if ((result = base.find(line)) == "")
+                        out << line << symbol;
+                    else
+                        out << result << symbol;
+                    line = "";
+                }
+            }
+
+            in.close();
+            out.close();
+
+            cout << "Применение макрозамен завершено!";
+        }
+    }
+}
 
 // Задание №8
+void task_8()
+{
+
+}

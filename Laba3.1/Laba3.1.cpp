@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 
     while (true)
     {
-        cout << "1. Поиск строки в файлах\n2. Проверка выпуклости\n3. Значение многочлена\n4. Минимальная СС\n5. Сложение чисел в заданной СС\n6. Интерпретатор\n\n";
+        cout << "1. Поиск строки в файлах\n2. Проверка выпуклости\n3. Значение многочлена\n4. Минимальная СС\n5. Сложение чисел в заданной СС\n6. Интерпретатор\n7. Замена текста\n\n";
         cout << "Выберите пункт: ";
         getline(cin, str);
         cout << endl;
@@ -43,12 +43,22 @@ int main(int argc, char* argv[])
                         cout << "Ошибка открытия файла вывода";
                     else
                     {
-                        task_6(argv[1], out, true);
+                        task_6(argv[1], out, true); // C:\Users\anton\source\repos\Laba3.1\Laba3.1\in6.txt /trace C:\Users\anton\source\repos\Laba3.1\Laba3.1\out6.txt
                         out.close();
                     }
                 }
                 else
                     task_6(argv[1], cout, true); // C:\Users\anton\source\repos\Laba3.1\Laba3.1\in6.txt
+            case '7':
+                task_7();
+                break;// getenv("APPDATA")
+            case '8':
+                if (argc == 2)
+                    task_8(argv[1]);
+                else
+                {
+
+                }
                 break;
             default:
                 throw 666;

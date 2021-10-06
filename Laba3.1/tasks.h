@@ -25,12 +25,34 @@ void task_4(char* file_name);
 // Задание №5
 string sum(int system_number, int count, ...);
 void task_5();
-// Задание №6 !!!
-void input_operation(const char& aim, const char& cur_var_1, char& operation, const char& num);
+// Задание №6
 long long conv_to_dec(const string& num, const int base);
 string conv_from_dec(long long num, const int base);
 void task_6(char* file_name, ostream& to_out, bool detail = false);
-// Задание №7 !!!
+// Задание №7
+struct HashNode
+{
+	string key = "", value = "";
+	HashNode* next = nullptr;
+};
+
+class HashTable
+{
+public:
+	HashTable();
+	~HashTable();
+	void add(const string& key, const string& value);
+	string find(const string& key);
+
+private:
+	static const int HASHSIZE = 128;
+	HashNode table[HASHSIZE];
+
+	int hash_func(const string& num);
+};
+
+void task_7();
 // Задание №8 !!!
+void task_8();
 
 #endif

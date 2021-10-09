@@ -7,6 +7,10 @@ print(B12);
 A1 <->  sum(B2, -34);
 print(A1, 2);
 
+A1 <->  sum(B2, -3C4);
+print(A1);
+
+
 [
 A1 = add(B2, C34);
 Bbbb = rem(modpow, 9);
@@ -22,3 +26,5 @@ rem(modpow, 9) = Bbbb;
 (B2, C34)add = A1;
 modpow rem 9 = Bbbb;
 ]
+
+hel;

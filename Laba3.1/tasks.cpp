@@ -574,10 +574,9 @@ void pow_op(int& aim, const int& arg1, const int& arg2)
 
 void div_op(int& aim, const int& arg1, const int& arg2)
 {
-    if (arg2)
-        aim = arg1 / arg2;
-    else
-        cout << "Error: Деление на ноль запрещено!\n";
+    if (!arg2)
+        throw MyException("Деление на ноль запрещено!");
+    aim = arg1 / arg2;
 }
 
 void rem_op(int& aim, const int& arg1, const int& arg2)
@@ -596,18 +595,21 @@ void xor_op(int& aim, const int& arg1, const int& arg2)
 void bin_operation(map <string, int>& variables, map <string, void(*)(int& aim, const int& arg1, const int& arg2)>& func_base, const string& aim, const string& op, const string& ar1, const string& ar2)
 {
     int arg1, arg2;
-    if (isdigit(ar1[0]) || (ar1[0] == '-'))
+    if (regex_match(ar1, regex("^\\s*\\w+\\s*$")))
+        arg1 = variables[ar1];
+    else if (regex_match(ar1, regex("^\\s*-?\\d+\\s*$")))
         arg1 = stoi(ar1);
     else
-        arg1 = variables[ar1];
-    if (isdigit(ar2[0]) || (ar2[0] == '-'))
+        throw MyException("Ошибка ввода первого аргумента!");
+    if (regex_match(ar2, regex("^\\s*\\w+\\s*$")))
+        arg2 = variables[ar2];
+    else if (regex_match(ar2, regex("^\\s*-?\\d+\\s*$")))
         arg2 = stoi(ar2);
     else
-        arg2 = variables[ar2];
-    if (func_base.find(op) != func_base.end())
-        func_base[op](variables[aim], arg1, arg2);
-    else
-        cout << "Команды '" << op << "' не существует!\n";
+        throw MyException("Ошибка ввода первого аргумента!");
+    if (func_base.find(op) == func_base.end())
+        throw MyException("Команды '" + op + "' не существует!");
+    func_base[op](variables[aim], arg1, arg2);
 }
 
 void task_8(const char* file_name)
@@ -617,7 +619,7 @@ void task_8(const char* file_name)
         cout << "Ошибка открытия config-файла!";
     else
     {
-        char symbol, equal_pos = 'l', op_pos = 'l'; // default: operation(ob_1, ob_2); left = ...
+        char symbol, equal_pos = 'l', op_pos = 'l', in_out_pos = 'l'; // default: operation(ob_1, ob_2); left = ...
         string line = "", input_f_name = "input", output_f_name = "output", equal_sign = "=";
         smatch m;
         map <string, void(*)(int& aim, const int& arg1, const int& arg2)> func_base{ {"add", add_op}, {"mult", mult_op}, {"sub", sub_op}, {"pow", pow_op}, {"div", div_op}, {"rem", rem_op}, {"xor", xor_op} };
@@ -635,16 +637,22 @@ void task_8(const char* file_name)
                     continue;
                 if (regex_search(line, m, regex("^\\s*(left|right)\\s*=\\s*$")))
                     equal_pos = m[1].str()[0];
-                else if (regex_search(line, m, regex("^(\\s|\\(|\\))*op(\\s|\\(|\\))*$")))
+                else if (regex_match(line, regex("^(\\s|\\(|\\))*op(\\s|\\(|\\))*$")))
                 {
-                    if (regex_search(line, m, regex("^(\\s|\\(|\\))*\\(op\\)(\\s|\\(|\\))*$")))
+                    if (regex_match(line, regex("^(\\s|\\(|\\))*\\(op\\)(\\s|\\(|\\))*$")))
+                    {
                         op_pos = 'm';
-                    else if (regex_search(line, m, regex("^(\\s|\\(|\\))*op\\s*$")))
+                        if (regex_match(line, regex("^(\\s|\\()*\\(op\\)(\\s|\\(|\\))*$")))
+                            in_out_pos = 'l';
+                        else
+                            in_out_pos = 'r';
+                    }
+                    else if (regex_match(line, regex("^(\\s|\\(|\\))*op\\s*$")))
                         op_pos = 'r';
-                    else if (regex_search(line, m, regex("^\\s*op(\\s|\\(|\\))*$")))
+                    else if (regex_match(line, regex("^\\s*op(\\s|\\(|\\))*$")))
                         op_pos = 'l';
                     else
-                        cout << "Config Error: Настройка '" << line << "' не распознана!\n"; \
+                        cout << "Config Error: Настройка '" << line << "' не распознана!\n";
                 }
                 else if (regex_search(line, m, regex("^\\s*(\\S+)\\s*(\\S+)\\s*$")))
                 {
@@ -695,8 +703,11 @@ void task_8(const char* file_name)
             else
             {
                 bin_regex_str = "\\s*(\\S+)\\s+(\\S+)\\s+(\\S+)\\s*";
-                in_regex_str = "\\s*(\\d*)\\s*" + input_f_name + "\\s*(\\d*)\\s*";
-                out_regex_str = "^\\s*\\s*(\\w*)\\s*" + output_f_name + "\\s*(\\S*)\\s*\\s*\\s*$";
+                if (in_out_pos == 'l')
+                    in_regex_str = "\\s*" + input_f_name + "\\s*(\\d*)\\s*";
+                else
+                    in_regex_str = "\\s*(\\d*)\\s*" + input_f_name + "\\s*";
+                out_regex_str = "^\\s*\\s*(\\w*)\\s*" + output_f_name + "\\s*(\\w*)\\s*\\s*\\s*$";
             }
             if (equal_pos == 'l')
             {
@@ -711,12 +722,15 @@ void task_8(const char* file_name)
             char com_count;
             line = "";
 
-            int arg1, arg2;
+            int arg1, arg2, instr_count = 1;
 
             while ((symbol = in.get()) != EOF)
             {
                 switch (symbol)
                 {
+                case '\n':
+                    continue;
+                    break;
                 case '[':
                     com_count = 1;
                     symbol = in.get();
@@ -760,96 +774,61 @@ void task_8(const char* file_name)
                         }
                         else if (regex_search(line, m, regex(in_regex_str))) // ввод
                         {
-                            string sys, aim;
-                            if (op_pos == 'm')
+                            string aim = m[1].str(), sys = m[2].str();
+                            if (equal_pos == 'r')
+                                swap(sys, aim);
+                            if ((sys == "") || (stoi(sys) == 10))
                             {
-                                if (equal_pos == 'l')
-                                {
-                                    aim = m[1].str();
-                                    sys = m[2].str() + m[3].str();
-                                }
-                                else
-                                {
-                                    aim = m[3].str();
-                                    sys = m[1].str() + m[2].str();
-                                }
-                            }
-                            else if (equal_pos == 'l')
-                            {
-                                aim = m[1].str();
-                                sys = m[2].str();
-                            }
-                            else
-                            {
-                                aim = m[2].str();
-                                sys = m[1].str();
-                            }
-                            if (sys == "")
-                            {
-                                cout << "Введите значение '" << aim << "': ";
+                                cout << instr_count << ") Введите значение '" << aim << "': ";
                                 getline(cin, line);
+                                if (!regex_match(line, regex("^\\s*-?\\d+\\s*$")))
+                                    throw MyException("Ошибка ввода числа!");
                                 variables[aim] = stoi(line);
                             }
                             else
                             {
+                                if (!regex_match(sys, regex("^\\s*\\d+\\s*$")))
+                                    throw MyException("Неверная система счисления!");
                                 char system = stoi(sys);
-                                if ((system >= 2) && (system <= 36))
+                                if ((system < 2) || (system > 36))
+                                    throw MyException("Неверная система счисления!");
+                                cout << instr_count << ") Введите значение '" << aim << "' в " << (int)system << "-й СС: ";
+                                getline(cin, line);
+                                if (regex_search(line, m, regex("^\\s*(-?)(\\w+)\\s*$")))
                                 {
-                                    if (system != 10)
-                                    {
-                                        cout << "Введите значение '" << aim << "' в " << (int)system << "-й СС: ";
-                                        getline(cin, line);
-                                        if (line[0] == '-')
-                                            variables[aim] = -convert_to_dec<int>(line.substr(1, line.length() - 1), system);
-                                        else
-                                            variables[aim] = convert_to_dec<int>(line, system);
-                                    }
-                                    else
-                                    {
-                                        cout << "Введите значение '" << aim << "': ";
-                                        getline(cin, line);
-                                        variables[aim] = stoi(line);
-                                    }
+                                    variables[aim] = convert_to_dec<int>(m[2].str(), system);
+                                    if (m[1] == "-")
+                                        variables[aim] *= -1;
                                 }
                                 else
-                                    cout << "Error: Неверная система счисления!" << endl;
+                                    throw MyException("Некорректный ввод числа!");
                             }
                         }
                         else if (regex_search(line, m, regex(out_regex_str))) // вывод
                         {
-                            if (op_pos == 'm')
-                            {
-                                if (m[1].str() == "")
-                                    cout << "Значение '" << m[2] << "': " << variables[m[2].str()] << endl;
-                                else if (m[2].str() == "")
-                                    cout << "Значение '" << m[1] << "': " << variables[m[1].str()] << endl;
-                                else
-                                {
-                                    char system = stoi(m[2].str());
-                                    if ((system >= 2) && (system <= 36))
-                                        cout << "Значение '" << m[1] << "' в " << m[2] << "-й СС:" << ((variables[m[1].str()] > 0) ? " " : " -") << convert_from_dec<int>(abs(variables[m[1].str()]), system) << endl;
-                                    else
-                                        cout << "Error: Неверная система счисления!" << endl;
-                                }
-                            }
-                            else if (m[2].str() == "")
-                                cout << "Значение '" << m[1] << "': " << variables[m[1].str()] << endl;
+                            string aim = m[1].str(), sys = m[2].str();
+                            if ((op_pos == 'm') && (in_out_pos == 'l') && (m[1] == ""))
+                                swap(aim, sys);
+                            if ((sys == "") || (stoi(sys) == 10))
+                                cout << instr_count << ") Значение '" << aim << "': " << variables[aim] << endl;
                             else
                             {
-                                char system = stoi(m[2].str());
-                                if ((system >= 2) && (system <= 36))
-                                    cout << "Значение '" << m[1] << "' в " << m[2] << "-й СС:" << ((variables[m[1].str()] > 0) ? " " : " -") << convert_from_dec<int>(abs(variables[m[1].str()]), system) << endl;
-                                else
-                                    cout << "Error: Неверная система счисления!" << endl;
+                                if (!regex_match(sys, regex("^\\s*\\d+\\s*$")))
+                                    throw MyException("Неверная система счисления!");
+                                char system = stoi(sys);
+                                if ((system < 2) || (system > 36))
+                                    throw MyException("Неверная система счисления!");
+                                cout << instr_count << ") Значение '" << aim << "' в " << (int)system << "-й СС:" << ((variables[aim] > 0) ? " " : " -") << convert_from_dec<int>(abs(variables[aim]), system) << endl;
                             }
                         }
                         else
-                            cout << "Error: " << line << endl; // Неизвестная инструкция!
+                            throw MyException("'" + line + "' - неизвестная инструкция!");
                     }
-                    catch (string error_text)
+                    catch (MyException excep)
                     {
-                        cout << "Error: " << error_text << endl;
+                        cout << instr_count << ") Error: " << excep.what() << endl;
                     }
+                    instr_count++;
                     line = "";
                     break;
                 default:
@@ -862,10 +841,5 @@ void task_8(const char* file_name)
 
             cout << "Работа интерпретатора завершена!";
         }
-
-        /*for (auto& p : func_base)
-        {
-            std::cout << p.first << endl;
-        }*/
     }
 }

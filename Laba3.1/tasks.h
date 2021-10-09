@@ -60,10 +60,7 @@ private:
 	std::string error_msg_str;
 
 public:
-	MyException(const std::string& err) : error_msg_str(err)
-	{
-
-	}
+	MyException(const std::string& err) : error_msg_str(err) {};
 	const char* what() const noexcept { return error_msg_str.c_str(); }
 };
 

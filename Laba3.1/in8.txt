@@ -1,0 +1,24 @@
+C34 <->  in();
+print(C34);
+C34 <->  in();
+B12 <->  in(2);
+print(C34);
+print(B12);
+A1 <->  sum(B2, -34);
+print(A1, 2);
+
+[
+A1 = add(B2, C34);
+Bbbb = rem(modpow, 9);
+d12 = in(base);
+d12 = in();
+print(D, base);
+
+
+add(B2, -34) = A1;
+rem(modpow, 9) = Bbbb;
+
+
+(B2, C34)add = A1;
+modpow rem 9 = Bbbb;
+]

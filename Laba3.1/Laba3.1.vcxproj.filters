@@ -55,5 +55,11 @@
     <Text Include="out7.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
+    <Text Include="in8c.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="in8.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
   </ItemGroup>
 </Project>

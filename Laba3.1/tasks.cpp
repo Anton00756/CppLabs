@@ -171,14 +171,6 @@ void task_3()
 }
 
 // Задание №4
-int convert_to_dec(const string& num, const int base)
-{
-    int accum = 0;
-    for (int i = 0; i < num.length(); i++)
-        accum = accum * base + (isdigit(num[i]) ? num[i] - '0' : toupper(num[i]) - 'A' + 10);
-    return accum;
-}
-
 void task_4(char* file_name)
 {
     ifstream in(file_name);
@@ -208,7 +200,7 @@ void task_4(char* file_name)
                 continue;
             }
             system_number++;
-            out << input_str << "(" << system_number << ")" << " = " << convert_to_dec(input_str, system_number) << endl;
+            out << input_str << "(" << system_number << ")" << " = " << convert_to_dec<int>(input_str, system_number) << endl;
         }
 
         in.close();
@@ -281,15 +273,17 @@ void task_5()
 }
 
 // Задание №6
-long long conv_to_dec(const string& num, const int base)
+template <typename T>
+T convert_to_dec(const string& num, const int base)
 {
-    long long accum = 0;
+    T accum = 0;
     for (int i = 0; i < num.length(); i++)
         accum = accum * base + (isdigit(num[i]) ? num[i] - '0' : toupper(num[i]) - 'A' + 10);
     return accum;
 }
 
-string conv_from_dec(long long num, const int base)
+template <typename T>
+string convert_from_dec(T num, const int base)
 {
     int r;
     string output;
@@ -310,8 +304,8 @@ void task_6(char *file_name, ostream& to_out, bool detail)
     else
     {
         bool error;
-        char symbol;
-        int com_count, instr_count = 1;
+        char symbol, com_count;
+        int instr_count = 1;
         long long variables[26] = { 0 };
         string instruction = "", input;
         smatch m;
@@ -356,7 +350,7 @@ void task_6(char *file_name, ostream& to_out, bool detail)
                         cout << endl << "Введите значение '" << m[2] << "' в " << m[3] << "-й СС: ";
                         getline(cin, input);
                         if (stoi(m[3].str()) != 10)
-                            variables[toupper(m[2].str()[0]) - 'A'] = conv_to_dec(input, stoi(m[3].str()));
+                            variables[toupper(m[2].str()[0]) - 'A'] = convert_to_dec<long long>(input, stoi(m[3].str()));
                         else
                             variables[toupper(m[2].str()[0]) - 'A'] = stoull(input);
                         if (detail)
@@ -366,7 +360,7 @@ void task_6(char *file_name, ostream& to_out, bool detail)
                     {
                         cout << endl << "Значение '" << m[2] << "' в " << m[3] << "-й СС: ";
                         if (stoi(m[3].str()) != 10)
-                            cout << conv_from_dec(variables[toupper(m[2].str()[0]) - 'A'], stoi(m[3].str())) << endl;
+                            cout << convert_from_dec<long long>(variables[toupper(m[2].str()[0]) - 'A'], stoi(m[3].str())) << endl;
                         else
                             cout << variables[toupper(m[2].str()[0]) - 'A'] << endl;
                         if (detail)
@@ -558,7 +552,320 @@ void task_7()
 }
 
 // Задание №8
-void task_8()
+void add_op(int &aim, const int& arg1, const int& arg2)
 {
+    aim = arg1 + arg2;
+}
 
+void mult_op(int& aim, const int& arg1, const int& arg2)
+{
+    aim = arg1 * arg2;
+}
+
+void sub_op(int& aim, const int& arg1, const int& arg2)
+{
+    aim = arg1 - arg2;
+}
+
+void pow_op(int& aim, const int& arg1, const int& arg2)
+{
+    aim = pow(arg1, arg2);
+}
+
+void div_op(int& aim, const int& arg1, const int& arg2)
+{
+    if (arg2)
+        aim = arg1 / arg2;
+    else
+        cout << "Error: Деление на ноль запрещено!\n";
+}
+
+void rem_op(int& aim, const int& arg1, const int& arg2)
+{
+    if (arg2 <= 0)
+        aim = arg1 % arg2;
+    else
+        cout << "Error: Для взятия по модулю введите положительное число!\n";
+}
+
+void xor_op(int& aim, const int& arg1, const int& arg2)
+{
+    aim = arg1 ^ arg2;
+}
+
+void bin_operation(map <string, int>& variables, map <string, void(*)(int& aim, const int& arg1, const int& arg2)>& func_base, const string& aim, const string& op, const string& ar1, const string& ar2)
+{
+    int arg1, arg2;
+    if (isdigit(ar1[0]) || (ar1[0] == '-'))
+        arg1 = stoi(ar1);
+    else
+        arg1 = variables[ar1];
+    if (isdigit(ar2[0]) || (ar2[0] == '-'))
+        arg2 = stoi(ar2);
+    else
+        arg2 = variables[ar2];
+    if (func_base.find(op) != func_base.end())
+        func_base[op](variables[aim], arg1, arg2);
+    else
+        cout << "Команды '" << op << "' не существует!\n";
+}
+
+void task_8(const char* file_name)
+{
+    ifstream config_file(file_name);
+    if (!config_file.is_open())
+        cout << "Ошибка открытия config-файла!";
+    else
+    {
+        char symbol, equal_pos = 'l', op_pos = 'l'; // default: operation(ob_1, ob_2); left = ...
+        string line = "", input_f_name = "input", output_f_name = "output", equal_sign = "=";
+        smatch m;
+        map <string, void(*)(int& aim, const int& arg1, const int& arg2)> func_base{ {"add", add_op}, {"mult", mult_op}, {"sub", sub_op}, {"pow", pow_op}, {"div", div_op}, {"rem", rem_op}, {"xor", xor_op} };
+
+        while ((symbol = config_file.get()) != EOF)
+        {
+            switch (symbol)
+            {
+            case '#':
+                while ((config_file.peek() != '\n') && (!config_file.eof()))
+                    config_file.get();
+                break;
+            case '\n':
+                if (line == "")
+                    continue;
+                if (regex_search(line, m, regex("^\\s*(left|right)\\s*=\\s*$")))
+                    equal_pos = m[1].str()[0];
+                else if (regex_search(line, m, regex("^(\\s|\\(|\\))*op(\\s|\\(|\\))*$")))
+                {
+                    if (regex_search(line, m, regex("^(\\s|\\(|\\))*\\(op\\)(\\s|\\(|\\))*$")))
+                        op_pos = 'm';
+                    else if (regex_search(line, m, regex("^(\\s|\\(|\\))*op\\s*$")))
+                        op_pos = 'r';
+                    else if (regex_search(line, m, regex("^\\s*op(\\s|\\(|\\))*$")))
+                        op_pos = 'l';
+                    else
+                        cout << "Config Error: Настройка '" << line << "' не распознана!\n"; \
+                }
+                else if (regex_search(line, m, regex("^\\s*(\\S+)\\s*(\\S+)\\s*$")))
+                {
+                    if (func_base.find(m[1].str()) != func_base.end())
+                    {
+                        func_base[m[2].str()] = func_base.at(m[1].str());
+                        func_base.erase(m[1].str());
+                    }
+                    else if (m[1].str() == input_f_name)
+                        input_f_name = m[2].str();
+                    else if (m[1].str() == output_f_name)
+                        output_f_name = m[2].str();
+                    else if (m[1].str() == equal_sign)
+                        equal_sign = m[2].str();
+                    else
+                        cout << "Config Error: Операции '" << m[1] << "' не существует!\n";
+                }
+                else
+                    cout << "Config Error: Настройка '" << line << "' не распознана!\n";
+                line = "";
+                break;
+            default:
+                line += symbol;
+                break;
+            }
+        }
+        config_file.close();
+
+        ifstream in("C:\\Users\\anton\\source\\repos\\Laba3.1\\Laba3.1\\in8.txt");
+        if (!in.is_open())
+            cout << "Ошибка открытия файла с инструкциями!";
+        else
+        {
+            map <string, int> variables;
+            string bin_regex_str, in_regex_str, out_regex_str;
+            if (op_pos == 'l')
+            {
+                bin_regex_str = "\\s*(\\S+)\\s*\\(\\s*(\\S+)\\s*,\\s*(\\S+)\\s*\\)\\s*";
+                in_regex_str = "\\s*" + input_f_name + "\\s*\\(\\s*(\\d*)\\s*\\)\\s*";
+                out_regex_str = "^\\s*" + output_f_name + "\\s*\\(\\s*(\\w+)\\s*\\,?\\s*(\\d*)\\s*\\)\\s*$";
+            }
+            else if (op_pos == 'r')
+            {
+                bin_regex_str = "\\s*\\(\\s*(\\S+)\\s*,\\s*(\\S+)\\s*\\)\\s*(\\S+)\\s*";
+                in_regex_str = "\\s*\\(\\s*(\\d*)\\s*\\)\\s*" + input_f_name + "\\s*";
+                out_regex_str = "^\\s*\\(\\s*(\\w+)\\s*\\,?\\s*(\\d*)\\s*\\)\\s*" + output_f_name + "\\s*$";
+            }
+            else
+            {
+                bin_regex_str = "\\s*(\\S+)\\s+(\\S+)\\s+(\\S+)\\s*";
+                in_regex_str = "\\s*(\\d*)\\s*" + input_f_name + "\\s*(\\d*)\\s*";
+                out_regex_str = "^\\s*\\s*(\\w*)\\s*" + output_f_name + "\\s*(\\S*)\\s*\\s*\\s*$";
+            }
+            if (equal_pos == 'l')
+            {
+                bin_regex_str = "^\\s*(\\w+)\\s*" + equal_sign + bin_regex_str + "$";
+                in_regex_str = "^\\s*(\\w+)\\s*" + equal_sign + in_regex_str + "$";
+            }
+            else
+            {
+                bin_regex_str = "^" + bin_regex_str + equal_sign + "\\s*(\\w+)\\s*$";
+                in_regex_str = "^" + in_regex_str + equal_sign + "\\s*(\\w+)\\s*$";
+            }
+            char com_count;
+            line = "";
+
+            int arg1, arg2;
+
+            while ((symbol = in.get()) != EOF)
+            {
+                switch (symbol)
+                {
+                case '[':
+                    com_count = 1;
+                    symbol = in.get();
+                    while (com_count && (!in.eof()))
+                    {
+                        if (symbol == '[')
+                            com_count++;
+                        else if (symbol == ']')
+                            com_count--;
+                        symbol = in.get();
+                    }
+                    if (com_count != 0)
+                        cout << "Error: Отсутствует символ завершения многострочного комментария!\n";
+                    break;
+                case ']':
+                    cout << "Error: Отсутствует символ начала многострочного комментария!\n";
+                    break;
+                case ';':
+                    try
+                    {
+                        if (regex_search(line, m, regex(bin_regex_str))) // бинарные операции
+                        {
+                            if (equal_pos == 'l')
+                            {
+                                if (op_pos == 'l')
+                                    bin_operation(variables, func_base, m[1].str(), m[2].str(), m[3].str(), m[4].str());
+                                else if (op_pos == 'r')
+                                    bin_operation(variables, func_base, m[1].str(), m[4].str(), m[2].str(), m[3].str());
+                                else
+                                    bin_operation(variables, func_base, m[1].str(), m[3].str(), m[2].str(), m[4].str());
+                            }
+                            else
+                            {
+                                if (op_pos == 'l')
+                                    bin_operation(variables, func_base, m[4].str(), m[1].str(), m[2].str(), m[3].str());
+                                else if (op_pos == 'r')
+                                    bin_operation(variables, func_base, m[4].str(), m[3].str(), m[1].str(), m[2].str());
+                                else
+                                    bin_operation(variables, func_base, m[4].str(), m[2].str(), m[1].str(), m[3].str());
+                            }
+                        }
+                        else if (regex_search(line, m, regex(in_regex_str))) // ввод
+                        {
+                            string sys, aim;
+                            if (op_pos == 'm')
+                            {
+                                if (equal_pos == 'l')
+                                {
+                                    aim = m[1].str();
+                                    sys = m[2].str() + m[3].str();
+                                }
+                                else
+                                {
+                                    aim = m[3].str();
+                                    sys = m[1].str() + m[2].str();
+                                }
+                            }
+                            else if (equal_pos == 'l')
+                            {
+                                aim = m[1].str();
+                                sys = m[2].str();
+                            }
+                            else
+                            {
+                                aim = m[2].str();
+                                sys = m[1].str();
+                            }
+                            if (sys == "")
+                            {
+                                cout << "Введите значение '" << aim << "': ";
+                                getline(cin, line);
+                                variables[aim] = stoi(line);
+                            }
+                            else
+                            {
+                                char system = stoi(sys);
+                                if ((system >= 2) && (system <= 36))
+                                {
+                                    if (system != 10)
+                                    {
+                                        cout << "Введите значение '" << aim << "' в " << (int)system << "-й СС: ";
+                                        getline(cin, line);
+                                        if (line[0] == '-')
+                                            variables[aim] = -convert_to_dec<int>(line.substr(1, line.length() - 1), system);
+                                        else
+                                            variables[aim] = convert_to_dec<int>(line, system);
+                                    }
+                                    else
+                                    {
+                                        cout << "Введите значение '" << aim << "': ";
+                                        getline(cin, line);
+                                        variables[aim] = stoi(line);
+                                    }
+                                }
+                                else
+                                    cout << "Error: Неверная система счисления!" << endl;
+                            }
+                        }
+                        else if (regex_search(line, m, regex(out_regex_str))) // вывод
+                        {
+                            if (op_pos == 'm')
+                            {
+                                if (m[1].str() == "")
+                                    cout << "Значение '" << m[2] << "': " << variables[m[2].str()] << endl;
+                                else if (m[2].str() == "")
+                                    cout << "Значение '" << m[1] << "': " << variables[m[1].str()] << endl;
+                                else
+                                {
+                                    char system = stoi(m[2].str());
+                                    if ((system >= 2) && (system <= 36))
+                                        cout << "Значение '" << m[1] << "' в " << m[2] << "-й СС:" << ((variables[m[1].str()] > 0) ? " " : " -") << convert_from_dec<int>(abs(variables[m[1].str()]), system) << endl;
+                                    else
+                                        cout << "Error: Неверная система счисления!" << endl;
+                                }
+                            }
+                            else if (m[2].str() == "")
+                                cout << "Значение '" << m[1] << "': " << variables[m[1].str()] << endl;
+                            else
+                            {
+                                char system = stoi(m[2].str());
+                                if ((system >= 2) && (system <= 36))
+                                    cout << "Значение '" << m[1] << "' в " << m[2] << "-й СС:" << ((variables[m[1].str()] > 0) ? " " : " -") << convert_from_dec<int>(abs(variables[m[1].str()]), system) << endl;
+                                else
+                                    cout << "Error: Неверная система счисления!" << endl;
+                            }
+                        }
+                        else
+                            cout << "Error: " << line << endl; // Неизвестная инструкция!
+                    }
+                    catch (string error_text)
+                    {
+                        cout << "Error: " << error_text << endl;
+                    }
+                    line = "";
+                    break;
+                default:
+                    line += symbol;
+                    break;
+                }
+            }
+
+            in.close();
+
+            cout << "Работа интерпретатора завершена!";
+        }
+
+        /*for (auto& p : func_base)
+        {
+            std::cout << p.first << endl;
+        }*/
+    }
 }

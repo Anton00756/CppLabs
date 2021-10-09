@@ -20,14 +20,15 @@ void task_2();
 double decision(double x, int level, ...);
 void task_3();
 // Задание №4
-int convert_to_dec(const string& num, const int base);
 void task_4(char* file_name);
 // Задание №5
 string sum(int system_number, int count, ...);
 void task_5();
 // Задание №6
-long long conv_to_dec(const string& num, const int base);
-string conv_from_dec(long long num, const int base);
+template <typename T>
+T convert_to_dec(const string& num, const int base);
+template <typename T>
+string convert_from_dec(T num, const int base);
 void task_6(char* file_name, ostream& to_out, bool detail = false);
 // Задание №7
 struct HashNode
@@ -52,7 +53,28 @@ private:
 };
 
 void task_7();
-// Задание №8 !!!
-void task_8();
+// Задание №8
+class MyException : public std::exception
+{
+private:
+	std::string error_msg_str;
+
+public:
+	MyException(const std::string& err) : error_msg_str(err)
+	{
+
+	}
+	const char* what() const noexcept { return error_msg_str.c_str(); }
+};
+
+void add_op(int& aim, const int& arg1, const int& arg2);
+void mult_op(int& aim, const int& arg1, const int& arg2);
+void sub_op(int& aim, const int& arg1, const int& arg2);
+void pow_op(int& aim, const int& arg1, const int& arg2);
+void div_op(int& aim, const int& arg1, const int& arg2);
+void rem_op(int& aim, const int& arg1, const int& arg2);
+void xor_op(int& aim, const int& arg1, const int& arg2);
+void bin_operation(map <string, int>& variables, map <string, void(*)(int& aim, const int& arg1, const int& arg2)>& func_base, const string& aim, const string& op, const string& ar1, const string& ar2);
+void task_8(const char* file_name);
 
 #endif

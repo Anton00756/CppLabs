@@ -153,6 +153,8 @@
     <Text Include="in4.txt" />
     <Text Include="in6.txt" />
     <Text Include="in7.txt" />
+    <Text Include="in8.txt" />
+    <Text Include="in8c.txt" />
     <Text Include="out4.txt" />
     <Text Include="out6.txt" />
     <Text Include="out7.txt" />

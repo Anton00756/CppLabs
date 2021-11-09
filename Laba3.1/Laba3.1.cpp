@@ -49,6 +49,7 @@ int main(int argc, char* argv[])
                 }
                 else
                     task_6(argv[1], cout, true); // C:\Users\anton\source\repos\Laba3.1\Laba3.1\in6.txt
+                break;
             case '7':
                 task_7();
                 break;

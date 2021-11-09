@@ -228,6 +228,7 @@ string sum(int system_number, int count, ...)
 
     for (int i = 1; i < count; i++)
     {
+        add = 0;
         str2 = va_arg(string_list, string);
         cout << str1 << " + " << str2;
 
@@ -269,7 +270,8 @@ void task_5()
     cout << "\nИтог: " << sum(10, 2, (string)"10001", (string)"4340") << endl << endl;
     cout << "\nИтог: " << sum(2, 3, (string)"11", (string)"10001", (string)"101") << endl << endl;
     cout << "\nИтог: " << sum(2, 3, (string)"000000", (string)"10001", (string)"101") << endl << endl;
-    cout << "\nИтог: " << sum(11, 2, (string)"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", (string)"1");
+    cout << "\nИтог: " << sum(11, 2, (string)"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", (string)"1") << endl << endl;
+    cout << "\nИтог: " << sum(36, 4, (string)"ZZZZZZZZZZ", (string)"1", (string)"0", (string)"1");
 }
 
 // Задание №6
@@ -461,10 +463,8 @@ void HashTable::add(const string& key, const string& value)
 string HashTable::find(const string& key)
 {
     int hash_value = hash_func(key);
-    cout << "," << hash_value << ",";
     if (table[hash_value].key != "")
     {
-        cout << "!in!" << endl;
         HashNode* node = &table[hash_value];
         while ((node != nullptr) && (node->key != key))
             node = node->next;
@@ -505,7 +505,7 @@ void task_7()
         string line;
         HashTable base;
         getline(in, line);
-        while (regex_search(line, m, regex("^\\s*#define\\s*(\\w*)\\s*(\\w*)\\s*$")))
+        while (regex_search(line, m, regex("^\\s*#define\\s*(\\w*)\\s*(\\S*)\\s*$")))
         {
             base.add(m[1].str(), m[2].str());
             getline(in, line);
@@ -652,7 +652,10 @@ void task_8(const char* file_name)
                     else if (regex_match(line, regex("^\\s*op(\\s|\\(|\\))*$")))
                         op_pos = 'l';
                     else
+                    {
                         cout << "Config Error: Настройка '" << line << "' не распознана!\n";
+                        return;
+                    }
                 }
                 else if (regex_search(line, m, regex("^\\s*(\\S+)\\s*(\\S+)\\s*$")))
                 {
@@ -668,10 +671,16 @@ void task_8(const char* file_name)
                     else if (m[1].str() == equal_sign)
                         equal_sign = m[2].str();
                     else
+                    {
                         cout << "Config Error: Операции '" << m[1] << "' не существует!\n";
+                        return;
+                    }
                 }
                 else
+                {
                     cout << "Config Error: Настройка '" << line << "' не распознана!\n";
+                    return;
+                }
                 line = "";
                 break;
             default:
@@ -827,6 +836,7 @@ void task_8(const char* file_name)
                     catch (MyException excep)
                     {
                         cout << instr_count << ") Error: " << excep.what() << endl;
+                        return;
                     }
                     instr_count++;
                     line = "";

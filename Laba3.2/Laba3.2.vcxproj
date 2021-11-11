@@ -141,6 +141,10 @@
   <ItemGroup>
     <ClCompile Include="Laba3.2.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="parts.h" />
+    <ClInclude Include="trees.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

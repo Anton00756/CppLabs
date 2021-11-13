@@ -31,19 +31,6 @@ int main()
 	AVL<int, int> tree_2(&int_cmp);
 	RB<int, int> tree_3(&int_cmp);
 
-	//auto begin = chrono::steady_clock::now();
-	//for (int i = 1; i <= 14; i++)
-	//	tree_2.insert(i, 2 * i);
-	//cout << "Вставка: " << (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - begin)).count() << endl;
-	//begin = chrono::steady_clock::now();
-	//for (int i = 1; i <= 14; i++)
-	//	cout << i << ": " << tree_2.find(i) << endl;
-	//cout << "Поиск: " << (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - begin)).count() << endl;
-	//begin = chrono::steady_clock::now();
-	//for (int i = 1; i <= 14; i++)
-	//	tree_2.remove(i);
-	//cout << "Удаление: " << (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - begin)).count() << endl;
-
 	cout << endl << "\t\t АВЛ-дерево:" << endl;
 	auto begin = chrono::steady_clock::now();
 	for (int i = 1; i <= 10000; i++)
@@ -58,7 +45,7 @@ int main()
 		tree_2.remove(i);
 	cout << "Удаление: " << (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - begin)).count() << endl;
 	
-	/*cout << endl << "\t\t КЧ-дерево:" << endl;
+	cout << endl << "\t\t КЧ-дерево:" << endl;
 	begin = chrono::steady_clock::now();
 	for (int i = 1; i <= 10000; i++)
 		tree_3.insert(i, 2 * i);
@@ -71,7 +58,6 @@ int main()
 	for (int i = 1; i <= 10000; i++)
 		tree_3.remove(i);
 	cout << "Удаление: " << (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - begin)).count() << endl;
-	*/
 
     system("pause>nul");
 }

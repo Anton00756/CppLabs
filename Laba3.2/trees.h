@@ -169,19 +169,14 @@ private:
                 {
                     if (!stack.empty())
                     {
-                        /*T = dynamic_cast<AVL_Node*>(stack.top());
-                        if (T->right == P)
-                            T->right = obj->balance(P);
-                        else
-                            T->left = obj->balance(P);
-                        break;*/
-
+                        bool break_flag = false;
                         T = dynamic_cast<AVL_Node*>(stack.top());
                         if (T->right == P)
-                            T->right = obj->balance(P);
+                            T->right = obj->balance(P, &break_flag);
                         else
-                            T->left = obj->balance(P);
-                        break;
+                            T->left = obj->balance(P, &break_flag);
+                        if (break_flag)
+                            break;
                     }
                     else
                         obj->root = obj->balance(P);
@@ -230,7 +225,7 @@ private:
         }
     };
 
-    AVL_Node* balance(AVL_Node* S)
+    AVL_Node* balance(AVL_Node* S, bool* breaker = nullptr)
     {
         AVL_Node* R = nullptr, *P = nullptr;
         int a;
@@ -243,6 +238,8 @@ private:
             return S;
         
         R = dynamic_cast<AVL_Node*>(this->get(a, S));
+        if ((breaker != nullptr) && (R->level == 0))
+            *breaker = true;
         if (R->level != -a)
         {
             P = R;
@@ -478,15 +475,18 @@ private:
             stack.push(tmp);
 
             this->deleting(stack, tmp, tmp_2);
-            COLOR del_clr = dynamic_cast<RB_Node*>(stack.top())->col;
+            COLOR del_clr = dynamic_cast<RB_Node*>(stack.top())->col;    
             delete stack.top();
             stack.pop();
 
-            int a = obj->comp->compare(key, stack.top()->key);
-            if (a == 0)
-                a = 1;
+            if (!stack.empty())
+            {
+                int a = obj->comp->compare(key, stack.top()->key);
+                if (a == 0)
+                    a = 1;
 
-            balance(stack, del_clr, a);
+                balance(stack, del_clr, a);
+            }
             return 0;
         }
 

@@ -620,4 +620,686 @@ private:
     }
 };
 
+template<class TKey, class TValue>
+class Splay : public BST<TKey, TValue>
+{
+public:
+    Splay(const Comparer<TKey>* cmp) : BST<TKey, TValue>(cmp, new Inserting(this), new Removing(this), new Finding(this)) {}
+
+private:
+    enum ZZ { ZIG = -1, ZAG = 1, NONE = 0 };
+
+    void copyConstructor() override
+    {
+        this->inserter_cl = new Inserting(this);
+        this->remover_cl = new Removing(this);
+        this->finder_cl = new Finding(this);
+    }
+
+    class Inserting : public BST<TKey, TValue>::Inserting
+    {
+    public:
+        Inserting(Splay<TKey, TValue>* obj)
+        {
+            this->obj = obj;
+        }
+
+        int operator()(const TKey& key, const TValue& value) override
+        {
+            return _insert(key, value);
+        }
+
+    private:
+        Splay<TKey, TValue>* obj;
+
+        int _insert(const TKey& key, const TValue& value) override
+        {
+            if (obj->root == nullptr)
+            {
+                obj->root = new typename BST<TKey, TValue>::Node;
+                obj->root->key = key;
+                obj->root->value = value;
+                return 0;
+            }
+
+            typename BST<TKey, TValue>::Node* cur_node = obj->root;
+            stack<typename BST<TKey, TValue>::Node**> stack;
+            stack.push(&obj->root);
+
+            while (true)
+            {
+                if (obj->comp->compare(key, cur_node->key) == 1)
+                {
+                    stack.push(&cur_node->right);
+                    if (cur_node->right == nullptr)
+                    {
+                        cur_node->right = new typename BST<TKey, TValue>::Node;
+                        cur_node->right->key = key;
+                        cur_node->right->value = value;
+                        break;
+                    }
+                    cur_node = cur_node->right;
+                }
+                else if (obj->comp->compare(key, cur_node->key) == -1)
+                {
+                    stack.push(&cur_node->left);
+                    if (cur_node->left == nullptr)
+                    {
+                        cur_node->left = new typename BST<TKey, TValue>::Node;
+                        cur_node->left->key = key;
+                        cur_node->left->value = value;
+                        break;
+                    }
+                    cur_node = cur_node->left;
+                }
+                else
+                    throw typename BST<TKey, TValue>::Insert_Err();
+            }
+            obj->splay_f(stack);
+            return 0;
+        }
+    };
+
+    class Removing : public BST<TKey, TValue>::Removing
+    {
+    public:
+        Removing(Splay<TKey, TValue>* obj)
+        {
+            this->obj = obj;
+        }
+        
+        int operator()(const TKey& key) override
+        {
+            return _remove(key);
+        }
+
+    private:
+        Splay<TKey, TValue>* obj;
+
+        int _remove(const TKey& key) override
+        {
+            stack<typename BST<TKey, TValue>::Node**> stack;
+            typename BST<TKey, TValue>::Node* tmp = obj->root;
+            stack.push(&obj->root);
+
+            while (true)
+            {
+                if (tmp == nullptr)
+                    throw typename BST<TKey, TValue>::Remove_Err();
+                if (obj->comp->compare(key, tmp->key) == 1)
+                {
+                    stack.push(&tmp->right);
+                    tmp = tmp->right;
+                }
+                else if (obj->comp->compare(key, tmp->key) == -1)
+                {
+                    stack.push(&tmp->left);
+                    tmp = tmp->left;
+                }
+                else
+                {
+                    obj->splay_f(stack);
+                    break;
+                }
+            }
+
+            tmp = obj->root->right;
+            if (tmp != nullptr)
+            {
+                stack.push(&obj->root->right);
+                while (tmp->left != nullptr)
+                {
+                    stack.push(&tmp->left);
+                    tmp = tmp->left;
+                }
+
+                obj->splay_f(stack);
+                tmp->left = obj->root->left;
+                delete obj->root;
+                obj->root = tmp;
+            }
+            else
+            {
+                tmp = obj->root;
+                obj->root = tmp->left;
+                delete tmp;
+            }
+            return 0;
+        }
+    };
+
+    class Finding : public BST<TKey, TValue>::Finding
+    {
+    public:
+        Finding(Splay<TKey, TValue>* obj)
+        {
+            this->obj = obj;
+        }
+
+        TValue& operator()(const TKey& key) override
+        {
+            return _find(key);
+        }
+
+    private:
+        Splay<TKey, TValue>* obj;
+
+        TValue& _find(const TKey& key) override
+        {
+            stack<typename BST<TKey, TValue>::Node**> stack;
+            typename BST<TKey, TValue>::Node* tmp = obj->root;
+
+            stack.push(&obj->root);
+
+            while (true)
+            {
+                if (tmp == nullptr)
+                    throw typename BST<TKey, TValue>::Find_Err();
+                if (obj->comp->compare(key, tmp->key) == 1)
+                {
+                    stack.push(&tmp->right);
+                    tmp = tmp->right;
+                }
+                else if (obj->comp->compare(key, tmp->key) == -1)
+                {
+                    stack.push(&tmp->left);
+                    tmp = tmp->left;
+                }
+                else
+                {
+                    obj->splay_f(stack);
+                    return tmp->value;
+                }
+            }
+        }
+    };
+
+    void splay_f(stack<typename BST<TKey, TValue>::Node**>& stack)
+    {
+        typename BST<TKey, TValue>::Node* tmp, **tmp_2, **tmp_3, *cur_node = *(stack.top());
+        stack.pop();
+        ZZ a_1, a_2;
+
+        while (stack.size() > 1)
+        {
+            tmp_3 = stack.top();
+            tmp = *tmp_3;
+            stack.pop();
+            tmp_2 = stack.top();
+            stack.pop();
+            if ((tmp)->right == cur_node)
+                a_1 = ZAG;
+            else if ((tmp)->left == cur_node)
+                a_1 = ZIG;
+            if ((*tmp_2)->right == tmp)
+                a_2 = ZAG;
+            else if ((*tmp_2)->left == tmp)
+                a_2 = ZIG;
+
+            if (a_1 == a_2)
+            {
+
+                this->get(a_2, *tmp_2) = this->get(-a_2, tmp);
+                this->get(-a_2, tmp) = *tmp_2;
+                *tmp_2 = tmp;
+
+                this->get(a_1, tmp) = this->get(-a_1, cur_node);
+                this->get(-a_1, cur_node) = tmp;
+                *tmp_2 = cur_node;
+            }
+            else
+            {
+                this->get(a_1, tmp) = this->get(-a_1, cur_node);
+                this->get(-a_1, cur_node) = tmp;
+                *tmp_3 = cur_node;
+
+                this->get(a_2, *tmp_2) = this->get(-a_2, cur_node);
+                this->get(-a_2, cur_node) = *tmp_2;
+                *tmp_2 = cur_node;
+            }
+        }
+
+        if (!stack.empty())
+        {
+            tmp_2 = stack.top();
+            stack.pop();
+            if ((*tmp_2)->right == cur_node)
+                a_1 = ZAG;
+            else if ((*tmp_2)->left == cur_node)
+                a_1 = ZIG;
+            this->get(a_1, *tmp_2) = this->get(-a_1, cur_node);
+            this->get(-a_1, cur_node) = *tmp_2;
+            *tmp_2 = cur_node;
+        }
+    }
+};
+
+template<class TKey, class TValue>
+class T_23 : public Ass_Cont<TKey, TValue>
+{
+private:
+    class Node
+    {
+    public:
+        Node() {}
+
+        int find(const TKey& key)
+        {
+            for (int i = 0; i < size; i++)
+            {
+                if (key == keys[i])
+                    return i;
+            }
+            return -1;
+        }
+
+        bool insert(const Comparer<TKey>* cmp, const TKey& key, const TValue& value)
+        {
+            int a = cmp->compare(key, keys[0]);
+            if (a == 1)
+            {
+                keys[1] = key;
+                values[1] = value;
+            }
+            else if (a == -1)
+            {
+                keys[1] = keys[0];
+                values[1] = values[0];
+                keys[0] = key;
+                values[0] = value;
+            }
+            else
+                return true;
+            size++;
+            return false;
+        }
+
+        vector<Node*> childs;
+        TKey keys[2];
+        TValue values[2];
+        int size = 1;
+        bool is_leaf = false;
+    };
+
+private:
+    Node* root;
+    const Comparer<TKey>* comp;
+    int deepness;
+
+public:
+    T_23(const Comparer<TKey>* cmp)
+    {
+        this->comp = cmp;
+        root = nullptr;
+    }
+
+    ~T_23()
+    {
+        if (root != nullptr)
+            _clean(root);
+    }
+
+    void insert(const TKey& key, const TValue& value) override
+    {
+        _insert(key, value);
+    }
+
+    void remove(const TKey& key) override
+    {
+        _remove(key);
+    }
+
+    TValue& find(const TKey& key) override
+    {
+        return root->values[0];
+    }
+
+private:
+    void _insert(const TKey& key, const TValue& value)
+    {
+        int a_1, a_2;
+        if (root == nullptr)
+        {
+            root = newNode(key, value);
+            deepness++;
+            return;
+        }
+        TKey tkey = key;
+        TValue tvalue = value;
+        Node* tmp = root;
+        stack<Node*> stack;
+        for (int i = 0; i < deepness - 1; i++)
+        {
+            a_1 = comp->compare(key, tmp->keys[0]);
+            if (a_1 == -1)
+            {
+                stack.push(tmp);
+                tmp = tmp->childs[0];
+            }
+            else if (a_1 == 1)
+            {
+                if (tmp->size == 2)
+                {
+                    a_2 = comp->compare(key, tmp->keys[1]);
+                    if (a_2 == -1)
+                    {
+                        stack.push(tmp);
+                        tmp = tmp->childs[1];
+                    }
+                    else if (a_2 == 1)
+                    {
+                        stack.push(tmp);
+                        tmp = tmp->childs[2];
+                    }
+                    else
+                        throw std::exception("Такой элемент уже существует!");
+                }
+                else
+                {
+                    stack.push(tmp);
+                    tmp = tmp->childs[1];
+                }
+            }
+            else
+                throw std::exception("Такой элемент уже существует!");
+        }
+
+        while (true)
+        {
+            if (tmp->size == 1)
+            {
+                if (tmp->insert(comp, tkey, tvalue))
+                    throw std::exception("such element already exist");
+                return;
+            }
+            else if(stack.empty())
+            {
+                split(nullptr, tmp, tkey, tvalue);
+                break;
+            }
+            else
+            {
+                split(stack.top(), tmp, tkey, tvalue);
+                tmp = stack.top();
+                stack.pop();
+            }
+        }
+    }
+
+    void _remove(const TKey& key)
+    {
+        int a_1, a_2;
+        TKey tkey = key;
+        Node* del_elem = root, *del_node = nullptr;
+        stack<Node*> stack;
+
+        while (true)
+        {
+            stack.push(del_elem);
+            a_1 = comp->compare(key, del_elem->keys[0]);
+            if (a_1 == -1)
+            {
+                if (!del_elem->childs.size())
+                    throw std::exception("Такого элемента не существует!");
+                del_elem = del_elem->childs[0];
+            }
+            else if (a_1 == 1)
+            {
+                if (del_elem->size == 2)
+                {
+                    a_2 = comp->compare(key, del_elem->keys[1]);
+
+                    if (abs(a_2) == 1)
+                    {
+                        if (!del_elem->childs.size())
+                            throw std::exception("Такого элемента не существует!");
+                        del_elem = del_elem->childs[(a_2 == -1) ? 1 : 2];
+                    }
+                    else
+                        break;
+                }
+                else
+                    del_elem = del_elem->childs[1];
+            }
+            else
+                break;
+        }
+
+        del_node = del_elem;
+        if (del_node->childs.size())
+            del_node = del_node->childs[del_node->size];
+
+        while (del_node->childs.size())
+        {
+            stack.push(del_node);
+            del_node = del_node->childs[0];
+        }
+
+        if (del_elem != del_node)
+        {
+            tkey = del_elem->keys[del_elem->find(key)];
+            del_elem->keys[del_elem->find(key)] = del_node->keys[0];
+            del_elem->values[del_elem->find(key)] = del_node->values[0];
+            del_node->keys[0] = tkey;
+            stack.push(del_node);
+        }
+        balance(stack, tkey);
+    }
+
+    void balance(stack<Node*>& stack, TKey& key)
+    {
+        Node* Q = stack.top(), * P, * B;
+        int index, ind = 10;
+
+        stack.pop();
+        index = Q->find(key);
+
+        if (Q->size == 2)
+        {
+            if (!index)
+            {
+                Q->keys[0] = Q->keys[1];
+                Q->size = 1;
+            }
+            return;
+        }
+
+        if (!stack.size())
+        {
+            delete Q;
+            root = nullptr;
+            return;
+        }
+
+        while (!stack.empty())
+        {
+            ind = 10;
+            P = stack.top();
+            stack.pop();
+            for (int i = 0; i <= P->size; i++)
+            {
+                if (P->childs[i] == Q)
+                    index = i;
+                if (P->childs[i]->size == 2)
+                    ind = i;
+            }
+
+            if (abs(index - ind) == 1)
+            {
+                if (index < ind)
+                {
+                    B = P->childs[ind];
+                    Q->keys[0] = P->keys[ind - 1];
+                    Q->values[0] = P->values[ind - 1];
+                    P->keys[ind - 1] = B->keys[0];
+                    P->values[ind - 1] = B->values[0];
+                    B->keys[0] = B->keys[1];
+                    B->values[0] = B->values[1];
+                    B->size = 1;
+                    Q->size = 1;
+                    if (B->childs.size())
+                    {
+                        Q->childs[1] = B->childs[0];
+                        B->childs[0] = B->childs[1];
+                        B->childs[1] = B->childs[2];
+                        B->childs.pop_back();
+                    }
+                }
+                else
+                {
+                    B = P->childs[ind];
+                    Q->keys[0] = P->keys[index - 1];
+                    Q->values[0] = P->values[index - 1];
+                    P->keys[index - 1] = B->keys[1];
+                    P->values[index - 1] = B->values[1];
+                    B->size = 1;
+                    Q->size = 1;
+                    if (B->childs.size())
+                    {
+                        Q->childs[1] = Q->childs[0];
+                        Q->childs[0] = B->childs[2];
+                        B->childs.pop_back();
+                    }
+                }
+                return;
+            }
+            else if (P->size == 2)
+            {
+                if (index < 2)
+                {
+                    Q->keys[0] = P->keys[0];
+                    Q->values[0] = P->values[0];
+                    P->keys[0] = P->keys[1];
+                    P->values[0] = P->values[1];
+                    P->size = 1;
+                    merge(P->childs[0], P->childs[1]);
+                    P->childs[1] = P->childs[2];
+                    P->childs.pop_back();
+                }
+                else
+                {
+                    B = P->childs[1];
+                    B->keys[1] = P->keys[1];
+                    B->values[1] = P->values[1];
+                    delete Q;
+                    P->childs.pop_back();
+                }
+                return;
+            }
+            else
+            {
+                Q->keys[0] = P->keys[0];
+                Q->values[0] = P->values[0];
+                merge(P->childs[0], P->childs[1]);
+                Q = P;
+            }
+        }
+
+        root = Q->childs[0];
+        deepness--;
+        delete Q;
+    }
+
+    void merge(Node* f, Node* s)
+    {
+        f->keys[1] = s->keys[0];
+        f->values[1] = s->values[0];
+        f->size = 2;
+
+        if (f->childs.size())
+        {
+            f->childs[1] = s->childs[0];
+            if (s->size == 2)
+            {
+                s->childs[0] = s->childs[1];
+                s->childs[1] = s->childs[2];
+                s->childs.pop_back();
+            }
+            else
+            {
+                f->childs.push_back(s->childs[1]);
+                delete s;
+            }
+        }
+        else
+            delete s;
+    }
+
+    void split(Node* P, Node* Q, TKey& key, TValue& value)
+    {
+        Node* tmp = nullptr;
+        TKey tkey;
+        TValue tvalue;
+        int i = 0, a_1 = comp->compare(key, Q->keys[0]), a_2 = comp->compare(key, Q->keys[1]);
+        if (!a_1 || !a_2)
+            throw std::exception("Такой элемент уже существует!");
+        if (a_1 == -1)
+        {
+            tmp = newNode(Q->keys[1], Q->values[1]);
+            tkey = Q->keys[0];
+            tvalue = Q->values[0];
+            Q->keys[0] = key;
+            Q->values[0] = value;
+            Q->size = 1;
+        }
+        else
+        {
+            Q->size = 1;
+            if (a_2 == -1)
+            {
+                tmp = newNode(Q->keys[1], Q->values[1]);
+                tkey = key;
+                tvalue = value;
+            }
+            else
+            {
+                tmp = newNode(key, value);
+                tkey = Q->keys[1];
+                tvalue = Q->values[1];
+            }
+        }
+        if (Q->childs.size() != 0)
+        {
+            tmp->childs.push_back(Q->childs[2]);
+            tmp->childs.push_back(Q->childs[3]);
+            Q->childs.erase(Q->childs.begin() + 2, Q->childs.end());
+        }
+        if (P == nullptr)
+        {
+            P = newNode(tkey, tvalue);
+            P->childs.push_back(Q);
+            P->childs.push_back(tmp);
+            root = P;
+            deepness++;
+        }
+        else
+        {
+            if (P->childs[0] == Q)
+                i = 0;
+            else if (P->childs[1] == Q)
+                i = 1;
+            else
+                i = 2;
+            P->childs.insert(P->childs.begin() + i + 1, tmp);
+        }
+        key = tkey;
+        value = tvalue;
+    }
+
+    Node* newNode(const TKey& key, const TValue& value)
+    {
+        Node* nd = new Node;
+        nd->keys[0] = key;
+        nd->values[0] = value;
+        return nd;
+    }
+
+    void _clean(Node* nd)
+    {
+        for (int i = 0; i < nd->childs.size(); i++)
+            _clean(nd->childs[i]);
+        delete nd;
+    }
+};
+
 #endif

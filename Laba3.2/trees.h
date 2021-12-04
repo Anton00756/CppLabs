@@ -56,8 +56,8 @@ private:
         int _insert(const TKey& key, const TValue& value) override
         {
             stack<typename BST<TKey, TValue>::Node*> stack;
-            AVL_Node* P, *T;
-            
+            AVL_Node* P, * T;
+
             if (obj->root == nullptr)
             {
                 obj->root = new AVL_Node;
@@ -124,12 +124,12 @@ private:
 
     protected:
         AVL<TKey, TValue>* obj;
-        
+
         int _remove(const TKey& key) override
         {
-            AVL_Node* tmp = dynamic_cast<AVL_Node*>(obj->root), *tmp_2 = tmp, *tmp_3 = nullptr;
+            AVL_Node* tmp = dynamic_cast<AVL_Node*>(obj->root), * tmp_2 = tmp, * tmp_3 = nullptr;
             TKey deleted_key = key;
-            AVL_Node *S = tmp, *P = tmp, *T = tmp;
+            AVL_Node* S = tmp, * P = tmp, * T = tmp;
             stack<typename BST<TKey, TValue>::Node*> stack;
 
             int cur_bf = 0;
@@ -201,7 +201,7 @@ private:
 
     protected:
         AVL<TKey, TValue>* obj;
-        
+
         TValue& _find(const TKey& key) override
         {
             AVL_Node* tmp = dynamic_cast<AVL_Node*>(obj->root);
@@ -227,7 +227,7 @@ private:
 
     AVL_Node* balance(AVL_Node* S, bool* breaker = nullptr)
     {
-        AVL_Node* R = nullptr, *P = nullptr;
+        AVL_Node* R = nullptr, * P = nullptr;
         int a;
 
         if (S->level == -2)
@@ -236,7 +236,7 @@ private:
             a = 1;
         else
             return S;
-        
+
         R = dynamic_cast<AVL_Node*>(this->get(a, S));
         if ((breaker != nullptr) && (R->level == 0))
             *breaker = true;
@@ -372,7 +372,7 @@ private:
 
         int balance(stack<typename BST<TKey, TValue>::Node*>& stack)
         {
-            RB_Node* Q = dynamic_cast<RB_Node*>(stack.top()), *P = nullptr, *G = nullptr, *U = nullptr;
+            RB_Node* Q = dynamic_cast<RB_Node*>(stack.top()), * P = nullptr, * G = nullptr, * U = nullptr;
             int a_1, a_2;
             stack.pop();
             while (!stack.empty())
@@ -434,7 +434,7 @@ private:
                 else
                     U->left = P;
             }
-            else if(P->col == B)
+            else if (P->col == B)
                 obj->root = P;
             else
                 P->col = B;
@@ -461,8 +461,8 @@ private:
         int _remove(const TKey& key) override
         {
             stack<typename BST<TKey, TValue>::Node*> stack;
-            RB_Node* tmp = dynamic_cast<RB_Node*>(obj->root), *tmp_2 = tmp;
-            
+            RB_Node* tmp = dynamic_cast<RB_Node*>(obj->root), * tmp_2 = tmp;
+
             if ((tmp == nullptr) || obj->down(stack, key))
                 throw typename BST<TKey, TValue>::Remove_Err();
 
@@ -475,7 +475,7 @@ private:
             stack.push(tmp);
 
             this->deleting(stack, tmp, tmp_2);
-            COLOR del_clr = dynamic_cast<RB_Node*>(stack.top())->col;    
+            COLOR del_clr = dynamic_cast<RB_Node*>(stack.top())->col;
             delete stack.top();
             stack.pop();
 
@@ -495,7 +495,7 @@ private:
             if (del_clr == R)
                 return 0;
 
-            RB_Node* P = dynamic_cast<RB_Node*>(stack.top()), *Q = nullptr, *E = nullptr, *D = nullptr, *C = nullptr, *G = nullptr;
+            RB_Node* P = dynamic_cast<RB_Node*>(stack.top()), * Q = nullptr, * E = nullptr, * D = nullptr, * C = nullptr, * G = nullptr;
             int a;
 
             if ((P->right != nullptr) && (P->left != nullptr))
@@ -580,7 +580,7 @@ private:
         {
             this->obj = obj;
         }
-        
+
         TValue& operator()(const TKey& key)
         {
             return _find(key);
@@ -634,6 +634,12 @@ private:
         this->inserter_cl = new Inserting(this);
         this->remover_cl = new Removing(this);
         this->finder_cl = new Finding(this);
+    }
+
+    Splay(const Splay<TKey, TValue>& tree) : BST<TKey, TValue>(tree)
+    {
+        copyConstructor();
+        this->copy(tree.root, this->root);
     }
 
     class Inserting : public BST<TKey, TValue>::Inserting
@@ -707,7 +713,7 @@ private:
         {
             this->obj = obj;
         }
-        
+
         int operator()(const TKey& key) override
         {
             return _remove(key);
@@ -816,7 +822,7 @@ private:
 
     void splay_f(stack<typename BST<TKey, TValue>::Node**>& stack)
     {
-        typename BST<TKey, TValue>::Node* tmp, **tmp_2, **tmp_3, *cur_node = *(stack.top());
+        typename BST<TKey, TValue>::Node* tmp, ** tmp_2, ** tmp_3, * cur_node = *(stack.top());
         stack.pop();
         ZZ a_1, a_2;
 
@@ -961,7 +967,7 @@ public:
                 else
                     throw std::exception("Такого ключа не существует!");
             }
-            else if(comp->compare(key, cur_node->keys[cur_node->size - 1]) == 1)
+            else if (comp->compare(key, cur_node->keys[cur_node->size - 1]) == 1)
             {
                 if (cur_node->childs.size() == cur_node->size + 1)
                     cur_node = cur_node->childs[cur_node->size];
@@ -1037,7 +1043,7 @@ private:
     {
         int a_1, a_2;
         TKey tkey = key;
-        Node* del_elem = root, *del_node = nullptr;
+        Node* del_elem = root, * del_node = nullptr;
         stack<Node*> stack;
 
         while (true)
@@ -1299,6 +1305,13 @@ private:
             _clean(nd->childs[i]);
         delete nd;
     }
+};
+
+template<class TKey, class TValue>
+class Relation
+{
+    Relation() {}
+    ~Relation() {}
 };
 
 #endif

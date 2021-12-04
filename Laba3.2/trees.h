@@ -838,14 +838,12 @@ private:
 
             if (a_1 == a_2)
             {
-
                 this->get(a_2, *tmp_2) = this->get(-a_2, tmp);
                 this->get(-a_2, tmp) = *tmp_2;
                 *tmp_2 = tmp;
 
                 this->get(a_1, tmp) = this->get(-a_1, cur_node);
                 this->get(-a_1, cur_node) = tmp;
-                *tmp_2 = cur_node;
             }
             else
             {
@@ -855,8 +853,8 @@ private:
 
                 this->get(a_2, *tmp_2) = this->get(-a_2, cur_node);
                 this->get(-a_2, cur_node) = *tmp_2;
-                *tmp_2 = cur_node;
             }
+            *tmp_2 = cur_node;
         }
 
         if (!stack.empty())
@@ -886,10 +884,8 @@ private:
         int find(const TKey& key)
         {
             for (int i = 0; i < size; i++)
-            {
                 if (key == keys[i])
                     return i;
-            }
             return -1;
         }
 
@@ -951,7 +947,33 @@ public:
 
     TValue& find(const TKey& key) override
     {
-        return root->values[0];
+        if (root == nullptr)
+            throw std::exception("Дерево пустое!");
+
+        Node* cur_node = root;
+        int i;
+        while (cur_node->find(key) == -1)
+        {
+            if (comp->compare(key, cur_node->keys[0]) != 1)
+            {
+                if (cur_node->childs.size())
+                    cur_node = cur_node->childs[0];
+                else
+                    throw std::exception("Такого ключа не существует!");
+            }
+            else if(comp->compare(key, cur_node->keys[cur_node->size - 1]) == 1)
+            {
+                if (cur_node->childs.size() == cur_node->size + 1)
+                    cur_node = cur_node->childs[cur_node->size];
+                else
+                    throw std::exception("Такого ключа не существует!");
+            }
+            else if (cur_node->childs.size() >= 2)
+                cur_node = cur_node->childs[1];
+            else
+                throw std::exception("Такого ключа не существует!");
+        }
+        return cur_node->values[cur_node->find(key)];
     }
 
 private:
@@ -970,35 +992,20 @@ private:
         stack<Node*> stack;
         for (int i = 0; i < deepness - 1; i++)
         {
-            a_1 = comp->compare(key, tmp->keys[0]);
-            if (a_1 == -1)
+            if (comp->compare(key, tmp->keys[0]) == -1)
             {
                 stack.push(tmp);
                 tmp = tmp->childs[0];
             }
-            else if (a_1 == 1)
+            else if (comp->compare(key, tmp->keys[tmp->size - 1]) == 1)
             {
-                if (tmp->size == 2)
-                {
-                    a_2 = comp->compare(key, tmp->keys[1]);
-                    if (a_2 == -1)
-                    {
-                        stack.push(tmp);
-                        tmp = tmp->childs[1];
-                    }
-                    else if (a_2 == 1)
-                    {
-                        stack.push(tmp);
-                        tmp = tmp->childs[2];
-                    }
-                    else
-                        throw std::exception("Такой элемент уже существует!");
-                }
-                else
-                {
-                    stack.push(tmp);
-                    tmp = tmp->childs[1];
-                }
+                stack.push(tmp);
+                tmp = tmp->childs[tmp->size];
+            }
+            else if ((tmp->childs.size() >= 2) && !comp->compare(key, tmp->keys[0]) && !comp->compare(key, tmp->keys[tmp->size - 1]))
+            {
+                stack.push(tmp);
+                tmp = tmp->childs[1];
             }
             else
                 throw std::exception("Такой элемент уже существует!");
@@ -1009,13 +1016,13 @@ private:
             if (tmp->size == 1)
             {
                 if (tmp->insert(comp, tkey, tvalue))
-                    throw std::exception("such element already exist");
+                    throw std::exception("Такой элемент уже существует!");
                 return;
             }
-            else if(stack.empty())
+            else if (stack.empty())
             {
                 split(nullptr, tmp, tkey, tvalue);
-                break;
+                return;
             }
             else
             {
@@ -1036,33 +1043,25 @@ private:
         while (true)
         {
             stack.push(del_elem);
-            a_1 = comp->compare(key, del_elem->keys[0]);
-            if (a_1 == -1)
+
+            if (!(a_1 = comp->compare(key, del_elem->keys[0])) || !(a_2 = comp->compare(key, del_elem->keys[del_elem->size - 1])))
+                break;
+            else if (a_1 == -1)
             {
                 if (!del_elem->childs.size())
                     throw std::exception("Такого элемента не существует!");
                 del_elem = del_elem->childs[0];
             }
-            else if (a_1 == 1)
+            else if (comp->compare(key, del_elem->keys[del_elem->size - 1]) == 1)
             {
-                if (del_elem->size == 2)
-                {
-                    a_2 = comp->compare(key, del_elem->keys[1]);
-
-                    if (abs(a_2) == 1)
-                    {
-                        if (!del_elem->childs.size())
-                            throw std::exception("Такого элемента не существует!");
-                        del_elem = del_elem->childs[(a_2 == -1) ? 1 : 2];
-                    }
-                    else
-                        break;
-                }
-                else
-                    del_elem = del_elem->childs[1];
+                if (!del_elem->childs.size())
+                    throw std::exception("Такого элемента не существует!");
+                del_elem = del_elem->childs[del_elem->size];
             }
+            else if (del_elem->childs.size() >= 2)
+                del_elem = del_elem->childs[1];
             else
-                break;
+                throw std::exception("Такого элемента не существует!");
         }
 
         del_node = del_elem;
@@ -1089,7 +1088,7 @@ private:
     void balance(stack<Node*>& stack, TKey& key)
     {
         Node* Q = stack.top(), * P, * B;
-        int index, ind = 10;
+        int index, ind;
 
         stack.pop();
         index = Q->find(key);
@@ -1113,7 +1112,7 @@ private:
 
         while (!stack.empty())
         {
-            ind = 10;
+            ind = 5;
             P = stack.top();
             stack.pop();
             for (int i = 0; i <= P->size; i++)

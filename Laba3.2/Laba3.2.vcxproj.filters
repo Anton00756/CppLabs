@@ -26,5 +26,8 @@
     <ClInclude Include="trees.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="relation.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

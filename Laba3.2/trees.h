@@ -957,7 +957,6 @@ public:
             throw std::exception("Дерево пустое!");
 
         Node* cur_node = root;
-        int i;
         while (cur_node->find(key) == -1)
         {
             if (comp->compare(key, cur_node->keys[0]) != 1)
@@ -985,7 +984,6 @@ public:
 private:
     void _insert(const TKey& key, const TValue& value)
     {
-        int a_1, a_2;
         if (root == nullptr)
         {
             root = newNode(key, value);
@@ -1305,13 +1303,6 @@ private:
             _clean(nd->childs[i]);
         delete nd;
     }
-};
-
-template<class TKey, class TValue>
-class Relation
-{
-    Relation() {}
-    ~Relation() {}
 };
 
 #endif

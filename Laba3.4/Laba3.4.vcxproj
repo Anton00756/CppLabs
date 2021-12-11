@@ -140,6 +140,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Laba3.4.cpp" />
+    <ClCompile Include="LongCount.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LongCount.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

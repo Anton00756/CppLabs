@@ -1,20 +1,63 @@
-﻿// Laba3.3.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include <iostream>
+﻿#include "heaps.h"
+#include <chrono>
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	system("chcp 1251>nul");
+	
+	cout << "\tЛабораторная работа №3.3\n\tМ8О-211Б-20: Комиссаров Антон\n\n";
+
+	IntComparer cmp;
+	try
+	{
+		Heap<int, int>* heap = new BinHeap<int, int>(&cmp);
+		cout << "\t\tБинарная пирамида:" << endl;
+		auto begin = chrono::steady_clock::now();
+		for (int i = 1; i <= 10000; i++)
+			heap->insert(i, 2 * i);
+		cout << "Вставка: " << (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - begin)).count() << endl;
+		begin = chrono::steady_clock::now();
+		for (int i = 1; i <= 10000; i++)
+			heap->del_min();
+		cout << "Удаление минимального: " << (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - begin)).count() << endl << endl;
+
+		delete heap;
+		heap = new BinomialHeap<int, int>(&cmp);
+		cout << "\t\tБиномиальная пирамида:" << endl;
+		begin = chrono::steady_clock::now();
+		for (int i = 1; i <= 10000; i++)
+			heap->insert(i, 2 * i);
+		cout << "Вставка: " << (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - begin)).count() << endl;
+		begin = chrono::steady_clock::now();
+		for (int i = 1; i <= 10000; i++)
+			heap->del_min();
+		cout << "Удаление минимального: " << (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - begin)).count() << endl << endl;
+
+		delete heap;
+		heap = new FibonacciHeap<int, int>(&cmp);
+		cout << "\t\tФибоначчиева пирамида:" << endl;
+		begin = chrono::steady_clock::now();
+		for (int i = 1; i <= 10000; i++)
+			heap->insert(i, 2 * i);
+		cout << "Вставка: " << (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - begin)).count() << endl;
+		begin = chrono::steady_clock::now();
+		for (int i = 1; i <= 10000; i++)
+			heap->del_min();
+		cout << "Удаление минимального: " << (chrono::duration_cast<chrono::milliseconds>(chrono::steady_clock::now() - begin)).count() << endl;
+		delete heap;
+	}
+	catch (HeapInsertExc error)
+	{
+		cout << "Вставка: " << error.text() << endl;
+	}
+	catch (HeapGetMinExc error)
+	{
+		cout << "Получение: " << error.text() << endl;
+	}
+	catch (HeapDelMinExc error)
+	{
+		cout << "Удаление: " << error.text() << endl;
+	}
+
+	system("pause>nul");
 }
-
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.

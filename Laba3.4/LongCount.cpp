@@ -66,16 +66,30 @@ LongCount::~LongCount()
     value.clear();
 }
 
+string convert_to_str(const vector<unsigned long>& value)
+{
+    string in1 = to_string(value[value.size() - 1]), in2 = to_string(MAX_VALUE);
+    for (int index = value.size() - 1; index > 0; index--)
+        in1 = sum(production(in1, in2), to_string(value[index - 1]));
+    return in1;
+}
+
 ostream& operator<<(ostream& out, const LongCount& mycount)
 {
-    string in1 = to_string(mycount.value[mycount.value.size() - 1]), in2 = to_string(MAX_VALUE);
-    for (int index = mycount.value.size() - 1; index > 0; index--)
-        in1 = sum(production(in1, in2), to_string(mycount.value[index - 1]));
+    string in = convert_to_str(mycount.value);
     if (mycount.sign)
         out << "-";
     if (mycount.point)
-        in1.insert(in1.end() - mycount.point * 6, ',');
-    out << in1;
+    {
+        if (mycount.point * 6 <= in.length())
+            in.insert(in.end() - mycount.point * 6, ',');
+        else
+        {
+            in.insert(in.begin(), ',');
+            in.insert(in.begin(), '0');
+        }
+    }
+    out << in;
     return out;
 }
 
@@ -350,10 +364,14 @@ bool LongCount::operator< (const LongCount& b) const
 
 LongCount LongCount::operator% (const LongCount& b) const
 {
+    if (*this < b)
+        return *this;
+    if (*this == b)
+        return LongCount();
     LongCount result;
     for (int i = value.size() - 1; i >= 0; i--)
     {
-        result.shift(1);
+        result = result.shift(1);
         result.value[0] = value[i];
         while (!(result < b))
             result = result - b;
@@ -494,84 +512,6 @@ LongCount LongCount::Fourier_prod(const LongCount& b) const
     return res;
 }
 
-/*
-void LongCount::Fourier_transform(vector<complex<double>>& a, bool invert) const
-{
-    int n = a.size();
-    if (n == 1)
-        return;
-
-    vector<complex<double>> a0(n / 2), a1(n / 2);
-
-    for (int i = 0, j = 0; i < n; i += 2, j++)
-    {
-        a0[j] = a[i];
-        a1[j] = a[i + 1];
-    }
-
-    Fourier_transform(a0, invert);
-    Fourier_transform(a1, invert);
-
-    double ang = 2 * PI / n * (invert ? -1 : 1);
-    complex<double> w(1), wn(cos(ang), sin(ang));
-    for (int i = 0; i < n / 2; ++i)
-    {
-        a[i] = a0[i] + w * a1[i];
-        a[i + n / 2] = a0[i] - w * a1[i];
-
-        if (invert)
-        {
-            a[i] /= 2;
-            a[i + n / 2] /= 2;
-        }
-
-        w *= wn;
-    }
-}
-
-LongCount LongCount::Fourier_prod(const LongCount& b) const
-{
-    LongCount res;
-    vector<complex<double>> fa(this->value.begin(), this->value.end()), fb(b.value.begin(), b.value.end());
-    unsigned long n = pow(2, floor(log2(max(value.size(), b.value.size()))) + 1);
-
-    fa.resize(n);
-    fb.resize(n);
-
-    Fourier_transform(fa, false);
-    Fourier_transform(fb, false);
-
-    for (int i = 0; i < n; i++)
-        fa[i] *= fb[i];
-    Fourier_transform(fa, true);
-    unsigned long long buf;
-    res.value.resize(n);
-    for (int i = 0; i < n; i++)
-    {
-        buf = unsigned long long(abs(fa[i].real()) + 0.5) + res.value[i];
-        for (int j = i; j < res.value.size(); j++)
-        {
-            if (buf < MAX_VALUE)
-            {
-                res.value[j] = buf;
-                break;
-            }
-            else
-            {
-                res.value[j] = buf % MAX_VALUE;
-                buf /= MAX_VALUE;
-                if (j + 1 == res.value.size())
-                {
-                    res.value.push_back(buf);
-                    break;
-                }
-            }
-        }
-    }
-    return res;
-}
-*/
-
 LongCount LongCount::degree(int grade) const
 {
     if (grade < 0)
@@ -580,8 +520,8 @@ LongCount LongCount::degree(int grade) const
     while (grade)
     {
         if (grade % 2)
-            result = result.karatsuba(buffer);
-        buffer = buffer.karatsuba(buffer);
+            result = result.Fourier_prod(buffer);
+        buffer = buffer.Fourier_prod(buffer);
         grade /= 2;
     }
     return result;
@@ -626,20 +566,19 @@ LongCount LongCount::operator/ (const LongCount& b) const
     if (value.size() < b.value.size())
         return LongCount();
 
-    int iter = 0;
+    int iter = 0, n = b.value.size() + 1;;
     if (value.size() - b.value.size() > 1)
         iter = ceil(log2(value.size() - b.value.size()));
     iter += 1;
-
-    unsigned long long tmp = pow(MAX_VALUE, 3), tmp2 = MAX_VALUE * *(b.value.end() - 1), n = b.value.size() + 1;
+    unsigned long long tmp = pow(MAX_VALUE, 3), tmp2 = MAX_VALUE * unsigned long long(*(b.value.end() - 1));
     if (b.value.size() > 1)
         tmp2 += *(b.value.end() - 2);
     tmp /= tmp2;
-    LongCount answer(to_string(tmp)), buffer = b;
+    LongCount answer(to_string(tmp));
 
     for (int i = 0; i != iter; i++)
     {
-        answer = ((LongCount("2").shift(n)) - (buffer * answer)) * answer;
+        answer = ((LongCount("2").shift(n)) - (b * answer)) * answer;
         n *= 2;
         unsigned int best_n = std::pow(2, i) + b.value.size() + 1;
         answer.point += n - best_n;
@@ -649,7 +588,7 @@ LongCount LongCount::operator/ (const LongCount& b) const
     answer = answer * *this;
     answer.point += n;
 
-    if (((answer + LongCount("1")) * buffer < *this) || ((answer + LongCount("1")) * buffer == *this))
+    if (((answer + LongCount("1")) * b < *this) || ((answer + LongCount("1")) * b == *this))
         answer = answer + LongCount("1");
     return answer;
 }
@@ -668,10 +607,17 @@ LongCount gcd(const LongCount& a, const LongCount& b)
     return first;
 }
 
-LongCount& LongCount::int_part()
+LongCount LongCount::int_part() const
 {
-    value = vector <unsigned long>(value.begin() + point, value.end());
-    return *this;
+    if ((value.size() == 1) && !value[0])
+        return LongCount();
+    LongCount result = *this;
+    result = result + LongCount("1").shift(point - 1);
+    result.value = vector <unsigned long>(result.value.begin() + point, result.value.end());
+    if (!result.value.size())
+        return LongCount();
+    result.point = 0;
+    return result;
 }
 
 LC_struct ext_gcd(const LongCount& a, const LongCount& b)
@@ -726,4 +672,162 @@ LongCount bin_gcd(const LongCount& a, const LongCount& b)
             second = second - first;
     }
     return second * coef;
+}
+
+bool LongCount::simple() const
+{
+    LongCount check("3");
+    while (!(*this < check.Fourier_prod(check)))
+        if (*this % check == LongCount())
+            return false;
+        else
+            check = check + LongCount("1");
+    return true;
+}
+
+int Legendre_symbol(const LongCount& a, const LongCount& b)
+{
+    if (a.point || a.sign || (a == LongCount()))
+        throw std::exception("Числитель не является целым числом!");
+    if (b.point || !(LongCount("2") < b) || b.sign)
+        throw std::exception("Знаменатель не является простым числом!");
+    if (b % LongCount("2") == LongCount())
+        throw std::exception("Знаменатель является чётным числом!");
+    if (!b.simple())
+        throw std::exception("Знаменатель не является простым числом!");
+    LongCount comp = a % b;
+    if (comp == LongCount())
+        return 0;
+    LongCount check = LongCount("1");
+    while (check < b)
+        if (check.Fourier_prod(check) % b == comp)
+            return 1;
+        else
+            check = check + LongCount("1");
+    return -1;
+}
+
+int Jacobi_symbol(const LongCount& a, const LongCount& b)
+{
+    if (a.point || a.sign || (a == LongCount()))
+        throw std::exception("Числитель не является целым числом!");
+    if (b.point || !(LongCount("1") < b))
+        throw std::exception("Знаменатель не больше единицы!");
+    if (b % LongCount("2") == LongCount())
+        throw std::exception("Знаменатель является чётным числом!");
+    if (b.simple())
+        return Legendre_symbol(a, b);
+    int result = 1;
+    LongCount multiplier = LongCount("3"), count = b;
+    while (!(multiplier == count))
+    {
+        if (multiplier.simple())
+            while (count % multiplier == LongCount())
+            {
+                result *= Legendre_symbol(a, multiplier);
+                if (!result)
+                    return 0;
+                count = (count / multiplier).int_part();
+            }
+        multiplier = multiplier + LongCount("2");
+    }
+    return result;
+}
+
+bool Fermat_test(const LongCount& count, int accuracy)
+{
+    if (count % LongCount("2") == LongCount())
+        return true;
+    if ((count.value.size() == 1) && (count.value[0] < accuracy + 2))
+        accuracy = count.value[0] - 2;
+    LongCount comparing_value("2");
+    int degree = stoi(convert_to_str(count.value)) - 1;
+    for (int i = 0; i < accuracy; i++)
+    {
+        if (!(gcd(comparing_value, count) == LongCount("1")))
+            return false;
+        if (!(comparing_value.mod_degree(degree, count) == LongCount("1")))
+            return false;
+        comparing_value = comparing_value + LongCount("1");
+    }
+    return true;
+}
+
+bool SoloveyStrassen_test(const LongCount& count, int accuracy)
+{
+    if (count < LongCount("3"))
+        throw std::exception("Число должно быть больше 2!");
+    if (count % LongCount("2") == LongCount())
+        return true;
+    if ((count.value.size() == 1) && (count.value[0] < accuracy + 2))
+        accuracy = count.value[0] - 2;
+    LongCount comparing_value("2");
+    int degree = stoi(convert_to_str(count.value)) - 1;
+    for (int i = 0; i < accuracy; i++)
+    {
+        if (LongCount("1") < gcd(comparing_value, count))
+            return false;
+        if (!(comparing_value.mod_degree(degree, count) == LongCount("1")))
+            return false;
+        comparing_value = comparing_value + LongCount("1");
+    }
+    return true;
+}
+
+double SoloveyStrassen_probability(int k)
+{
+    return (1 - pow(2, -k)) * 100;
+}
+
+bool MillerRabin_test(const LongCount& count, int accuracy)
+{
+    if (count < LongCount("4"))
+        throw std::exception("Число должно быть больше 3!");
+    if (count % LongCount("2") == LongCount())
+        return true;
+    LongCount t = count - LongCount("1");
+    int s = 0;
+    while (t % LongCount("2") == LongCount())
+    {
+        t = (t / LongCount("2")).int_part();
+        s += 1;
+    }
+    if ((count.value.size() == 1) && (count.value[0] < accuracy + 3))
+        accuracy = count.value[0] - 3;
+    LongCount comparing_value("2"), x;
+    bool out = false;
+    int degree = stoi(convert_to_str(count.value)) - 1;
+    for (int i = 0; i < accuracy; i++)
+    {
+        x = comparing_value.mod_degree(stoi(convert_to_str(t.value)), count);
+        if ((x == LongCount("1")) || (x == count - LongCount("1")))
+        {
+            comparing_value = comparing_value + LongCount("1");
+            continue;
+        }
+        for (int j = 0; j < s - 1; j++)
+        {
+            x = x.Fourier_prod(x) % count;
+            if (x == LongCount("1"))
+                return false;
+            if (x == count - LongCount("1"))
+            {
+                out = true;
+                break;
+            }
+        }
+        if (out)
+        {
+            comparing_value = comparing_value + LongCount("1");
+            out = false;
+            continue;
+        }
+        return false;
+    }
+    return true;
+}
+
+double MillerRabin_probability(int k)
+{
+    return (1 - pow(4, -k)) * 100;
 }

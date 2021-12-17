@@ -392,7 +392,6 @@ LongCount::LongCount(const LongCount::RandomCount& random)
 
 LongCount::RandomCount& LongCount::RandomCount::make(const int bits)
 {
-    sign = rand() % 2;
     count = "";
     for (int i = 0; i < bits; i++)
         count += (rand() % 2 + '0');
@@ -620,26 +619,21 @@ LongCount LongCount::int_part() const
     return result;
 }
 
-LC_struct ext_gcd(const LongCount& a, const LongCount& b)
+LC_struct ext_gcd(LongCount a, LongCount b)
 {
     LC_struct answer;
-    LongCount first = a, second = b, q, aa, bb("1"), buffer;
+    LongCount q, aa, bb("1"), buffer;
     answer.first_coef = LongCount("1");
     answer.second_coef = LongCount();
-    while ((second.value.size() != 1) || second.value[0])
+    while ((b.value.size() != 1) || b.value[0])
     {
-        LongCount mod_res = first % second;
-        if ((mod_res == LongCount()) && (first == second))
+        LongCount mod_res = a % b;
+        if ((mod_res == LongCount()) && (a == b))
             break;
-        if (mod_res == first)
-        {
-            answer.gcd = LongCount("1");
-            return answer;
-        }
-        q = (first / second).int_part();
-        buffer = first;
-        first = second;
-        second = buffer - second * q;
+        q = (a / b).int_part();
+        buffer = a;
+        a = b;
+        b = buffer - b * q;
         buffer = answer.first_coef;
         answer.first_coef = aa;
         aa = buffer - aa * q;
@@ -647,7 +641,7 @@ LC_struct ext_gcd(const LongCount& a, const LongCount& b)
         answer.second_coef = bb;
         bb = buffer - bb * q;
     }
-    answer.gcd = first;
+    answer.gcd = a;
     return answer;
 }
 

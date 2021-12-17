@@ -1,4 +1,4 @@
-﻿#include "LongCount.h"
+﻿#include "RSA.h"
 #include <chrono>
 
 int main()
@@ -39,7 +39,7 @@ int main()
 		cout << "ext_gcd(5, 2) = " << result.first_coef << " * f + " << result.second_coef << " * g = " << result.gcd << endl;
 		cout << "bin_gcd(616, 364) = " << bin_gcd(LongCount("616"), LongCount("364")) << endl;
 
-		cout << endl;
+		cout << endl << endl;
 		for (LongCount i = LongCount("1"); i < LongCount("31"); i = i + LongCount("1"))
 			cout << "Символ Лежандра для (" << i << ", 29): " << Legendre_symbol(i, LongCount("29")) << endl;
 		cout << "Символ Якоби для (2, 15): " << Jacobi_symbol(LongCount("2"), LongCount("15")) << endl << endl;
@@ -53,6 +53,13 @@ int main()
 			cout << "Тест Миллера-Рабина для числа 97: простое с вероятностью " << MillerRabin_probability(5) << "%." << endl;
 		else
 			cout << "Тест Миллера-Рабина для числа 97: непростое." << endl;
+
+		cout << endl << endl;
+		RSA_algorithm alg;
+		alg.generate_keys(7, alg.Fermat, 0.99999);
+		cout << "N: " << alg.n << "\t" << "Открытая экспонента: " << alg.open_key << endl;
+		LongCount message("29"), encr = alg.encrypting(message);
+		cout << "Ввод: " << message << ". Шифровка: " << encr << ". Дешифровка: " << alg.decoding(encr) << endl;
 	}
 	catch (std::exception error)
 	{

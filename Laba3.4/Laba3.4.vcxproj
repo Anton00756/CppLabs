@@ -141,9 +141,11 @@
   <ItemGroup>
     <ClCompile Include="Laba3.4.cpp" />
     <ClCompile Include="LongCount.cpp" />
+    <ClCompile Include="RSA.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LongCount.h" />
+    <ClInclude Include="RSA.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

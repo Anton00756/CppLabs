@@ -1,7 +1,6 @@
 #ifndef HEAPS
 #define HEAPS
 #include "comp.h"
-#include<vector>
 
 class HeapExc : public std::exception
 {

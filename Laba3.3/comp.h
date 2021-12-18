@@ -1,6 +1,7 @@
 #ifndef COMP
 #define COMP
 #include <iostream>
+#include <vector>
 using namespace std;
 
 template <typename T>

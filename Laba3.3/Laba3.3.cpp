@@ -1,4 +1,5 @@
 ﻿#include "heaps.h"
+#include "logger.h"
 #include <chrono>
 
 int main()
@@ -7,9 +8,9 @@ int main()
 	
 	cout << "\tЛабораторная работа №3.3\n\tМ8О-211Б-20: Комиссаров Антон\n\n";
 
-	IntComparer cmp;
-	try
+	/*try
 	{
+		IntComparer cmp;
 		Heap<int, int>* heap = new BinHeap<int, int>(&cmp);
 		cout << "\t\tБинарная пирамида:" << endl;
 		auto begin = chrono::steady_clock::now();
@@ -57,7 +58,23 @@ int main()
 	catch (HeapDelMinExc error)
 	{
 		cout << "Удаление: " << error.text() << endl;
-	}
+	}*/
+
+	char buffer[80];
+	time_t seconds;
+	tm timeinfo;
+
+	Logger log(Logger::Builder().add_stream(Trace, "stdout").build("input.json"));
+	
+	seconds = time(NULL);
+	localtime_s(&timeinfo, &seconds);
+	strftime(buffer, 80, "%A, %d %B %Y, %H:%M:%S", &timeinfo);
+	log.write(Trace, "check_1", string(buffer));
+
+	seconds = time(NULL);
+	localtime_s(&timeinfo, &seconds);
+	strftime(buffer, 80, "%A, %d %B %Y, %H:%M:%S", &timeinfo);
+	log.write(Fatal, "check_2", string(buffer));
 
 	system("pause>nul");
 }

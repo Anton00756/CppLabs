@@ -140,10 +140,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Laba3.3.cpp" />
+    <ClCompile Include="logger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="comp.h" />
     <ClInclude Include="heaps.h" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="logger.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="one.txt" />
+    <Text Include="two.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="input.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

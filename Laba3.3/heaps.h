@@ -131,7 +131,7 @@ private:
 
 	void heaper()
 	{
-		for (int i = arr.size() / 2 - 1; i != 0; i--)
+		for (int i = arr.size() / 2 - 1; i >= 0; i--)
 			down(i);
 	}
 
@@ -276,7 +276,7 @@ public:
 	{
 		TValue del_val;
 		BinomialHeap heap(comp);
-		Node* tmp = root, *tmp_2, *tmp_3 = nullptr, *min_node = root, *pre_min = nullptr;
+		Node* tmp = root, *tmp_2, *tmp_3 = nullptr, *min_node = tmp, *pre_min = nullptr;
 		if (root == nullptr)
 			throw HeapDelMinExc();
 		while (tmp->sibling != nullptr)
@@ -295,15 +295,14 @@ public:
 		else
 			root = min_node->sibling;
 		tmp = min_node->child;
-		if (tmp != nullptr)
-			while (tmp != nullptr) // разворачиваем список деревьев
-			{
-				tmp->parent = nullptr;
-				tmp_2 = tmp->sibling;
-				tmp->sibling = tmp_3;
-				tmp_3 = tmp;
-				tmp = tmp_2;
-			}
+		while (tmp != nullptr)
+		{
+			tmp->parent = nullptr;
+			tmp_2 = tmp->sibling;
+			tmp->sibling = tmp_3;
+			tmp_3 = tmp;
+			tmp = tmp_2;
+		}
 		heap.root = tmp_3;
 		delete min_node;
 		merge(&heap);

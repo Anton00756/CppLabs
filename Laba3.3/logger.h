@@ -29,7 +29,7 @@ public:
 private:
 	ofstream out_stream;
 	access access_mode;
-	Stream* next = nullptr;;
+	shared_ptr<Stream> next = nullptr;;
 };
 
 class Logger
@@ -40,19 +40,19 @@ public:
 	public:
 		Builder() {}
 		Builder& add_stream(access access_mode, const string& conf_file);
-		Stream* build();
-		Stream* build(const string& config_file);
+		Logger* build();
+		Logger* build(const string& config_file);
 
 	private:
 		bool check_config(const nlohmann::json& file);
-		vector <Stream*> streams;
+		vector <shared_ptr<Stream>> streams;
 	};
 
-	void write(access access_mode, const string& text, const string& time);
-	~Logger();
-	Logger(Stream* first_stream) { streams = first_stream; }
+	void write(access access_mode, const string& text);
+	void write(access access_mode, const string& text, int time);
 
 private:
-	Stream* streams = nullptr;
+	Logger(shared_ptr<Stream> first_stream) { streams = first_stream; }
+	shared_ptr<Stream> streams = nullptr;
 };
 #endif

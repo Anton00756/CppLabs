@@ -3,21 +3,21 @@
 
 Logger::Builder& Logger::Builder::add_stream(access access_mode, const string& conf_file)
 {
-    Stream* new_stream = new Stream(access_mode, conf_file);
+    shared_ptr<Stream> new_stream(new Stream(access_mode, conf_file));
     if (streams.size() != 0)
         streams[streams.size() - 1]->next = new_stream;
     streams.push_back(new_stream);
     return *this;
 }
 
-Stream* Logger::Builder::build()
+Logger* Logger::Builder::build()
 {
     if (!streams.size())
-        return nullptr;
-    return streams[0];
+        return new Logger(nullptr);
+    return new Logger(streams[0]);
 }
 
-Stream* Logger::Builder::build(const string& config_file)
+Logger* Logger::Builder::build(const string& config_file)
 {
     ifstream f(config_file, ifstream::binary);
     if (!f.is_open())
@@ -33,7 +33,7 @@ Stream* Logger::Builder::build(const string& config_file)
     string file_name = js_streams[0].at("filename").get<string>();
     access access_mode = js.at("access_value").at(js_streams[0].at("access").get<string>());
 
-    Stream* new_stream = new Stream(access_mode, file_name);
+    shared_ptr<Stream> new_stream(new Stream(access_mode, file_name));
     if (streams.size() != 0)
         streams[streams.size() - 1]->next = new_stream;
     streams.push_back(new_stream);
@@ -42,11 +42,11 @@ Stream* Logger::Builder::build(const string& config_file)
     {
         file_name = js_streams[i].at("filename").get<string>();
         access_mode = js.at("access_value").at(js_streams[i].at("access").get<string>());
-        new_stream = new Stream(access_mode, file_name);
+        new_stream = shared_ptr<Stream>(new Stream(access_mode, file_name));
         streams[streams.size() - 1]->next = new_stream;
         streams.push_back(new_stream);
     }
-    return streams[0];
+    return new Logger(streams[0]);
 }
 
 bool Logger::Builder::check_config(const nlohmann::json& j)
@@ -79,20 +79,9 @@ bool Logger::Builder::check_config(const nlohmann::json& j)
     return true;
 }
 
-Logger::~Logger()
+void Logger::write(access access_mode, const string& text)
 {
-    Stream* strs = streams, * tmp = nullptr;
-    while (strs != nullptr)
-    {
-        tmp = strs;
-        strs = strs->next;
-        delete tmp;
-    }
-}
-
-void Logger::write(access access_mode, const string& text, const string& time)
-{
-	Stream* tmp = streams;
+    shared_ptr<Stream> tmp = streams;
 	string access;
 	switch (access_mode)
 	{
@@ -118,6 +107,14 @@ void Logger::write(access access_mode, const string& text, const string& time)
 		throw std::exception("Ошибка доступа!");
 	}
 
+    char buffer[80];
+    time_t seconds;
+    tm timeinfo;
+    seconds = time(NULL);
+    localtime_s(&timeinfo, &seconds);
+    strftime(buffer, 80, "%A, %d %B %Y, %H:%M:%S", &timeinfo);
+    string time(buffer);
+
 	while (tmp != nullptr)
 	{
         if (access_mode >= tmp->access_mode)
@@ -129,4 +126,47 @@ void Logger::write(access access_mode, const string& text, const string& time)
         }
 		tmp = tmp->next;
 	}
+}
+
+void Logger::write(access access_mode, const string& text, int time_value)
+{
+    shared_ptr<Stream> tmp = streams;
+    string access;
+    switch (access_mode)
+    {
+    case Trace:
+        access = "Trace";
+        break;
+    case Debug:
+        access = "Debug";
+        break;
+    case Information:
+        access = "Information";
+        break;
+    case Warning:
+        access = "Warning";
+        break;
+    case Error:
+        access = "Error";
+        break;
+    case Fatal:
+        access = "Fatal";
+        break;
+    default:
+        throw std::exception("Ошибка доступа!");
+    }
+
+    string time = ((time_value / 60 < 10) ? ("0" + to_string(time_value / 60)) : to_string(time_value / 60)) + ":" + ((time_value % 60 < 10) ? ("0" + to_string(time_value % 60)) : to_string(time_value % 60));
+
+    while (tmp != nullptr)
+    {
+        if (access_mode >= tmp->access_mode)
+        {
+            if (tmp->out_stream.is_open())
+                tmp->out_stream << "[" << time << "][" << access << "]: " << text << endl;
+            else
+                cout << "[" << time << "][" << access << "]: " << text << endl;
+        }
+        tmp = tmp->next;
+    }
 }

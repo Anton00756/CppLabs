@@ -1,6 +1,7 @@
 ﻿#include "heaps.h"
 #include "logger.h"
 #include <chrono>
+#include "bank.h"
 
 int main()
 {
@@ -58,23 +59,23 @@ int main()
 	catch (HeapDelMinExc error)
 	{
 		cout << "Удаление: " << error.text() << endl;
-	}*/
+	}
 
-	char buffer[80];
-	time_t seconds;
-	tm timeinfo;
 
-	Logger log(Logger::Builder().add_stream(Trace, "stdout").build("input.json"));
-	
-	seconds = time(NULL);
-	localtime_s(&timeinfo, &seconds);
-	strftime(buffer, 80, "%A, %d %B %Y, %H:%M:%S", &timeinfo);
-	log.write(Trace, "check_1", string(buffer));
+	Logger* log = Logger::Builder().add_stream(Trace, "stdout").build("input.json");	
+	log->write(Trace, "check_1");
+	log->write(Fatal, "check_2");*/
 
-	seconds = time(NULL);
-	localtime_s(&timeinfo, &seconds);
-	strftime(buffer, 80, "%A, %d %B %Y, %H:%M:%S", &timeinfo);
-	log.write(Fatal, "check_2", string(buffer));
+	try
+	{
+		srand(time(NULL));
+		Bank my_bank;
+		my_bank.opening();
+	}
+	catch (std::exception error)
+	{
+		cout << "Error: " << error.what() << endl;
+	}
 
 	system("pause>nul");
 }

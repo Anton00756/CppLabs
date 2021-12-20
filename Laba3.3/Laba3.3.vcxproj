@@ -139,16 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bank.cpp" />
     <ClCompile Include="Laba3.3.cpp" />
     <ClCompile Include="logger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bank.h" />
     <ClInclude Include="comp.h" />
     <ClInclude Include="heaps.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="logger.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="log_of_office№1.txt" />
+    <Text Include="log_of_office№2.txt" />
+    <Text Include="log_of_office№3.txt" />
     <Text Include="one.txt" />
     <Text Include="two.txt" />
   </ItemGroup>

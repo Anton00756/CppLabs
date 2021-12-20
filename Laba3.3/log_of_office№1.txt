@@ -1,0 +1,265 @@
+[00:00][Information]: opening
+[00:02][Information]: request received
+[00:02][Information]: request received
+[00:05][Information]: Worker 3 arrived
+[00:00][Information]: opening
+[00:02][Information]: Worker 9 arrived
+[00:09][Information]: Worker 2 arrived
+[00:09][Information]: request 8 received
+[00:09][Information]: Worker 9 started task ¹8
+[00:15][Information]: Worker 9 finished request 8
+[00:19][Information]: request 21 received
+[00:19][Information]: Worker 2 started task ¹21
+[00:21][Information]: request 22 received
+[00:21][Information]: Worker 9 started task ¹22
+[00:27][Information]: Worker 7 arrived
+[00:27][Information]: Worker 2 finished request 21
+[00:27][Information]: Worker 9 finished request 22
+[00:28][Information]: request 26 received
+[00:28][Information]: Worker 7 started task ¹26
+[00:29][Information]: request 28 received
+[00:29][Information]: request 29 received
+[00:29][Information]: Worker 2 started task ¹28
+[00:29][Information]: Worker 9 started task ¹29
+[00:33][Information]: Worker 2 finished request 28
+[00:36][Information]: request 31 received
+[00:36][Information]: request 32 received
+[00:36][Information]: Worker 2 started task ¹31
+[00:36][Information]: Worker 7 finished request 26
+[00:36][Information]: Worker [7] went to lunch
+[00:37][Information]: request 34 received
+[00:40][Information]: request received
+[00:41][Information]: Worker 3 arrived
+[00:41][Information]: Worker 3 started task ¹34
+[00:41][Information]: Worker 9 finished request 29
+[00:42][Information]: Worker 27 arrived
+[00:42][Information]: request 36 received
+[00:42][Information]: request 37 received
+[00:42][Information]: request 38 received
+[00:42][Information]: Worker 9 started task ¹38
+[00:42][Information]: Worker 27 started task ¹35
+[00:43][Information]: request received
+[00:43][Information]: request 40 received
+[00:44][Information]: request received
+[00:44][Information]: request 42 received
+[00:44][Information]: Worker 2 finished request 31
+[00:44][Information]: Worker [2] went to lunch
+[00:57][Information]: Worker 28 arrived
+[01:07][Information]: Worker 15 arrived
+[01:07][Information]: request received
+[01:12][Information]: Worker 12 arrived
+[01:13][Information]: request received
+[01:14][Information]: Worker 25 arrived
+[01:15][Information]: request received
+[01:21][Information]: request received
+[01:21][Information]: request received
+[01:21][Information]: request received
+[01:31][Information]: Worker 6 arrived
+[01:32][Information]: request received
+[01:34][Information]: request received
+[01:36][Information]: request received
+[01:38][Information]: request received
+[01:38][Information]: request received
+[01:44][Information]: Worker 5 arrived
+[01:46][Information]: request received
+[01:46][Information]: request received
+[01:47][Information]: request received
+[01:48][Information]: request received
+[01:48][Information]: request received
+[01:48][Information]: request received
+[01:51][Information]: Worker 1 arrived
+[01:54][Information]: request received
+[01:54][Information]: request received
+[01:57][Information]: Worker 24 arrived
+[02:02][Information]: request received
+[02:04][Information]: request received
+[02:08][Information]: Worker 26 arrived
+[02:08][Information]: request received
+[02:09][Information]: request received
+[02:17][Information]: Worker 10 arrived
+[02:21][Information]: request received
+[02:24][Information]: Worker 16 arrived
+[02:24][Information]: Worker 23 arrived
+[02:24][Information]: request received
+[02:24][Information]: request received
+[02:25][Information]: request received
+[02:26][Information]: request received
+[02:28][Information]: request received
+[02:29][Information]: Worker 22 arrived
+[02:29][Information]: request received
+[02:35][Information]: Worker 14 arrived
+[02:36][Information]: request received
+[02:36][Information]: request received
+[02:38][Information]: request received
+[02:40][Information]: Worker 4 arrived
+[02:41][Information]: Worker 17 arrived
+[02:43][Information]: request received
+[02:46][Information]: Worker 21 arrived
+[02:46][Information]: request received
+[02:47][Information]: request received
+[02:47][Information]: request received
+[02:48][Information]: request received
+[02:52][Information]: request received
+[03:01][Information]: Worker 11 arrived
+[03:01][Information]: request received
+[03:01][Information]: request received
+[03:18][Information]: Worker 19 arrived
+[03:20][Information]: request received
+[03:22][Information]: request received
+[03:28][Information]: Worker 8 arrived
+[03:28][Information]: request received
+[03:30][Information]: Worker 0 arrived
+[03:30][Information]: request received
+[03:30][Information]: request received
+[03:31][Information]: request received
+[03:32][Information]: Worker 20 arrived
+[03:32][Information]: request received
+[03:33][Information]: request received
+[03:49][Information]: Worker 13 arrived
+[03:49][Information]: request received
+[03:49][Information]: request received
+[03:50][Information]: Worker 29 arrived
+[03:50][Information]: request received
+[03:51][Information]: request received
+[03:54][Information]: Worker 18 arrived
+[03:55][Information]: request received
+[03:55][Information]: request received
+[04:32][Information]: request received
+[04:33][Information]: request received
+[04:34][Information]: request received
+[04:34][Information]: request received
+[04:35][Information]: request received
+[04:35][Information]: request received
+[04:36][Information]: request received
+[04:37][Information]: request received
+[04:38][Information]: request received
+[04:39][Information]: request received
+[04:40][Information]: request received
+[04:40][Information]: request received
+[04:40][Information]: request received
+[04:41][Information]: request received
+[04:43][Information]: request received
+[04:44][Information]: request received
+[04:46][Information]: request received
+[04:46][Information]: request received
+[04:46][Information]: request received
+[04:46][Information]: request received
+[04:49][Information]: request received
+[04:49][Information]: request received
+[04:49][Information]: request received
+[04:49][Information]: request received
+[04:51][Information]: request received
+[04:53][Information]: request received
+[04:54][Information]: request received
+[04:55][Information]: request received
+[04:55][Information]: request received
+[04:55][Information]: request received
+[04:56][Information]: request received
+[06:26][Information]: request received
+[06:26][Information]: request received
+[06:28][Information]: request received
+[06:29][Information]: request received
+[06:30][Information]: request received
+[06:30][Information]: request received
+[06:31][Information]: request received
+[06:32][Information]: request received
+[06:32][Information]: request received
+[06:34][Information]: request received
+[06:37][Information]: request received
+[06:39][Information]: request received
+[06:39][Information]: request received
+[06:39][Information]: request received
+[06:40][Information]: request received
+[06:40][Information]: request received
+[06:40][Information]: request received
+[06:40][Information]: request received
+[06:40][Information]: request received
+[06:40][Information]: request received
+[06:49][Information]: request received
+[06:49][Information]: request received
+[06:50][Information]: request received
+[06:50][Information]: request received
+[06:50][Information]: request received
+[06:53][Information]: request received
+[06:53][Information]: request received
+[06:53][Information]: request received
+[06:54][Information]: request received
+[06:56][Information]: request received
+[06:57][Information]: request received
+[08:33][Information]: request received
+[08:33][Information]: request received
+[08:33][Information]: request received
+[08:35][Information]: request received
+[08:36][Information]: request received
+[08:36][Information]: request received
+[08:36][Information]: request received
+[08:36][Information]: request received
+[08:36][Information]: request received
+[08:36][Information]: request received
+[08:37][Information]: request received
+[08:38][Information]: request received
+[08:39][Information]: request received
+[08:40][Information]: request received
+[08:44][Information]: request received
+[08:45][Information]: request received
+[08:47][Information]: request received
+[08:48][Information]: request received
+[08:48][Information]: request received
+[08:49][Information]: request received
+[08:50][Information]: request received
+[08:50][Information]: request received
+[08:50][Information]: request received
+[08:54][Information]: request received
+[08:54][Information]: request received
+[08:57][Information]: request received
+[09:02][Information]: request received
+[09:03][Information]: request received
+[09:03][Information]: request received
+[09:03][Information]: request received
+[09:03][Information]: request received
+[09:08][Information]: Worker 29 left
+[09:20][Information]: Worker 17 left
+[09:28][Information]: Worker 16 left
+[09:30][Information]: Worker 28 left
+[09:33][Information]: Worker 3 left
+[09:34][Information]: request received
+[09:39][Information]: Worker 13 left
+[09:43][Information]: Worker 10 left
+[09:45][Information]: Worker 26 left
+[09:56][Information]: Worker 21 left
+[09:58][Information]: Worker 24 left
+[10:00][Information]: Worker 15 left
+[10:00][Information]: Worker 18 left
+[10:23][Information]: Worker 4 left
+[10:30][Information]: Worker 6 left
+[10:41][Information]: Worker 20 left
+[10:42][Information]: Worker 27 left
+[10:50][Information]: Worker 5 left
+[10:57][Information]: Worker 19 left
+[10:58][Information]: Worker 0 left
+[10:59][Information]: Worker 2 left
+[11:09][Information]: Worker 7 left
+[11:46][Information]: request received
+[11:47][Information]: request received
+[11:48][Information]: request received
+[11:49][Information]: request received
+[11:50][Information]: Worker 23 left
+[11:58][Information]: Worker 12 left
+[11:59][Information]: Worker 25 left
+[12:04][Information]: Worker 9 left
+[12:07][Information]: Worker 11 left
+[12:13][Information]: Worker 22 left
+[12:34][Information]: Worker 1 left
+[12:46][Information]: request received
+[12:50][Information]: Worker 14 left
+[12:55][Information]: Worker 8 left
+[12:59][Information]: request received
+[12:59][Information]: request received
+[12:59][Information]: request received
+[12:59][Information]: request received
+[11:00][Information]: request 832 wasn't done
+[11:00][Information]: request 816 wasn't done
+[11:00][Information]: request 830 wasn't done
+[11:00][Information]: request 831 wasn't done
+[11:00][Information]: request 829 wasn't done
+[13:00][Information]: closing

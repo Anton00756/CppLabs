@@ -1,450 +1,924 @@
 [00:00][Information]: opening
-[00:02][Information]: request received
-[00:03][Information]: request received
-[00:05][Information]: Worker 0 arrived
-[00:05][Information]: Worker 0 started task ¹1
-[00:08][Information]: request received
-[00:00][Information]: opening
-[00:00][Information]: request 1 received
-[00:01][Information]: Worker 4 arrived
-[00:01][Information]: Worker 4 started task ¹1
-[00:03][Information]: Worker 25 arrived
-[00:03][Information]: Worker 4 finished request 1
-[00:03][Information]: Worker [4] went to lunch
-[00:04][Information]: request 2 received
-[00:04][Information]: Worker 25 started task ¹2
-[00:05][Information]: request 3 received
-[00:06][Information]: request 4 received
-[00:06][Information]: Worker 25 finished request 2
-[00:07][Information]: request 5 received
-[00:07][Information]: Worker 25 started task ¹4
+[00:03][Information]: request 2 received
 [00:10][Information]: request 9 received
 [00:10][Information]: request 10 received
-[00:10][Information]: request 13 received
-[00:11][Information]: request 16 received
-[00:11][Information]: Worker 25 finished request 4
-[00:11][Information]: Worker [25] went to lunch
-[00:14][Information]: Worker 19 arrived
-[00:14][Information]: request 19 received
-[00:14][Information]: Worker 19 started task ¹10
-[00:19][Information]: request 20 received
-[00:23][Information]: Worker 2 arrived
-[00:23][Information]: Worker 2 started task ¹19
-[00:24][Information]: Worker 10 arrived
-[00:24][Information]: Worker 10 started task ¹16
-[00:24][Information]: Worker 19 finished request 10
-[00:25][Information]: Worker 21 arrived
-[00:25][Information]: Worker 19 started task ¹13
-[00:25][Information]: Worker 21 started task ¹9
-[00:25][Information]: Worker 2 finished request 19
-[00:26][Information]: Worker 2 started task ¹3
-[00:26][Information]: Worker 2 finished request 3
-[00:27][Information]: Worker 11 arrived
-[00:27][Information]: Worker 15 arrived
-[00:27][Information]: Worker 2 started task ¹20
-[00:27][Information]: Worker 11 started task ¹5
-[00:27][Information]: Worker 19 finished request 13
-[00:28][Information]: request 27 received
-[00:28][Information]: Worker 15 started task ¹27
-[00:28][Information]: Worker 10 finished request 16
-[00:29][Information]: Worker 2 finished request 20
-[00:33][Information]: Worker 12 arrived
-[00:33][Information]: Worker 32 arrived
-[00:34][Information]: Worker 15 finished request 27
-[00:37][Information]: Worker 11 finished request 5
-[00:37][Information]: Worker 21 finished request 9
-[00:41][Information]: Worker 3 arrived
-[00:44][Information]: Worker 6 arrived
-[00:45][Information]: request received
-[00:47][Information]: request received
-[00:47][Information]: request received
-[00:50][Information]: Worker 36 arrived
-[00:50][Information]: request received
-[00:51][Information]: Worker 7 arrived
-[00:51][Information]: Worker 17 arrived
-[00:52][Information]: request received
-[00:52][Information]: request received
-[00:53][Information]: Worker 28 arrived
-[00:55][Information]: request received
-[00:56][Information]: request received
-[00:57][Information]: request received
-[00:57][Information]: request received
-[00:57][Information]: request received
-[00:57][Information]: request received
-[00:57][Information]: request received
-[00:58][Information]: Worker 35 arrived
-[00:58][Information]: request received
-[00:58][Information]: request received
-[00:58][Information]: request received
-[00:58][Information]: request received
-[01:00][Information]: request received
-[01:20][Information]: Worker 0 arrived
-[01:21][Information]: request received
-[01:31][Information]: Worker 31 arrived
-[01:31][Information]: request received
-[01:35][Information]: Worker 18 arrived
-[01:36][Information]: request received
-[01:55][Information]: request received
-[01:55][Information]: request received
-[01:56][Information]: request received
-[02:02][Information]: Worker 16 arrived
-[02:04][Information]: request received
-[02:04][Information]: request received
-[02:05][Information]: request received
-[02:05][Information]: request received
-[02:06][Information]: request received
+[00:10][Information]: request 12 received
+[00:11][Information]: Worker 23 arrived
+[00:11][Information]: Worker 23 started task ¹9
+[00:12][Information]: request 15 received
+[00:14][Information]: request 16 received
+[00:15][Information]: Worker 23 finished request 9
+[00:15][Information]: Worker [23] went to lunch
+[00:16][Information]: request 21 received
+[00:18][Information]: request 24 received
+[00:19][Information]: Worker 0 arrived
+[00:19][Information]: Worker 0 started task ¹21
+[00:23][Information]: Worker 36 arrived
+[00:23][Information]: request 26 received
+[00:23][Information]: Worker 36 started task ¹15
+[00:24][Information]: Worker 12 arrived
+[00:24][Information]: Worker 12 started task ¹26
+[00:25][Information]: request 31 received
+[00:25][Information]: Worker 0 finished request 21
+[00:26][Information]: Worker 0 started task ¹12
+[00:27][Information]: request 32 received
+[00:32][Information]: Worker 12 finished request 26
+[00:33][Information]: Worker 12 started task ¹32
+[00:33][Information]: Worker 36 finished request 15
+[00:34][Information]: Worker 9 arrived
+[00:34][Information]: Worker 17 arrived
+[00:34][Information]: request 38 received
+[00:34][Information]: Worker 36 started task ¹38
+[00:34][Information]: Worker 9 started task ¹31
+[00:34][Information]: Worker 17 started task ¹2
+[00:35][Information]: Worker 33 arrived
+[00:35][Information]: request 39 received
+[00:35][Information]: Worker 33 started task ¹39
+[00:36][Information]: Worker 17 finished request 2
+[00:36][Information]: Worker 36 finished request 38
+[00:36][Information]: Worker [36] went to lunch
+[00:37][Information]: Worker 17 started task ¹10
+[00:37][Information]: Worker 33 finished request 39
+[00:38][Information]: Worker 33 started task ¹24
+[00:38][Information]: Worker 0 finished request 12
+[00:39][Information]: Worker 0 started task ¹16
+[00:40][Information]: Worker 33 finished request 24
+[00:41][Information]: Worker 0 finished request 16
+[00:41][Information]: Worker 12 finished request 32
+[00:41][Information]: Worker [12] went to lunch
+[00:41][Information]: Worker 17 finished request 10
+[00:43][Information]: request 41 received
+[00:43][Information]: request 43 received
+[00:43][Information]: Worker 33 started task ¹41
+[00:43][Information]: Worker 0 started task ¹43
+[00:43][Information]: Worker 0 finished request 43
+[00:44][Information]: request 45 received
+[00:44][Information]: Worker 17 started task ¹45
+[00:46][Information]: request 50 received
+[00:46][Information]: Worker 0 started task ¹50
+[00:46][Information]: Worker 9 finished request 31
+[00:47][Information]: request 51 received
+[00:47][Information]: Worker 9 started task ¹51
+[00:48][Information]: Worker 13 arrived
+[00:48][Information]: request 53 received
+[00:48][Information]: Worker 13 started task ¹53
+[00:50][Information]: Worker 13 finished request 53
+[00:50][Information]: Worker 17 finished request 45
+[00:52][Information]: request 57 received
+[00:52][Information]: Worker 13 started task ¹57
+[00:53][Information]: Worker 19 arrived
+[00:53][Information]: Worker 33 finished request 41
+[00:54][Information]: Worker 13 finished request 57
+[00:55][Information]: Worker 9 finished request 51
+[00:57][Information]: request 59 received
+[00:57][Information]: request 60 received
+[00:57][Information]: Worker 17 started task ¹59
+[00:57][Information]: Worker 19 started task ¹60
+[00:58][Information]: Worker 0 finished request 50
+[00:59][Information]: request 61 received
+[00:59][Information]: request 62 received
+[00:59][Information]: Worker 33 started task ¹62
+[00:59][Information]: Worker 13 started task ¹61
+[01:01][Information]: Worker 13 finished request 61
+[01:01][Information]: Worker 17 finished request 59
+[01:06][Information]: Worker 11 arrived
+[01:06][Information]: request 68 received
+[01:06][Information]: Worker 9 started task ¹68
+[01:07][Information]: request 72 received
+[01:07][Information]: Worker 0 started task ¹72
+[01:07][Information]: Worker 33 finished request 62
+[01:08][Information]: Worker 14 arrived
+[01:08][Information]: request 73 received
+[01:08][Information]: Worker 13 started task ¹73
+[01:08][Information]: Worker 13 finished request 73
+[01:09][Information]: request 74 received
+[01:09][Information]: Worker 17 started task ¹75
+[01:09][Information]: Worker 0 finished request 72
+[01:09][Information]: Worker 19 finished request 60
+[01:10][Information]: request 77 received
+[01:10][Information]: request 81 received
+[01:10][Information]: Worker 11 started task ¹77
+[01:10][Information]: Worker 33 started task ¹63
+[01:12][Information]: request 83 received
+[01:12][Information]: Worker 14 started task ¹71
+[01:13][Information]: Worker 17 finished request 75
+[01:15][Information]: Worker 23 stopped resting
+[01:16][Information]: request 85 received
+[01:16][Information]: Worker 13 started task ¹64
+[01:16][Information]: Worker 9 finished request 68
+[01:16][Information]: Worker 11 finished request 77
+[01:16][Information]: Worker [11] went to lunch
+[01:16][Information]: Worker 13 finished request 64
+[01:16][Information]: Worker [13] went to lunch
+[01:18][Information]: Worker 33 finished request 63
+[01:21][Information]: request 87 received
+[01:21][Information]: Worker 0 started task ¹87
+[01:24][Information]: Worker 14 finished request 71
+[01:25][Information]: Worker 39 arrived
+[01:28][Information]: Worker 10 arrived
+[01:29][Information]: request 92 received
+[01:29][Information]: Worker 19 started task ¹92
+[01:29][Information]: Worker 0 finished request 87
+[01:29][Information]: Worker [0] went to lunch
+[01:30][Information]: Worker 38 arrived
+[01:33][Information]: request 96 received
+[01:33][Information]: Worker 17 started task ¹96
+[01:36][Information]: Worker 36 stopped resting
+[01:37][Information]: Worker 19 finished request 92
+[01:38][Information]: Worker 27 arrived
+[01:38][Information]: request received
+[01:38][Information]: request 102 received
+[01:38][Information]: Worker 23 started task ¹102
+[01:38][Information]: Worker 9 started task ¹66
+[01:39][Information]: request received
+[01:39][Information]: request 105 received
+[01:39][Information]: request received
+[01:39][Information]: request received
+[01:39][Information]: request 108 received
+[01:39][Information]: Worker 33 started task ¹106
+[01:39][Information]: Worker 14 started task ¹107
+[01:39][Information]: Worker 39 started task ¹101
+[01:39][Information]: Worker 10 started task ¹104
+[01:39][Information]: Worker 38 started task ¹83
+[01:40][Information]: Worker 23 finished request 102
+[01:41][Information]: Worker 12 stopped resting
+[01:41][Information]: Worker 39 finished request 101
+[01:42][Information]: request received
+[01:42][Information]: Worker 36 started task ¹81
+[01:45][Information]: Worker 14 finished request 107
+[01:45][Information]: Worker 17 finished request 96
+[01:45][Information]: Worker [17] went to lunch
+[01:45][Information]: Worker 33 finished request 106
+[01:45][Information]: Worker 38 finished request 83
+[01:46][Information]: Worker 9 finished request 66
+[01:47][Information]: request 113 received
+[01:47][Information]: Worker 19 started task ¹109
+[01:48][Information]: request 114 received
+[01:48][Information]: request received
+[01:48][Information]: request 119 received
+[01:48][Information]: request received
+[01:48][Information]: Worker 27 started task ¹123
+[01:48][Information]: Worker 23 started task ¹114
+[01:48][Information]: Worker 12 started task ¹117
+[01:48][Information]: Worker 39 started task ¹108
+[01:49][Information]: Worker 10 finished request 104
+[01:50][Information]: request received
+[01:50][Information]: Worker 14 started task ¹40
+[01:50][Information]: Worker 12 finished request 117
+[01:50][Information]: Worker 36 finished request 81
+[01:52][Information]: Worker 39 finished request 108
+[01:52][Information]: Worker [39] went to lunch
+[01:53][Information]: request 125 received
+[01:53][Information]: Worker 33 started task ¹74
+[01:54][Information]: Worker 23 finished request 114
+[01:54][Information]: Worker 27 finished request 123
+[01:55][Information]: request 126 received
+[01:55][Information]: Worker 38 started task ¹126
+[01:55][Information]: Worker 19 finished request 109
+[01:55][Information]: Worker 38 finished request 126
+[01:57][Information]: Worker 15 arrived
+[01:57][Information]: request 128 received
+[01:57][Information]: request received
+[01:57][Information]: request 130 received
+[01:57][Information]: request received
+[01:57][Information]: request 132 received
+[01:57][Information]: request received
+[01:57][Information]: request received
+[01:57][Information]: Worker 9 started task ¹131
+[01:57][Information]: Worker 10 started task ¹133
+[01:57][Information]: Worker 12 started task ¹129
+[01:57][Information]: Worker 36 started task ¹134
+[01:57][Information]: Worker 23 started task ¹76
+[01:57][Information]: Worker 27 started task ¹85
+[01:57][Information]: Worker 19 started task ¹47
+[01:57][Information]: Worker 12 finished request 129
+[01:57][Information]: Worker 33 finished request 74
+[01:57][Information]: Worker 36 finished request 134
+[01:59][Information]: Worker 8 arrived
+[01:59][Information]: Worker 19 finished request 47
+[02:00][Information]: Worker 21 arrived
+[02:00][Information]: Worker 14 finished request 40
+[02:01][Information]: Worker 9 finished request 131
+[02:01][Information]: Worker 23 finished request 76
+[02:04][Information]: request 137 received
+[02:04][Information]: request 138 received
+[02:04][Information]: request 139 received
+[02:04][Information]: Worker 38 started task ¹138
+[02:04][Information]: Worker 15 started task ¹137
+[02:04][Information]: Worker 12 started task ¹139
+[02:05][Information]: Worker 10 finished request 133
+[02:05][Information]: Worker 27 finished request 85
 [02:07][Information]: Worker 1 arrived
-[02:07][Information]: Worker 13 arrived
-[02:07][Information]: Worker 22 arrived
-[02:07][Information]: request received
-[02:08][Information]: Worker 8 arrived
-[02:10][Information]: request received
-[02:12][Information]: request received
-[02:12][Information]: request received
-[02:12][Information]: request received
-[02:12][Information]: request received
-[02:13][Information]: request received
-[02:17][Information]: Worker 23 arrived
-[02:25][Information]: Worker 14 arrived
-[02:28][Information]: request received
-[02:34][Information]: Worker 29 arrived
-[02:39][Information]: Worker 27 arrived
-[02:39][Information]: request received
-[02:46][Information]: Worker 20 arrived
-[02:49][Information]: Worker 33 arrived
-[02:52][Information]: request received
-[02:52][Information]: request received
-[02:52][Information]: request received
-[02:53][Information]: request received
-[02:54][Information]: Worker 39 arrived
-[02:54][Information]: request received
-[02:55][Information]: request received
-[02:55][Information]: request received
-[02:55][Information]: request received
-[02:59][Information]: request received
-[02:59][Information]: request received
-[02:59][Information]: request received
-[02:59][Information]: request received
-[02:59][Information]: request received
-[03:01][Information]: Worker 38 arrived
-[03:04][Information]: request received
-[03:04][Information]: request received
-[03:05][Information]: Worker 30 arrived
-[03:08][Information]: request received
-[03:09][Information]: request received
-[03:11][Information]: Worker 37 arrived
-[03:13][Information]: Worker 26 arrived
-[03:13][Information]: Worker 34 arrived
-[03:13][Information]: request received
-[03:13][Information]: request received
-[03:13][Information]: request received
-[03:13][Information]: request received
-[03:14][Information]: request received
-[03:14][Information]: request received
-[03:22][Information]: request received
-[03:22][Information]: request received
-[03:24][Information]: request received
-[03:24][Information]: request received
-[03:24][Information]: request received
-[03:25][Information]: request received
-[03:25][Information]: request received
-[03:25][Information]: request received
-[03:31][Information]: request received
-[03:33][Information]: request received
-[03:33][Information]: request received
-[03:33][Information]: request received
-[03:34][Information]: request received
-[03:34][Information]: request received
-[03:34][Information]: request received
-[03:48][Information]: Worker 24 arrived
-[03:49][Information]: request received
-[03:49][Information]: request received
-[03:55][Information]: Worker 9 arrived
-[03:56][Information]: request received
-[03:56][Information]: request received
+[02:07][Information]: request 142 received
+[02:07][Information]: Worker 33 started task ¹67
+[02:07][Information]: Worker 33 finished request 67
+[02:08][Information]: request 143 received
+[02:08][Information]: Worker 36 started task ¹143
+[02:08][Information]: Worker 36 finished request 143
+[02:08][Information]: Worker 38 finished request 138
+[02:12][Information]: Worker 12 finished request 139
+[02:13][Information]: request 148 received
+[02:13][Information]: Worker 8 started task ¹148
+[02:14][Information]: Worker 15 finished request 137
+[02:15][Information]: Worker 3 arrived
+[02:15][Information]: request 149 received
+[02:15][Information]: request 151 received
+[02:15][Information]: request 153 received
+[02:15][Information]: request 154 received
+[02:15][Information]: Worker 19 started task ¹149
+[02:15][Information]: Worker 21 started task ¹151
+[02:15][Information]: Worker 14 started task ¹153
+[02:15][Information]: Worker 9 started task ¹113
+[02:16][Information]: request received
+[02:16][Information]: Worker 23 started task ¹156
+[02:16][Information]: Worker 11 stopped resting
+[02:16][Information]: Worker 13 stopped resting
+[02:17][Information]: Worker 9 finished request 113
+[02:17][Information]: Worker [9] went to lunch
+[02:19][Information]: Worker 8 finished request 148
+[02:19][Information]: Worker 19 finished request 149
+[02:19][Information]: Worker [19] went to lunch
+[02:20][Information]: request 157 received
+[02:20][Information]: Worker 10 started task ¹157
+[02:20][Information]: Worker 23 finished request 156
+[02:21][Information]: Worker 21 finished request 151
+[02:21][Information]: Worker [21] went to lunch
+[02:22][Information]: Worker 2 arrived
+[02:22][Information]: request 159 received
+[02:22][Information]: Worker 27 started task ¹130
+[02:23][Information]: request 160 received
+[02:23][Information]: Worker 1 started task ¹132
+[02:25][Information]: Worker 37 arrived
+[02:25][Information]: request 161 received
+[02:25][Information]: Worker 33 started task ¹161
+[02:26][Information]: Worker 10 finished request 157
+[02:26][Information]: Worker [10] went to lunch
+[02:27][Information]: Worker 1 finished request 132
+[02:27][Information]: Worker 14 finished request 153
+[02:29][Information]: Worker 0 stopped resting
+[02:30][Information]: Worker 26 arrived
+[02:30][Information]: Worker 30 arrived
+[02:30][Information]: request 165 received
+[02:30][Information]: Worker 36 started task ¹165
+[02:30][Information]: Worker 27 finished request 130
+[02:33][Information]: Worker 33 finished request 161
+[02:34][Information]: Worker 36 finished request 165
+[02:35][Information]: Worker 32 arrived
+[02:38][Information]: request 170 received
+[02:38][Information]: Worker 38 started task ¹170
+[02:40][Information]: request 174 received
+[02:40][Information]: request 175 received
+[02:40][Information]: request 176 received
+[02:40][Information]: Worker 12 started task ¹176
+[02:40][Information]: Worker 15 started task ¹175
+[02:40][Information]: Worker 3 started task ¹154
+[02:42][Information]: Worker 24 arrived
+[02:43][Information]: request 178 received
+[02:43][Information]: Worker 11 started task ¹178
+[02:44][Information]: Worker 3 finished request 154
+[02:44][Information]: Worker [3] went to lunch
+[02:44][Information]: Worker 15 finished request 175
+[02:45][Information]: Worker 17 stopped resting
+[02:46][Information]: Worker 12 finished request 176
+[02:47][Information]: Worker 11 finished request 178
+[02:48][Information]: request 183 received
+[02:48][Information]: request 184 received
+[02:48][Information]: Worker 13 started task ¹184
+[02:48][Information]: Worker 8 started task ¹183
+[02:50][Information]: request 188 received
+[02:50][Information]: request 190 received
+[02:50][Information]: Worker 23 started task ¹188
+[02:50][Information]: Worker 2 started task ¹190
+[02:50][Information]: Worker 8 finished request 183
+[02:50][Information]: Worker 38 finished request 170
+[02:52][Information]: Worker 13 finished request 184
+[02:52][Information]: Worker 23 finished request 188
+[02:52][Information]: Worker 39 stopped resting
+[02:54][Information]: Worker 20 arrived
+[02:54][Information]: Worker 2 finished request 190
+[02:55][Information]: Worker 4 arrived
+[02:56][Information]: request 196 received
+[02:56][Information]: Worker 37 started task ¹196
+[02:59][Information]: Worker 6 arrived
+[03:04][Information]: Worker 7 arrived
+[03:04][Information]: Worker 29 arrived
+[03:05][Information]: Worker 35 arrived
+[03:06][Information]: Worker 31 arrived
+[03:06][Information]: Worker 37 finished request 196
+[03:09][Information]: request 203 received
+[03:09][Information]: request 206 received
+[03:09][Information]: Worker 1 started task ¹203
+[03:09][Information]: Worker 14 started task ¹128
+[03:10][Information]: request 211 received
+[03:10][Information]: Worker 0 started task ¹211
+[03:13][Information]: request 217 received
+[03:13][Information]: Worker 26 started task ¹217
+[03:14][Information]: Worker 18 arrived
+[03:15][Information]: Worker 1 finished request 203
+[03:15][Information]: Worker 14 finished request 128
+[03:16][Information]: Worker 0 finished request 211
+[03:17][Information]: Worker 9 stopped resting
+[03:17][Information]: Worker 26 finished request 217
+[03:19][Information]: Worker 19 stopped resting
+[03:20][Information]: request 228 received
+[03:20][Information]: Worker 30 started task ¹55
+[03:21][Information]: Worker 21 stopped resting
+[03:22][Information]: request 231 received
+[03:22][Information]: Worker 27 started task ¹231
+[03:24][Information]: Worker 30 finished request 55
+[03:26][Information]: request 234 received
+[03:26][Information]: Worker 33 started task ¹234
+[03:26][Information]: Worker 10 stopped resting
+[03:30][Information]: Worker 27 finished request 231
+[03:31][Information]: Worker 25 arrived
+[03:32][Information]: request 237 received
+[03:32][Information]: Worker 36 started task ¹237
+[03:33][Information]: request 239 received
+[03:33][Information]: Worker 32 started task ¹239
+[03:36][Information]: Worker 33 finished request 234
+[03:37][Information]: Worker 32 finished request 239
+[03:39][Information]: Worker 28 arrived
+[03:41][Information]: request 242 received
+[03:41][Information]: request 245 received
+[03:41][Information]: request 246 received
+[03:41][Information]: Worker 24 started task ¹246
+[03:41][Information]: Worker 15 started task ¹242
+[03:41][Information]: Worker 17 started task ¹245
+[03:42][Information]: Worker 36 finished request 237
+[03:44][Information]: Worker 3 stopped resting
+[03:46][Information]: Worker 22 arrived
+[03:47][Information]: Worker 16 arrived
+[03:47][Information]: Worker 17 finished request 245
+[03:49][Information]: request 255 received
+[03:49][Information]: Worker 12 started task ¹255
+[03:51][Information]: request 258 received
+[03:51][Information]: Worker 11 started task ¹258
+[03:51][Information]: Worker 15 finished request 242
+[03:51][Information]: Worker [15] went to lunch
+[03:51][Information]: Worker 24 finished request 246
+[03:52][Information]: request 259 received
+[03:52][Information]: request 260 received
+[03:52][Information]: request 261 received
+[03:52][Information]: Worker 8 started task ¹261
+[03:52][Information]: Worker 38 started task ¹259
+[03:52][Information]: Worker 13 started task ¹125
+[03:53][Information]: request 262 received
+[03:53][Information]: Worker 23 started task ¹262
+[03:53][Information]: Worker 12 finished request 255
+[03:54][Information]: Worker 13 finished request 125
+[03:56][Information]: Worker 38 finished request 259
+[03:57][Information]: Worker 34 arrived
 [03:58][Information]: Worker 5 arrived
-[03:58][Information]: request received
-[03:58][Information]: request received
-[04:56][Information]: request received
-[04:56][Information]: request received
-[04:57][Information]: request received
-[04:58][Information]: request received
-[04:58][Information]: request received
-[04:59][Information]: request received
-[05:00][Information]: request received
-[05:00][Information]: request received
-[05:00][Information]: request received
-[05:00][Information]: request received
-[05:00][Information]: request received
-[05:01][Information]: request received
-[05:01][Information]: request received
-[05:01][Information]: request received
-[05:02][Information]: request received
-[05:05][Information]: request received
-[05:07][Information]: request received
-[05:07][Information]: request received
-[05:07][Information]: request received
-[05:07][Information]: request received
-[05:08][Information]: request received
-[05:08][Information]: request received
-[05:13][Information]: request received
-[05:14][Information]: request received
-[05:14][Information]: request received
-[05:15][Information]: request received
-[05:16][Information]: request received
-[05:16][Information]: request received
-[05:16][Information]: request received
-[05:19][Information]: request received
-[05:20][Information]: request received
-[05:20][Information]: request received
-[05:27][Information]: request received
-[05:27][Information]: request received
-[05:27][Information]: request received
-[05:30][Information]: request received
-[05:31][Information]: request received
-[05:32][Information]: request received
-[05:33][Information]: request received
-[05:33][Information]: request received
-[05:37][Information]: request received
-[06:59][Information]: request received
-[07:02][Information]: request received
-[07:02][Information]: request received
-[07:02][Information]: request received
-[07:02][Information]: request received
-[07:05][Information]: request received
-[07:05][Information]: request received
-[07:05][Information]: request received
-[07:05][Information]: request received
-[07:05][Information]: request received
-[07:08][Information]: request received
-[07:09][Information]: request received
-[07:10][Information]: request received
-[07:10][Information]: request received
-[07:10][Information]: request received
-[07:11][Information]: request received
-[07:14][Information]: request received
-[07:16][Information]: request received
-[07:17][Information]: request received
-[07:17][Information]: request received
-[07:17][Information]: request received
-[07:20][Information]: request received
-[07:21][Information]: request received
-[07:23][Information]: request received
-[07:24][Information]: request received
-[07:24][Information]: request received
-[07:24][Information]: request received
-[07:33][Information]: request received
-[07:33][Information]: request received
-[07:33][Information]: request received
-[07:33][Information]: request received
-[07:35][Information]: request received
-[07:36][Information]: request received
-[07:36][Information]: request received
-[07:37][Information]: request received
-[07:37][Information]: request received
-[07:41][Information]: request received
-[07:41][Information]: request received
-[07:42][Information]: request received
-[07:43][Information]: request received
-[07:45][Information]: request received
-[09:07][Information]: request received
-[09:08][Information]: request received
-[09:09][Information]: request received
-[09:09][Information]: request received
-[09:09][Information]: request received
-[09:11][Information]: request received
-[09:11][Information]: request received
-[09:13][Information]: Worker 15 left
-[09:14][Information]: request received
-[09:18][Information]: request received
-[09:18][Information]: request received
-[09:18][Information]: request received
-[09:19][Information]: request received
-[09:19][Information]: request received
-[09:20][Information]: Worker 9 left
-[09:20][Information]: request received
-[09:20][Information]: request received
-[09:20][Information]: request received
-[09:20][Information]: request received
-[09:21][Information]: request received
-[09:21][Information]: request received
-[09:22][Information]: Worker 32 left
-[09:22][Information]: Worker 36 left
-[09:23][Information]: request received
-[09:24][Information]: request received
-[09:34][Information]: request received
-[09:35][Information]: request received
-[09:36][Information]: request received
-[09:37][Information]: request received
-[09:38][Information]: request received
-[09:39][Information]: request received
-[09:39][Information]: request received
-[09:40][Information]: request received
-[09:41][Information]: request received
-[09:44][Information]: Worker 38 left
-[09:44][Information]: request received
-[09:44][Information]: request received
-[09:46][Information]: request received
-[09:46][Information]: request received
-[09:47][Information]: request received
-[09:48][Information]: request received
-[09:48][Information]: request received
-[09:48][Information]: request received
-[09:49][Information]: Worker 21 left
-[09:50][Information]: Worker 22 left
-[09:51][Information]: request received
-[09:52][Information]: request received
-[10:05][Information]: request received
-[10:06][Information]: request received
-[10:08][Information]: request received
-[10:10][Information]: Worker 2 left
-[10:11][Information]: request received
-[10:12][Information]: Worker 5 left
-[10:12][Information]: request received
-[10:14][Information]: request received
-[10:14][Information]: request received
-[10:15][Information]: request received
-[10:15][Information]: request received
-[10:15][Information]: request received
-[10:15][Information]: request received
-[10:16][Information]: Worker 0 left
-[10:16][Information]: request received
-[10:16][Information]: request received
-[10:23][Information]: request received
-[10:26][Information]: request received
-[10:28][Information]: request received
-[10:32][Information]: request received
-[10:32][Information]: request received
-[10:36][Information]: Worker 11 left
-[10:36][Information]: Worker 12 left
-[10:36][Information]: request received
-[10:36][Information]: request received
-[10:38][Information]: Worker 7 left
-[10:38][Information]: Worker 17 left
-[10:43][Information]: request received
-[10:43][Information]: request received
-[10:44][Information]: request received
-[10:47][Information]: request received
-[10:47][Information]: request received
-[10:49][Information]: request received
-[10:49][Information]: request received
-[10:52][Information]: Worker 19 left
-[10:52][Information]: request received
-[10:52][Information]: request received
-[10:52][Information]: request received
-[10:55][Information]: Worker 34 left
-[11:00][Information]: request received
-[11:01][Information]: request received
-[11:01][Information]: request received
-[11:01][Information]: request received
-[11:02][Information]: Worker 37 left
-[11:02][Information]: request received
-[11:02][Information]: request received
-[11:06][Information]: Worker 4 left
-[11:08][Information]: request received
-[11:09][Information]: request received
-[11:09][Information]: request received
-[11:10][Information]: request received
-[11:10][Information]: request received
-[11:10][Information]: request received
-[11:10][Information]: request received
-[11:10][Information]: request received
-[11:10][Information]: request received
-[11:11][Information]: request received
-[11:12][Information]: request received
-[11:12][Information]: request received
-[11:12][Information]: request received
-[11:18][Information]: Worker 30 left
-[11:18][Information]: request received
-[11:19][Information]: request received
-[11:23][Information]: Worker 3 left
-[11:26][Information]: request received
-[11:26][Information]: request received
-[11:26][Information]: request received
-[11:26][Information]: request received
-[11:26][Information]: request received
-[11:26][Information]: request received
-[11:27][Information]: Worker 14 left
-[11:28][Information]: request received
-[11:28][Information]: request received
-[11:29][Information]: request received
-[11:30][Information]: request received
-[11:31][Information]: Worker 27 left
-[11:31][Information]: request received
-[11:34][Information]: request received
-[11:34][Information]: request received
-[11:34][Information]: request received
-[11:35][Information]: request received
-[11:43][Information]: request received
-[11:43][Information]: request received
-[11:43][Information]: request received
-[11:43][Information]: request received
-[11:44][Information]: Worker 20 left
-[11:45][Information]: Worker 1 left
-[11:52][Information]: request received
-[11:55][Information]: request received
-[11:55][Information]: request received
-[11:56][Information]: request received
-[11:56][Information]: request received
-[11:57][Information]: request received
-[11:58][Information]: request received
-[11:58][Information]: request received
-[11:59][Information]: Worker 24 left
-[12:00][Information]: request received
-[12:00][Information]: request received
-[12:00][Information]: request received
-[12:01][Information]: request received
-[12:01][Information]: request received
-[12:02][Information]: request received
-[12:02][Information]: request received
-[12:03][Information]: Worker 8 left
-[12:04][Information]: request received
-[12:06][Information]: request received
-[12:06][Information]: request received
-[12:07][Information]: request received
-[12:07][Information]: request received
-[12:07][Information]: request received
-[12:08][Information]: request received
-[12:08][Information]: request received
-[12:09][Information]: request received
-[12:10][Information]: Worker 31 left
-[12:12][Information]: Worker 10 left
-[12:12][Information]: request received
-[12:16][Information]: request received
-[12:17][Information]: request received
-[12:18][Information]: Worker 26 left
-[12:19][Information]: Worker 25 left
-[12:20][Information]: request received
-[12:20][Information]: request received
-[12:20][Information]: request received
-[12:20][Information]: request received
-[12:21][Information]: request received
-[12:23][Information]: request received
-[12:24][Information]: Worker 33 left
-[12:24][Information]: request received
-[12:25][Information]: Worker 6 left
-[12:28][Information]: request received
-[12:29][Information]: request received
-[12:29][Information]: request received
-[12:31][Information]: Worker 13 left
-[12:31][Information]: Worker 23 left
-[12:32][Information]: Worker 16 left
-[12:33][Information]: Worker 39 left
-[12:39][Information]: Worker 29 left
-[12:51][Information]: request received
-[12:55][Information]: Worker 18 left
-[12:55][Information]: Worker 28 left
-[12:56][Information]: request received
-[12:57][Information]: request received
-[12:58][Information]: request received
-[12:58][Information]: request received
-[12:59][Information]: Worker 35 left
-[11:00][Information]: request 828 wasn't done
-[11:00][Information]: request 825 wasn't done
-[11:00][Information]: request 801 wasn't done
-[11:00][Information]: request 799 wasn't done
-[11:00][Information]: request 800 wasn't done
-[11:00][Information]: request 824 wasn't done
-[11:00][Information]: request 818 wasn't done
-[11:00][Information]: request 827 wasn't done
+[04:01][Information]: Worker 11 finished request 258
+[04:02][Information]: request 274 received
+[04:02][Information]: request 275 received
+[04:02][Information]: Worker 39 started task ¹275
+[04:02][Information]: Worker 20 started task ¹274
+[04:02][Information]: Worker 8 finished request 261
+[04:03][Information]: Worker 23 finished request 262
+[04:04][Information]: request 277 received
+[04:04][Information]: Worker 2 started task ¹277
+[04:05][Information]: request 278 received
+[04:05][Information]: Worker 4 started task ¹278
+[04:07][Information]: request 279 received
+[04:07][Information]: Worker 6 started task ¹279
+[04:10][Information]: Worker 20 finished request 274
+[04:10][Information]: Worker [20] went to lunch
+[04:10][Information]: Worker 39 finished request 275
+[04:11][Information]: Worker 4 finished request 278
+[04:16][Information]: request 282 received
+[04:16][Information]: request 287 received
+[04:16][Information]: Worker 7 started task ¹282
+[04:16][Information]: Worker 29 started task ¹287
+[04:16][Information]: Worker 2 finished request 277
+[04:16][Information]: Worker [2] went to lunch
+[04:18][Information]: request 292 received
+[04:18][Information]: Worker 35 started task ¹292
+[04:18][Information]: Worker 35 finished request 292
+[04:19][Information]: Worker 6 finished request 279
+[04:19][Information]: Worker [6] went to lunch
+[04:22][Information]: request 296 received
+[04:22][Information]: Worker 31 started task ¹296
+[04:24][Information]: Worker 29 finished request 287
+[04:24][Information]: Worker 31 finished request 296
+[04:25][Information]: request 298 received
+[04:25][Information]: Worker 37 started task ¹298
+[04:28][Information]: Worker 7 finished request 282
+[04:31][Information]: Worker 37 finished request 298
+[04:43][Information]: request 304 received
+[04:43][Information]: request 306 received
+[04:43][Information]: Worker 18 started task ¹306
+[04:43][Information]: Worker 1 started task ¹304
+[04:43][Information]: Worker 18 finished request 306
+[04:43][Information]: Worker [18] went to lunch
+[04:47][Information]: request 308 received
+[04:47][Information]: request 309 received
+[04:47][Information]: request 310 received
+[04:47][Information]: Worker 14 started task ¹310
+[04:47][Information]: Worker 0 started task ¹309
+[04:47][Information]: Worker 9 started task ¹308
+[04:47][Information]: Worker 1 finished request 304
+[04:49][Information]: Worker 0 finished request 309
+[04:51][Information]: Worker 9 finished request 308
+[04:51][Information]: Worker 15 stopped resting
+[04:53][Information]: Worker 14 finished request 310
+[04:55][Information]: request 311 received
+[04:55][Information]: Worker 26 started task ¹311
+[05:05][Information]: Worker 26 finished request 311
+[05:10][Information]: Worker 20 stopped resting
+[05:11][Information]: request 322 received
+[05:11][Information]: Worker 19 started task ¹322
+[05:16][Information]: Worker 2 stopped resting
+[05:19][Information]: request 326 received
+[05:19][Information]: Worker 21 started task ¹326
+[05:19][Information]: Worker 6 stopped resting
+[05:19][Information]: Worker 21 finished request 326
+[05:21][Information]: Worker 19 finished request 322
+[05:24][Information]: request 330 received
+[05:24][Information]: Worker 30 started task ¹330
+[05:25][Information]: request 335 received
+[05:25][Information]: request 337 received
+[05:25][Information]: Worker 10 started task ¹337
+[05:25][Information]: Worker 27 started task ¹335
+[05:25][Information]: Worker 27 finished request 335
+[05:27][Information]: request 338 received
+[05:27][Information]: Worker 25 started task ¹338
+[05:30][Information]: Worker 30 finished request 330
+[05:30][Information]: Worker [30] went to lunch
+[05:31][Information]: Worker 25 finished request 338
+[05:31][Information]: Worker [25] went to lunch
+[05:33][Information]: request 345 received
+[05:33][Information]: Worker 33 started task ¹105
+[05:35][Information]: Worker 10 finished request 337
+[05:37][Information]: request 348 received
+[05:37][Information]: Worker 32 started task ¹348
+[05:38][Information]: request 349 received
+[05:38][Information]: request 351 received
+[05:38][Information]: Worker 28 started task ¹349
+[05:38][Information]: Worker 36 started task ¹124
+[05:39][Information]: Worker 32 finished request 348
+[05:43][Information]: request 354 received
+[05:43][Information]: request 355 received
+[05:43][Information]: request 356 received
+[05:43][Information]: Worker 3 started task ¹354
+[05:43][Information]: Worker 22 started task ¹355
+[05:43][Information]: Worker 16 started task ¹356
+[05:43][Information]: Worker 18 stopped resting
+[05:43][Information]: Worker 33 finished request 105
+[05:44][Information]: Worker 36 finished request 124
+[05:47][Information]: Worker 22 finished request 355
+[05:48][Information]: request 360 received
+[05:48][Information]: Worker 17 started task ¹360
+[05:49][Information]: request 361 received
+[05:49][Information]: Worker 24 started task ¹361
+[05:49][Information]: Worker 3 finished request 354
+[05:50][Information]: Worker 28 finished request 349
+[05:52][Information]: Worker 17 finished request 360
+[05:55][Information]: Worker 16 finished request 356
+[05:57][Information]: Worker 24 finished request 361
+[05:58][Information]: request 369 received
+[05:58][Information]: Worker 12 started task ¹369
+[06:00][Information]: Worker 12 finished request 369
+[06:03][Information]: request 371 received
+[06:03][Information]: request 372 received
+[06:03][Information]: request 373 received
+[06:03][Information]: Worker 13 started task ¹371
+[06:03][Information]: Worker 38 started task ¹372
+[06:03][Information]: Worker 34 started task ¹373
+[06:05][Information]: request 374 received
+[06:05][Information]: Worker 5 started task ¹374
+[06:07][Information]: request 376 received
+[06:07][Information]: Worker 11 started task ¹376
+[06:07][Information]: Worker 34 finished request 373
+[06:09][Information]: Worker 38 finished request 372
+[06:09][Information]: Worker [38] went to lunch
+[06:11][Information]: request 378 received
+[06:11][Information]: Worker 8 started task ¹378
+[06:13][Information]: Worker 11 finished request 376
+[06:13][Information]: Worker 13 finished request 371
+[06:15][Information]: Worker 5 finished request 374
+[06:16][Information]: request 379 received
+[06:16][Information]: request 382 received
+[06:16][Information]: Worker 23 started task ¹382
+[06:16][Information]: Worker 39 started task ¹379
+[06:18][Information]: request 384 received
+[06:18][Information]: Worker 4 started task ¹384
+[06:20][Information]: Worker 4 finished request 384
+[06:20][Information]: Worker 23 finished request 382
+[06:20][Information]: Worker 39 finished request 379
+[06:21][Information]: Worker 8 finished request 378
+[06:21][Information]: Worker [8] went to lunch
+[06:25][Information]: request 388 received
+[06:25][Information]: Worker 35 started task ¹388
+[06:26][Information]: request 390 received
+[06:26][Information]: Worker 29 started task ¹390
+[06:28][Information]: request 392 received
+[06:28][Information]: Worker 31 started task ¹392
+[06:30][Information]: request 396 received
+[06:30][Information]: Worker 7 started task ¹396
+[06:30][Information]: Worker 30 stopped resting
+[06:31][Information]: Worker 25 stopped resting
+[06:33][Information]: request 397 received
+[06:33][Information]: Worker 37 started task ¹397
+[06:33][Information]: Worker 35 finished request 388
+[06:34][Information]: Worker 29 finished request 390
+[06:34][Information]: Worker 31 finished request 392
+[06:36][Information]: request 401 received
+[06:36][Information]: Worker 1 started task ¹401
+[06:36][Information]: Worker 7 finished request 396
+[06:37][Information]: request 403 received
+[06:37][Information]: request 405 received
+[06:37][Information]: Worker 0 started task ¹405
+[06:37][Information]: Worker 9 started task ¹11
+[06:37][Information]: Worker 37 finished request 397
+[06:37][Information]: Worker [37] went to lunch
+[06:38][Information]: request 407 received
+[06:38][Information]: Worker 15 started task ¹407
+[06:40][Information]: Worker 15 finished request 407
+[06:43][Information]: Worker 9 finished request 11
+[06:44][Information]: request 413 received
+[06:44][Information]: request 414 received
+[06:44][Information]: Worker 14 started task ¹413
+[06:44][Information]: Worker 26 started task ¹414
+[06:44][Information]: Worker 1 finished request 401
+[06:44][Information]: Worker [1] went to lunch
+[06:45][Information]: Worker 0 finished request 405
+[06:46][Information]: request 419 received
+[06:46][Information]: Worker 20 started task ¹419
+[06:46][Information]: Worker 20 finished request 419
+[06:47][Information]: request 421 received
+[06:47][Information]: Worker 2 started task ¹421
+[06:50][Information]: Worker 14 finished request 413
+[06:50][Information]: Worker [14] went to lunch
+[06:51][Information]: request 422 received
+[06:51][Information]: Worker 6 started task ¹422
+[06:52][Information]: request 424 received
+[06:52][Information]: Worker 21 started task ¹35
+[06:53][Information]: Worker 6 finished request 422
+[06:54][Information]: Worker 26 finished request 414
+[06:54][Information]: Worker [26] went to lunch
+[06:55][Information]: Worker 2 finished request 421
+[06:58][Information]: Worker 21 finished request 35
+[06:59][Information]: request 431 received
+[06:59][Information]: request 433 received
+[06:59][Information]: Worker 19 started task ¹433
+[06:59][Information]: Worker 27 started task ¹424
+[06:59][Information]: Worker 19 finished request 433
+[07:00][Information]: request 438 received
+[07:00][Information]: Worker 10 started task ¹438
+[07:01][Information]: request 439 received
+[07:01][Information]: Worker 32 started task ¹439
+[07:02][Information]: Worker 10 finished request 438
+[07:06][Information]: request 445 received
+[07:06][Information]: Worker 18 started task ¹445
+[07:08][Information]: request 446 received
+[07:08][Information]: Worker 33 started task ¹446
+[07:09][Information]: request 448 received
+[07:09][Information]: Worker 36 started task ¹448
+[07:09][Information]: Worker 38 stopped resting
+[07:10][Information]: Worker 18 finished request 445
+[07:11][Information]: request 450 received
+[07:11][Information]: request 451 received
+[07:11][Information]: Worker 22 started task ¹451
+[07:11][Information]: Worker 3 started task ¹450
+[07:11][Information]: Worker 27 finished request 424
+[07:11][Information]: Worker [27] went to lunch
+[07:11][Information]: Worker 32 finished request 439
+[07:11][Information]: Worker [32] went to lunch
+[07:11][Information]: Worker 36 finished request 448
+[07:13][Information]: request 454 received
+[07:13][Information]: Worker 28 started task ¹454
+[07:14][Information]: Worker 33 finished request 446
+[07:14][Information]: Worker [33] went to lunch
+[07:15][Information]: request 456 received
+[07:15][Information]: Worker 17 started task ¹456
+[07:15][Information]: Worker 28 finished request 454
+[07:15][Information]: Worker [28] went to lunch
+[07:17][Information]: Worker 3 finished request 450
+[07:19][Information]: request 459 received
+[07:19][Information]: Worker 16 started task ¹459
+[07:21][Information]: Worker 8 stopped resting
+[07:21][Information]: Worker 22 finished request 451
+[07:21][Information]: Worker [22] went to lunch
+[07:25][Information]: Worker 17 finished request 456
+[07:26][Information]: request 465 received
+[07:26][Information]: Worker 24 started task ¹465
+[07:28][Information]: request 466 received
+[07:28][Information]: Worker 12 started task ¹466
+[07:29][Information]: Worker 16 finished request 459
+[07:30][Information]: Worker 12 finished request 466
+[07:30][Information]: Worker 24 finished request 465
+[07:30][Information]: Worker [24] went to lunch
+[07:31][Information]: request 469 received
+[07:31][Information]: request 471 received
+[07:31][Information]: Worker 34 started task ¹469
+[07:31][Information]: Worker 11 started task ¹471
+[07:31][Information]: Worker 34 finished request 469
+[07:32][Information]: request 472 received
+[07:32][Information]: Worker 13 started task ¹472
+[07:37][Information]: request 473 received
+[07:37][Information]: request 476 received
+[07:37][Information]: Worker 5 started task ¹473
+[07:37][Information]: Worker 4 started task ¹476
+[07:37][Information]: Worker 11 finished request 471
+[07:37][Information]: Worker 37 stopped resting
+[07:39][Information]: request 478 received
+[07:39][Information]: Worker 23 started task ¹478
+[07:43][Information]: Worker 5 finished request 473
+[07:44][Information]: Worker 1 stopped resting
+[07:44][Information]: Worker 13 finished request 472
+[07:47][Information]: Worker 4 finished request 476
+[07:47][Information]: Worker [4] went to lunch
+[07:49][Information]: Worker 23 finished request 478
+[07:50][Information]: Worker 14 stopped resting
+[07:52][Information]: request 489 received
+[07:52][Information]: Worker 39 started task ¹489
+[07:54][Information]: Worker 26 stopped resting
+[08:00][Information]: Worker 39 finished request 489
+[08:04][Information]: request 494 received
+[08:04][Information]: Worker 30 started task ¹494
+[08:06][Information]: request 495 received
+[08:06][Information]: Worker 25 started task ¹495
+[08:07][Information]: request 498 received
+[08:07][Information]: Worker 35 started task ¹498
+[08:09][Information]: request 500 received
+[08:09][Information]: Worker 29 started task ¹500
+[08:11][Information]: Worker 27 stopped resting
+[08:11][Information]: Worker 32 stopped resting
+[08:12][Information]: Worker 30 finished request 494
+[08:13][Information]: Worker 29 finished request 500
+[08:13][Information]: Worker [29] went to lunch
+[08:14][Information]: Worker 33 stopped resting
+[08:15][Information]: Worker 28 stopped resting
+[08:15][Information]: Worker 35 finished request 498
+[08:18][Information]: Worker 25 finished request 495
+[08:21][Information]: Worker 22 stopped resting
+[08:25][Information]: request 508 received
+[08:25][Information]: request 510 received
+[08:25][Information]: Worker 31 started task ¹510
+[08:25][Information]: Worker 7 started task ¹431
+[08:26][Information]: request 511 received
+[08:26][Information]: Worker 15 started task ¹511
+[08:28][Information]: Worker 15 finished request 511
+[08:29][Information]: request 513 received
+[08:29][Information]: Worker 9 started task ¹513
+[08:30][Information]: Worker 24 stopped resting
+[08:31][Information]: Worker 7 finished request 431
+[08:31][Information]: Worker [7] went to lunch
+[08:31][Information]: Worker 9 finished request 513
+[08:31][Information]: Worker 31 finished request 510
+[08:31][Information]: Worker [31] went to lunch
+[08:32][Information]: request 523 received
+[08:32][Information]: Worker 0 started task ¹508
+[08:41][Information]: request 531 received
+[08:41][Information]: Worker 20 started task ¹523
+[08:41][Information]: Worker 20 finished request 523
+[08:42][Information]: Worker 0 finished request 508
+[08:45][Information]: request 534 received
+[08:45][Information]: Worker 6 started task ¹534
+[08:47][Information]: Worker 4 stopped resting
+[08:48][Information]: request 538 received
+[08:48][Information]: request 539 received
+[08:48][Information]: Worker 2 started task ¹539
+[08:48][Information]: Worker 21 started task ¹538
+[08:50][Information]: Worker 2 finished request 539
+[08:53][Information]: Worker 6 finished request 534
+[08:54][Information]: request 541 received
+[08:54][Information]: Worker 19 started task ¹541
+[08:57][Information]: request 544 received
+[08:57][Information]: request 545 received
+[08:57][Information]: request 547 received
+[08:57][Information]: Worker 10 started task ¹545
+[08:57][Information]: Worker 38 started task ¹544
+[08:57][Information]: Worker 18 started task ¹547
+[08:58][Information]: Worker 19 finished request 541
+[09:00][Information]: Worker 21 finished request 538
+[09:01][Information]: Worker 38 left
+[09:02][Information]: request 548 received
+[09:02][Information]: request 549 received
+[09:02][Information]: Worker 36 started task ¹549
+[09:02][Information]: Worker 3 started task ¹548
+[09:03][Information]: Worker 12 left
+[09:07][Information]: request 552 received
+[09:07][Information]: Worker 8 started task ¹552
+[09:07][Information]: Worker 10 finished request 545
+[09:08][Information]: request 553 received
+[09:08][Information]: Worker 17 started task ¹553
+[09:09][Information]: Worker 18 finished request 547
+[09:10][Information]: Worker 3 finished request 548
+[09:10][Information]: Worker 17 finished request 553
+[09:10][Information]: Worker 36 finished request 549
+[09:12][Information]: Worker 8 left
+[09:13][Information]: Worker 29 stopped resting
+[09:16][Information]: request 556 received
+[09:16][Information]: Worker 16 started task ¹556
+[09:16][Information]: Worker 16 finished request 556
+[09:16][Information]: Worker [16] went to lunch
+[09:17][Information]: request 561 received
+[09:17][Information]: Worker 34 started task ¹561
+[09:22][Information]: request 564 received
+[09:22][Information]: Worker 11 started task ¹564
+[09:23][Information]: Worker 34 finished request 561
+[09:23][Information]: Worker [34] went to lunch
+[09:24][Information]: Worker 17 left
+[09:25][Information]: Worker 30 left
+[09:26][Information]: request 566 received
+[09:26][Information]: Worker 37 started task ¹566
+[09:29][Information]: request 571 received
+[09:29][Information]: Worker 5 started task ¹571
+[09:30][Information]: Worker 11 finished request 564
+[09:31][Information]: request 575 received
+[09:31][Information]: Worker 1 started task ¹260
+[09:31][Information]: Worker 5 finished request 571
+[09:31][Information]: Worker [5] went to lunch
+[09:31][Information]: Worker 7 stopped resting
+[09:31][Information]: Worker 31 stopped resting
+[09:33][Information]: Worker 1 finished request 260
+[09:34][Information]: Worker 37 finished request 566
+[09:35][Information]: request 577 received
+[09:35][Information]: request 578 received
+[09:35][Information]: Worker 13 started task ¹578
+[09:35][Information]: Worker 23 started task ¹577
+[09:36][Information]: request 580 received
+[09:36][Information]: Worker 14 started task ¹580
+[09:42][Information]: Worker 28 left
+[09:43][Information]: request 584 received
+[09:43][Information]: request 585 received
+[09:43][Information]: request 589 received
+[09:43][Information]: Worker 26 started task ¹585
+[09:43][Information]: Worker 39 started task ¹589
+[09:43][Information]: Worker 27 started task ¹351
+[09:43][Information]: Worker 13 finished request 578
+[09:43][Information]: Worker 23 finished request 577
+[09:44][Information]: Worker 29 left
+[09:45][Information]: Worker 26 finished request 585
+[09:45][Information]: Worker 27 finished request 351
+[09:46][Information]: request 593 received
+[09:46][Information]: request 595 received
+[09:46][Information]: Worker 32 started task ¹593
+[09:46][Information]: Worker 33 started task ¹595
+[09:46][Information]: Worker 14 finished request 580
+[09:47][Information]: Worker 7 left
+[09:47][Information]: request 597 received
+[09:47][Information]: Worker 35 started task ¹597
+[09:48][Information]: Worker 32 finished request 593
+[09:50][Information]: Worker 33 finished request 595
+[09:51][Information]: Worker 35 finished request 597
+[09:51][Information]: Worker [35] went to lunch
+[09:51][Information]: Worker 39 finished request 589
+[09:54][Information]: Worker 6 left
+[09:57][Information]: request 603 received
+[09:57][Information]: Worker 25 started task ¹603
+[09:59][Information]: Worker 25 finished request 603
+[10:02][Information]: Worker 1 left
+[10:04][Information]: Worker 9 left
+[10:05][Information]: request 610 received
+[10:05][Information]: request 611 received
+[10:05][Information]: Worker 22 started task ¹610
+[10:05][Information]: Worker 15 started task ¹611
+[10:08][Information]: Worker 23 left
+[10:09][Information]: Worker 22 finished request 610
+[10:10][Information]: request 614 received
+[10:10][Information]: Worker 24 started task ¹206
+[10:11][Information]: Worker 36 left
+[10:11][Information]: Worker 15 finished request 611
+[10:12][Information]: Worker 10 left
+[10:12][Information]: Worker 32 left
+[10:12][Information]: Worker 24 finished request 206
+[10:16][Information]: request 616 received
+[10:16][Information]: Worker 20 started task ¹616
+[10:16][Information]: Worker 16 stopped resting
+[10:18][Information]: request 619 received
+[10:18][Information]: request 620 received
+[10:18][Information]: Worker 0 started task ¹620
+[10:18][Information]: Worker 4 started task ¹619
+[10:22][Information]: Worker 22 left
+[10:22][Information]: request 627 received
+[10:22][Information]: Worker 2 started task ¹627
+[10:22][Information]: Worker 4 finished request 619
+[10:23][Information]: Worker 34 stopped resting
+[10:24][Information]: Worker 0 finished request 620
+[10:26][Information]: Worker 2 finished request 627
+[10:28][Information]: Worker 35 left
+[10:28][Information]: Worker 20 finished request 616
+[10:31][Information]: Worker 5 stopped resting
+[10:32][Information]: Worker 34 left
+[10:32][Information]: request 632 received
+[10:32][Information]: Worker 19 started task ¹632
+[10:36][Information]: Worker 39 left
+[10:37][Information]: Worker 13 left
+[10:39][Information]: request 635 received
+[10:39][Information]: request 637 received
+[10:39][Information]: Worker 21 started task ¹637
+[10:39][Information]: Worker 18 started task ¹531
+[10:40][Information]: Worker 5 left
+[10:40][Information]: request 638 received
+[10:40][Information]: Worker 3 started task ¹638
+[10:40][Information]: Worker 19 finished request 632
+[10:43][Information]: Worker 21 finished request 637
+[10:44][Information]: request 643 received
+[10:44][Information]: Worker 11 started task ¹643
+[10:45][Information]: request 645 received
+[10:45][Information]: Worker 31 started task ¹645
+[10:46][Information]: Worker 3 finished request 638
+[10:48][Information]: request 647 received
+[10:48][Information]: Worker 37 started task ¹647
+[10:49][Information]: Worker 18 finished request 531
+[10:50][Information]: Worker 37 finished request 647
+[10:55][Information]: Worker 37 left
+[10:55][Information]: Worker 31 finished request 645
+[10:56][Information]: Worker 11 finished request 643
+[10:59][Information]: Worker 19 left
+[11:00][Information]: Worker 14 left
+[11:00][Information]: request 653 received
+[11:00][Information]: Worker 26 started task ¹653
+[11:02][Information]: Worker 21 left
+[11:04][Information]: request 656 received
+[11:04][Information]: request 657 received
+[11:04][Information]: Worker 27 started task ¹657
+[11:04][Information]: Worker 33 started task ¹119
+[11:06][Information]: request 659 received
+[11:06][Information]: Worker 25 started task ¹659
+[11:06][Information]: Worker 26 finished request 653
+[11:07][Information]: Worker 27 left
+[11:09][Information]: request 663 received
+[11:09][Information]: Worker 15 started task ¹663
+[11:10][Information]: request 665 received
+[11:10][Information]: Worker 24 started task ¹665
+[11:12][Information]: Worker 33 finished request 119
+[11:14][Information]: Worker 25 finished request 659
+[11:15][Information]: request 667 received
+[11:15][Information]: Worker 16 started task ¹667
+[11:18][Information]: Worker 24 finished request 665
+[11:21][Information]: Worker 15 finished request 663
+[11:23][Information]: request 672 received
+[11:23][Information]: Worker 4 started task ¹672
+[11:24][Information]: Worker 0 left
+[11:25][Information]: Worker 16 finished request 667
+[11:27][Information]: Worker 4 finished request 672
+[11:33][Information]: request 682 received
+[11:33][Information]: Worker 2 started task ¹682
+[11:35][Information]: Worker 24 left
+[11:35][Information]: Worker 2 finished request 682
+[11:36][Information]: request 685 received
+[11:36][Information]: Worker 20 started task ¹685
+[11:39][Information]: request 687 received
+[11:39][Information]: request 688 received
+[11:39][Information]: request 689 received
+[11:39][Information]: Worker 3 started task ¹688
+[11:39][Information]: Worker 18 started task ¹689
+[11:39][Information]: Worker 31 started task ¹687
+[11:39][Information]: Worker 31 finished request 687
+[11:40][Information]: Worker 20 finished request 685
+[11:41][Information]: request 690 received
+[11:41][Information]: Worker 11 started task ¹690
+[11:41][Information]: Worker 11 finished request 690
+[11:43][Information]: Worker 3 finished request 688
+[11:44][Information]: Worker 3 left
+[11:45][Information]: Worker 18 finished request 689
+[11:47][Information]: request 693 received
+[11:47][Information]: Worker 26 started task ¹693
+[11:48][Information]: Worker 2 left
+[11:50][Information]: Worker 31 left
+[11:50][Information]: request 698 received
+[11:50][Information]: Worker 33 started task ¹698
+[11:51][Information]: request 700 received
+[11:51][Information]: Worker 25 started task ¹700
+[11:53][Information]: Worker 25 finished request 700
+[11:54][Information]: Worker 16 left
+[11:54][Information]: Worker 33 finished request 698
+[11:55][Information]: Worker 26 finished request 693
+[11:57][Information]: Worker 25 left
+[12:01][Information]: Worker 26 left
+[12:02][Information]: Worker 18 left
+[12:06][Information]: Worker 33 left
+[12:10][Information]: Worker 4 left
+[12:11][Information]: Worker 15 left
+[12:11][Information]: request 708 received
+[12:11][Information]: Worker 20 started task ¹708
+[12:13][Information]: request 713 received
+[12:13][Information]: Worker 11 started task ¹713
+[12:14][Information]: Worker 11 left
+[12:15][Information]: Worker 20 finished request 708
+[12:16][Information]: request 716 received
+[12:16][Information]: Worker 20 started task ¹716
+[12:17][Information]: request 717 received
+[12:18][Information]: request 718 received
+[12:18][Information]: request 722 received
+[12:19][Information]: request 723 received
+[12:20][Information]: request 724 received
+[12:21][Information]: request 725 received
+[12:21][Information]: request 726 received
+[12:21][Information]: request 727 received
+[12:28][Information]: Worker 20 finished request 716
+[12:29][Information]: Worker 20 started task ¹723
+[12:37][Information]: request 735 received
+[12:37][Information]: Worker 20 finished request 723
+[12:38][Information]: request 736 received
+[12:38][Information]: Worker 20 started task ¹717
+[12:41][Information]: request 743 received
+[12:41][Information]: request 746 received
+[12:41][Information]: request 748 received
+[12:41][Information]: office is overloaded for 90 minutes
+[12:44][Information]: Worker 20 left
 [13:00][Information]: closing

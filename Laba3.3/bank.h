@@ -46,25 +46,22 @@ private:
 	};
 
 	vector<Office*> offices;
-	int t = 0, t_d = 0;
-	double l = 0;
-	int l_max = 0;
+	int t = 0, t_d = 0, l = 0, l_max = 0, overload_times = 0;
 
 	void add_dep(int staff_count);
-	void configure(int t, int t_d, int l_max, double l);
+	void configure(int t, int t_d, int l_max, int l);
 	void movement(int cur_time);
 	void task_creator(int cur_time);
 	void task_delivery(int cur_time);
 	void working(int cur_time);
-	Office* freest_office();
+	Office* freest_office(int not_id);
 
 public:
 	Bank()
 	{
 		int k_1 = 30, k_2 = 40, k_3 = 50;
 		int t = 2, t_d = 1;
-		double l = 0.15;
-		int l_max = 2;
+		int l = 10, l_max = 2;
 
 		add_dep(k_1);
 		add_dep(k_2);

@@ -2,6 +2,7 @@
 #include "logger.h"
 #include <chrono>
 #include "bank.h"
+#include "covid.h"
 
 int main()
 {
@@ -66,11 +67,24 @@ int main()
 	log->write(Trace, "check_1");
 	log->write(Fatal, "check_2");*/
 
-	try
+	/*try
 	{
 		srand(time(NULL));
 		Bank my_bank;
 		my_bank.opening();
+	}
+	catch (std::exception error)
+	{
+		cout << "Error: " << error.what() << endl;
+	}*/
+
+	try
+	{
+		srand(time(NULL));
+		Epidemic::Population popul = Epidemic::Population("covid_in.txt", "0.3 0.8 50 true");
+		Epidemic covid(popul.get_file());
+		covid.start();
+		cout << "Simulation completed!" << endl;
 	}
 	catch (std::exception error)
 	{

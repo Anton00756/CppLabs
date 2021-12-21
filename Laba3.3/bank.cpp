@@ -59,7 +59,7 @@ void Bank::add_dep(int staff_count)
 	offices.push_back(new Office(staff_count));
 }
 
-void Bank::configure(int t, int t_d, int l_max, double l)
+void Bank::configure(int t, int t_d, int l_max, int l)
 {
 	this->t = t;
 	this->t_d = t_d;
@@ -89,7 +89,7 @@ void Bank::opening()
 			try
 			{
 				Request* task = office->wait_list->del_min();
-				office->logger->write(Information, "request " + to_string(task->request_id) + " wasn't done", 11 * 60);
+				office->logger->write(Information, "request " + to_string(task->request_id) + " wasn't done", 780);
 				delete task;
 			}
 			catch (...)
@@ -147,7 +147,6 @@ void Bank::movement(int cur_time)
 void Bank::task_creator(int cur_time)
 {
 	bool create_task;
-	int overload_probability = rand() % 100;
 	Office* free_office;
 	while (create_task = rand() % 2)
 	{
@@ -158,19 +157,13 @@ void Bank::task_creator(int cur_time)
 		task->difficulty = rand() % 6;
 		task->information = "!!! EXPRESS # " + to_string(task->request_id) + " !!!";
 
-		if (overload_probability < l * 100)
-		{
-			free_office = freest_office();
-			free_office->wait_list->merge(offices[task->to_office_id]->wait_list);
-			offices[task->to_office_id]->overload_time = 60 + (rand() % 121);
-		}
-
 		if (offices[task->to_office_id]->overload_time)
 		{
-			free_office = freest_office();
+			free_office = freest_office(task->to_office_id);
 			free_office->wait_list->insert(task->urgency, task);
 			free_office->wait_count++;
 			free_office->logger->write(Information, "request received", cur_time);
+			continue;
 		}
 		else
 		{
@@ -178,6 +171,25 @@ void Bank::task_creator(int cur_time)
 			offices[task->to_office_id]->wait_count++;
 			offices[task->to_office_id]->logger->write(Information, "request " + to_string(task->request_id) + " received", cur_time);
 			cout << "request " + to_string(task->request_id) + " received " << task->to_office_id << endl;
+		}
+
+		if ((offices[task->to_office_id]->wait_count > l) && (overload_times <= l_max))
+		{
+			free_office = freest_office(task->to_office_id);
+
+			for (auto i : offices[task->to_office_id]->staff)
+			{
+				if (i->job != nullptr)
+				{
+					offices[task->to_office_id]->wait_list->insert(i->job->urgency, i->job);
+					i->job = nullptr;
+					i->request_time = 0;
+				}
+			}
+			free_office->wait_list->merge(offices[task->to_office_id]->wait_list);
+			offices[task->to_office_id]->wait_count = 0;
+			offices[task->to_office_id]->overload_time = 60 + (rand() % 121);
+			offices[task->to_office_id]->logger->write(Information, "office is overloaded for " + to_string(offices[task->to_office_id]->overload_time) + " minutes", cur_time);
 		}
 	}
 }
@@ -265,13 +277,14 @@ void Bank::working(int cur_time)
 	}
 }
 
-Bank::Office* Bank::freest_office()
+Bank::Office* Bank::freest_office(int not_id)
 {
 	Office* free_office = offices[0];
 	for (int i = 1; i < offices.size(); i++)
 	{
-		if ((offices[i]->wait_count / (offices[i]->cur_staff + 1)) < (free_office->wait_count / (free_office->cur_staff + 1)))
-			free_office = offices[i];
+		if (i != not_id)
+			if ((offices[i]->wait_count / (offices[i]->cur_staff + 1)) < (free_office->wait_count / (free_office->cur_staff + 1)))
+				free_office = offices[i];
 	}
 	return free_office;
 }

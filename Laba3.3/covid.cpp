@@ -59,7 +59,7 @@ Epidemic::Epidemic(const string& file)
 {
 	ifstream input(file);
 	if (!input.is_open())
-		throw std::exception("File creating error!");
+		throw std::exception("File opening error!");
 	string str, str_count, count;
 	smatch m;
 	unsigned long i;

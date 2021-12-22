@@ -27,6 +27,12 @@
     <ClCompile Include="covid.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="elevator.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="policlinic.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="heaps.h">
@@ -45,6 +51,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="covid.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="elevator.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="policlinic.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -68,6 +80,15 @@
       <Filter>Файлы ресурсов</Filter>
     </Text>
     <Text Include="covid_out.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="elevator_passengers.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="elevator_properties.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="policlinic_data.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
   </ItemGroup>

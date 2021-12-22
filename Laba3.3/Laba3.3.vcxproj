@@ -141,24 +141,31 @@
   <ItemGroup>
     <ClCompile Include="bank.cpp" />
     <ClCompile Include="covid.cpp" />
+    <ClCompile Include="elevator.cpp" />
     <ClCompile Include="Laba3.3.cpp" />
     <ClCompile Include="logger.cpp" />
+    <ClCompile Include="policlinic.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bank.h" />
     <ClInclude Include="comp.h" />
     <ClInclude Include="covid.h" />
+    <ClInclude Include="elevator.h" />
     <ClInclude Include="heaps.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="logger.h" />
+    <ClInclude Include="policlinic.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="covid_in.txt" />
     <Text Include="covid_out.txt" />
+    <Text Include="elevator_passengers.txt" />
+    <Text Include="elevator_properties.txt" />
     <Text Include="log_of_office№1.txt" />
     <Text Include="log_of_office№2.txt" />
     <Text Include="log_of_office№3.txt" />
     <Text Include="one.txt" />
+    <Text Include="policlinic_data.txt" />
     <Text Include="two.txt" />
   </ItemGroup>
   <ItemGroup>

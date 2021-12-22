@@ -1,10 +1,12 @@
 ﻿#include "heaps.h"
-#include "logger.h"
 #include <chrono>
+#include "logger.h"
 #include "bank.h"
 #include "covid.h"
+#include "elevator.h"
+#include "policlinic.h"
 
-int main()
+int main(int argc, char* argv[])
 {
 	system("chcp 1251>nul");
 	
@@ -78,7 +80,7 @@ int main()
 		cout << "Error: " << error.what() << endl;
 	}*/
 
-	try
+	/*try
 	{
 		srand(time(NULL));
 		Epidemic::Population popul = Epidemic::Population("covid_in.txt", "0.3 0.8 50 true");
@@ -87,6 +89,29 @@ int main()
 		cout << "Simulation completed!" << endl;
 	}
 	catch (std::exception error)
+	{
+		cout << "Error: " << error.what() << endl;
+	}*/
+
+	/*string properties(argv[1]), passengers(argv[2]);
+
+	try
+	{
+		LiftSystem house(properties, passengers);
+		house.start();
+	}
+	catch (const std::exception& error)
+	{
+		cout << "Error: " << error.what() << endl;
+	}*/
+
+	try
+	{
+		srand(time(NULL));
+		HealthCenter center(5, 3, 10);
+		center.start();
+	}
+	catch (const std::exception& error)
 	{
 		cout << "Error: " << error.what() << endl;
 	}

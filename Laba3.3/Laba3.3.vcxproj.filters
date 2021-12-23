@@ -91,6 +91,12 @@
     <Text Include="policlinic_data.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
+    <Text Include="lift_people_data.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="lift_elevator_data.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="input.json">

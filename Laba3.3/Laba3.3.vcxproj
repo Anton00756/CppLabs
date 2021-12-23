@@ -161,6 +161,8 @@
     <Text Include="covid_out.txt" />
     <Text Include="elevator_passengers.txt" />
     <Text Include="elevator_properties.txt" />
+    <Text Include="lift_elevator_data.txt" />
+    <Text Include="lift_people_data.txt" />
     <Text Include="log_of_office№1.txt" />
     <Text Include="log_of_office№2.txt" />
     <Text Include="log_of_office№3.txt" />

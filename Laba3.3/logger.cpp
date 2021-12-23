@@ -156,7 +156,7 @@ void Logger::write(access access_mode, const string& text, int time_value)
         throw std::exception("Ошибка доступа!");
     }
 
-    string time = ((time_value / 60 < 10) ? ("0" + to_string(time_value / 60)) : to_string(time_value / 60)) + ":" + ((time_value % 60 < 10) ? ("0" + to_string(time_value % 60)) : to_string(time_value % 60));
+    string time = get_format_time(time_value);
 
     while (tmp != nullptr)
     {
@@ -169,4 +169,9 @@ void Logger::write(access access_mode, const string& text, int time_value)
         }
         tmp = tmp->next;
     }
+}
+
+string get_format_time(int time)
+{
+    return ((time / 60 < 10) ? ("0" + to_string(time / 60)) : to_string(time / 60)) + ":" + ((time % 60 < 10) ? ("0" + to_string(time % 60)) : to_string(time % 60));
 }

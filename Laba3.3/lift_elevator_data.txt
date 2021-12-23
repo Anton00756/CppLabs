@@ -1,0 +1,6 @@
+[Friday, 24 December 2021, 01:22:03][Information]: Elevator #1: idle time = 23:54, work time = 00:06.
+Floors count: 60. Sum weight: 630. Max weight: 160.
+Overload count: 0.
+[Friday, 24 December 2021, 01:22:03][Information]: Elevator #2: idle time = 23:59, work time = 00:01.
+Floors count: 12. Sum weight: 60. Max weight: 60.
+Overload count: 0.

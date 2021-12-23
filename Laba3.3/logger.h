@@ -55,4 +55,6 @@ private:
 	Logger(shared_ptr<Stream> first_stream) { streams = first_stream; }
 	shared_ptr<Stream> streams = nullptr;
 };
+
+string get_format_time(int time);
 #endif

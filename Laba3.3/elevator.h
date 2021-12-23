@@ -44,7 +44,7 @@ private:
 		vector<shared_ptr<Person>> passengers;
 		int max_mass; // максимальная масса лифта
 		int cur_weight = 0; // текущий вес
-		int floor_speed = 3; // проход одного пролёта в секундах
+		int floor_speed = 20; // пролётов за минуту
 		int idle_time = 0; // время простоя
 		int travel_time = 0; // время в пути
 		int floors_count = 0; // пролётов пройдено
@@ -61,6 +61,12 @@ private:
 	};
 	vector<shared_ptr<Lift>> lifts;
 	set<int> waiting_floors;
+
+	Logger* people_log;
+
+	void people_appearance(int time);
+	void people_distribution(int time);
+	void lift_movement(int time);
 };
 
 #endif

@@ -21,7 +21,7 @@ void HealthCenter::start()
 	}
 
 	for (int i = 0; i < viewing.size(); i++)
-		log->write(Information, "Doctor #" + to_string(i + 1) + " total work time: " + ((viewing[i]->total_work_time / 60 < 10) ? ("0" + to_string(viewing[i]->total_work_time / 60)) : to_string(viewing[i]->total_work_time / 60)) + ":" + ((viewing[i]->total_work_time % 60 < 10) ? ("0" + to_string(viewing[i]->total_work_time % 60)) : to_string(viewing[i]->total_work_time % 60)), time);
+		log->write(Information, "Doctor #" + to_string(i + 1) + " total work time: " + get_format_time(viewing[i]->total_work_time), time);
 }
 
 void HealthCenter::spawn_person(int time)
@@ -49,6 +49,13 @@ void HealthCenter::desease(int time)
 
 void HealthCenter::doc_work(int time)
 {
+	for (int i = 0; (i < viewing_people.size()) && free_docs.size(); i++)
+	{
+		viewing[*free_docs.begin()]->patient = viewing_people[i];
+		free_docs.erase(free_docs.begin());
+		viewing_people.erase(viewing_people.begin() + i);
+	}
+
 	if (people_queue.size())
 	{
 		if ((free_docs.size() == viewing.size()) && (!viewing_people.size()))
@@ -67,13 +74,6 @@ void HealthCenter::doc_work(int time)
 			}
 	}
 
-	for (int i = 0; (i < viewing_people.size()) && free_docs.size(); i++)
-	{
-		viewing[*free_docs.begin()]->patient = viewing_people[i];
-		free_docs.erase(free_docs.begin());
-		viewing_people.erase(viewing_people.begin() + i);
-	}
-
 	for (int i = 0; i < viewing.size(); i++)
 		if (viewing[i]->patient)
 		{
@@ -84,7 +84,7 @@ void HealthCenter::doc_work(int time)
 				viewing[i]->helper->work_time++;
 				viewing[i]->helper->total_work_time++;
 			}
-			else if (!(rand() % 3) && free_docs.size())
+			else if (!(rand() % 5) && free_docs.size())
 			{
 				viewing[i]->helper = viewing[*free_docs.begin()];
 				free_docs.erase(free_docs.begin());

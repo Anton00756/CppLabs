@@ -1,0 +1,26 @@
+[07:00][Information]: Person with ID [8] from 2 to 6
+Entering time: 07:00. Travel time: 1 minute(-s). No overload kick.
+New friends IDs: 3.
+[07:00][Information]: Person with ID [3] from 3 to 7
+Entering time: 07:00. Travel time: 1 minute(-s). No overload kick.
+New friends IDs: 8.
+[07:01][Information]: Person with ID [2] from 10 to 1
+Entering time: 07:00. Travel time: 2 minute(-s). No overload kick.
+New friends IDs: 7.
+[07:01][Information]: Person with ID [7] from 9 to 1
+Entering time: 07:00. Travel time: 2 minute(-s). No overload kick.
+New friends IDs: 2.
+[08:00][Information]: Person with ID [4] from 8 to 1
+Entering time: 08:00. Travel time: 1 minute(-s). No overload kick.
+New friends IDs: 9.
+[08:00][Information]: Person with ID [9] from 6 to 1
+Entering time: 08:00. Travel time: 1 minute(-s). No overload kick.
+New friends IDs: 4.
+[13:00][Information]: Person with ID [6] from 10 to 8
+Entering time: 13:00. Travel time: 1 minute(-s). No overload kick.
+[13:00][Information]: Person with ID [1] from 1 to 10
+Entering time: 13:00. Travel time: 1 minute(-s). No overload kick.
+[21:50][Information]: Person with ID [10] from 3 to 5
+Entering time: 21:50. Travel time: 1 minute(-s). No overload kick.
+[21:51][Information]: Person with ID [5] from 1 to 4
+Entering time: 21:50. Travel time: 2 minute(-s). No overload kick.

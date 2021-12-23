@@ -80,6 +80,17 @@ int main(int argc, char* argv[])
 		cout << "Error: " << error.what() << endl;
 	}*/
 
+	try
+	{
+		string properties(argv[1]), passengers(argv[2]);
+		LiftSystem house(properties, passengers);
+		house.start();
+	}
+	catch (const std::exception& error)
+	{
+		cout << "Error: " << error.what() << endl;
+	}
+
 	/*try
 	{
 		srand(time(NULL));
@@ -93,19 +104,7 @@ int main(int argc, char* argv[])
 		cout << "Error: " << error.what() << endl;
 	}*/
 
-	/*string properties(argv[1]), passengers(argv[2]);
-
-	try
-	{
-		LiftSystem house(properties, passengers);
-		house.start();
-	}
-	catch (const std::exception& error)
-	{
-		cout << "Error: " << error.what() << endl;
-	}*/
-
-	try
+	/*try
 	{
 		srand(time(NULL));
 		HealthCenter center(5, 3, 10);
@@ -114,7 +113,7 @@ int main(int argc, char* argv[])
 	catch (const std::exception& error)
 	{
 		cout << "Error: " << error.what() << endl;
-	}
+	}*/
 
 	system("pause>nul");
 }
